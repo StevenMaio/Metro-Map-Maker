@@ -5,6 +5,7 @@
  */
 package mmm.data;
 
+import java.util.ArrayList;
 import javafx.scene.paint.Color;
 
 /**
@@ -14,21 +15,16 @@ import javafx.scene.paint.Color;
 public class MetroStation {
     // These static variables the positions available for the station's label
     // as well as the positions available for the rotation of the label
-    public final static int POSITION_0 = 0;
-    public final static int POSITION_1 = 1;
-    public final static int POSITION_2 = 2;
-    public final static int POSITION_3 = 3;
     public final static int NUMBER_OF_POSITIONS = 4;
     
     // instance variables
     private String name;
-    private int labelLocation;
-    private int labelRotation;
+    private ArrayList<MetroLineNode> nodes;
     
+    // Graphical Elements
     // Label properties
     private DraggableLabel stationLabel;
-    private int labelXCoordinate;
-    private int labelYCoordinate;
+    private int labelLocation;
     private boolean labelBoldFont;
     private boolean labelItalicFont;
     private String labelFontFamily;
@@ -36,9 +32,6 @@ public class MetroStation {
     
     // station circle properties
     private DraggableCircle stationCircle;
-    private int stationXCoordinate;
-    private int stationYCoordinate;
-    private double stationRadius;
     private Color stationFillColor;
     
     /**
@@ -50,14 +43,14 @@ public class MetroStation {
      * This method adjusts the label location so that it moves clockwise
      */
     public void moveLabelLocationCounterClockwise() {
-        labelLocation++;
+        labelLocation = (labelLocation + 1) % NUMBER_OF_POSITIONS;
     }
     
     /**
      * This methods adjust the label location so that it moves clockwise
      */
     public void moveLabelLocationClockwise() {
-        labelLocation--;
+        labelLocation = (labelLocation - 1) % NUMBER_OF_POSITIONS;
     }
 
     /**
@@ -72,10 +65,10 @@ public class MetroStation {
     public void rotateLabelCounterClockwise() {}
     
     /**
-     * This method resets the label, that is it updates the values of the label
+     * This method initializes the label, that is it updates the values of the label
      * to reflect a change in the Metro Station
      */
-    public void resetLabel() {}
+    public void initLabel() {}
     
     /**
      * This method refreshes the stationLabel variable to update any changes 
@@ -86,7 +79,7 @@ public class MetroStation {
     /**
      * This method resets the Station's stationCircle variable
      */
-    public void resetStationCircle() {}
+    public void initStationCircle() {}
     
     /**
      * This method will refresh the station circle so that any changes to the
@@ -94,8 +87,20 @@ public class MetroStation {
      */
     public void refreshStationCircle() {}
     
+    /**
+     * Returns the name of the instance of Metro Station.
+     * 
+     * @return 
+     *      The value of name
+     */
+    public String toString() {
+       return name; 
+    }
     
-    /* ACCESSOR/MUTATOR METHODS */
+    //////////////////////////////
+    // ACCESSOR/MUTATOR METHODS //
+    //////////////////////////////
+    
     public String getName() {
         return name;
     }
@@ -112,28 +117,8 @@ public class MetroStation {
         return stationLabel;
     }
 
-    public int getLabelRotation() {
-        return labelRotation;
-    }
-
     public DraggableCircle getStationCircle() {
         return stationCircle;
-    }
-
-    public int getLabelXCoordinate() {
-        return labelXCoordinate;
-    }
-
-    public void setLabelXCoordinate(int labelXCoordinate) {
-        this.labelXCoordinate = labelXCoordinate;
-    }
-
-    public int getLabelYCoordinate() {
-        return labelYCoordinate;
-    }
-
-    public void setLabelYCoordinate(int labelYCoordinate) {
-        this.labelYCoordinate = labelYCoordinate;
     }
 
     public boolean isLabelBoldFont() {
@@ -168,35 +153,15 @@ public class MetroStation {
         this.labelFontSize = labelFontSize;
     }
 
-    public int getStationXCoordinate() {
-        return stationXCoordinate;
-    }
-
-    public void setStationXCoordinate(int stationXCoordinate) {
-        this.stationXCoordinate = stationXCoordinate;
-    }
-
-    public int getStationYCoordinate() {
-        return stationYCoordinate;
-    }
-
-    public void setStationYCoordinate(int stationYCoordinate) {
-        this.stationYCoordinate = stationYCoordinate;
-    }
-
-    public double getStationRadius() {
-        return stationRadius;
-    }
-
-    public void setStationRadius(double stationRadius) {
-        this.stationRadius = stationRadius;
-    }
-
     public Color getStationFillColor() {
         return stationFillColor;
     }
 
     public void setStationFillColor(Color stationFillColor) {
         this.stationFillColor = stationFillColor;
+    }
+
+    public ArrayList<MetroLineNode> getNodes() {
+        return nodes;
     }
 }
