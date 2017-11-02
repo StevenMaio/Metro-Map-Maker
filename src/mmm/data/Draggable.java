@@ -14,4 +14,5 @@ public interface Draggable {
     public double getX();
     public double getY();
     public void highlight();
+    public void unhighlight();
 }

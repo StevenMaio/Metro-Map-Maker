@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mmm.data;
 
 import javafx.scene.shape.Circle;
@@ -12,40 +7,113 @@ import javafx.scene.shape.Circle;
  * @author steve
  */
 public class DraggableCircle extends Circle implements Draggable {
-
+    private double startCenterX;
+    private double startCenterY;
+    private MetroStation metroStation;
+    
+    /**
+     * This method will be called when an instance of DraggableCircle is 
+     * selected
+     * 
+     * @param x
+     *      The X-Coordinate of the mouse click event
+     * @param y 
+     *      The Y-Coordinate of the mouse click event
+     */
     @Override
     public void start(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            startCenterX = x;
+            startCenterY = y;
     }
 
+    /**
+     * Handles the action of dragging the instance of DraggableCircle inside a
+     * Pane
+     * 
+     * @param x
+     *      The X-Coordinate of the mouse drag event
+     * @param y 
+     *      The Y-Coordinate of the mouse drag event
+     */
     @Override
     public void drag(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        double diffX = x - startCenterX;
+	double diffY = y - startCenterY;
+	double newX = getCenterX() + diffX;
+	double newY = getCenterY() + diffY;
+	setCenterX(newX);
+	setCenterY(newY);
+	startCenterX = x;
+	startCenterY = y;
     }
 
+    /**
+     * Sets the value for the X-Coordinate of the center
+     * 
+     * @param x 
+     *      The value of the X-Coordinate
+     */
     @Override
     public void setX(double x) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            setCenterX(x);
     }
 
+    /**
+     * Sets the value for the Y-Coordinate of the center
+     * 
+     * @param y 
+     *      The value of the Y-Coordinate
+     */
     @Override
     public void setY(double y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        setCenterY(y);
     }
 
+    /**
+     * This method returns the value of the center X-Coordinate
+     * 
+     * @return 
+     *      The X-Coordinate of the center
+     */
     @Override
     public double getX() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return getCenterX();
     }
 
+    /**
+     * This method returns the value of the center Y-Coordinate
+     * 
+     * @return 
+     *      The Y-Coordinate of the center
+     */
     @Override
     public double getY() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return getCenterY();
     }
 
+    /**
+     * This method will be called to indicate when an instance of 
+     * DraggableLabel is selected.
+     */
     @Override
     public void highlight() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void unhighlight() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
+    //////////////////////////////
+    // ACCESSOR/MUTATOR METHODS //
+    //////////////////////////////
+
+    public MetroStation getMetroStation() {
+        return metroStation;
+    }
+
+    public void setMetroStation(MetroStation metroStation) {
+        this.metroStation = metroStation;
+    }
 }

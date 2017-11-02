@@ -16,6 +16,8 @@ import javafx.scene.shape.Line;
  * @author Steven Maio
  */
 public class MetroLine extends LinkedList<MetroLineNode> {
+    private static Color DEFAULT_METRO_LINE_COLOR = Color.ORANGE;
+    
     // instance variables
     private String name;
     private Color color;
