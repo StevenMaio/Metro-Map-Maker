@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This XML file allows us to easily customize the look and language used
+    in our program's user interface. Note that this properties file is only
+    for the standard controls for an app from the SimpleAppFramework, so
+    it would not include things initialized for the workspace, which is
+    customizable.
+-->
+<properties>
+    <property_list>
+        <!--App Information-->
+        <property name="APP_TITLE"                      value="Metro Map Maker"></property>
+        <property name="APP_PATH_CSS"                   value="css/"></property>
+        <property name="APP_CSS"                        value="mmm_style.css"></property>
+        <property name="ABOUT_TITLE"                    value="About"></property>
+        <property name="ABOUT_MESSAGE"                  value="Metro Map Maker App&#13;&#13;By Steven Maio"></property>
+        
+        <!--Preferred Geometry-->
+        <property name="PREF_WIDTH"                     value="800"></property>
+        <property name="PREF_HEIGHT"                    value="600"></property>
+        <property name="START_MAXIMIZED"                value="true"></property>
+        
+        <!--Program Icon Files-->
+        <property name="NEW_ICON"                       value="New.png"></property>
+        <property name="LOAD_ICON"                      value="Load.png"></property>
+        <property name="SAVE_ICON"                      value="Save.png"></property>
+        <property name="ABOUT_ICON"                     value="About.png"></property>
+        <property name="ADD_ICON"                       value="Add.png"></property>
+        <property name="REMOVE_ICON"                    value="Remove.png"></property>
+        <property name="ROTATE_ICON"                    value="Rotate.png"></property>
+        <property name="PICTURE_ICON"                   value="Picture.png"></property>
+        <property name="EXPORT_ICON"                    value="Export.png"></property>
+        <property name="ITALICS_ICON"                   value="Italics.png"></property>
+        <property name="LARGER_ICON"                    value="Larger.png"></property>
+        <property name="METRO_LINE_INFO_ICON"           value="MetroLineInfo.png"></property>
+        <property name="SMALLER_ICON"                   value="Smaller.png"></property>
+        <property name="TEXT_ICON"                      value="Text.png"></property>
+        <property name="ZOOM_IN_ICON"                   value="Zoom_In.png"></property>
+        <property name="ZOOM_OUT_ICON"                  value="Zoom_Out.png"></property>
+        <property name="UNDO_ICON"                      value="Undo.png"></property>
+        <property name="REDO_ICON"                      value="Redo.png"></property>
+        
+        <!--Tooltips-->
+        <property name="ADD_LINE_TOOLTIP"               value="Add a new Metro Line to the Metro Map"></property>
+        <property name="REMOVE_LINE_TOOLTIP"            value="Remove a Metro Line from the Metro Map"></property>
+        <property name="METRO_LINE_INFO_TOOLTIP"        value="Displays all the stops in the selected Metro Line"></property>
+        <property name="ROTATE_LABEL_TOOLTIP"           value="Rotate the Metro Station's label"></property>
+        <property name="FIND_ROUTE_TOOLTIP"             value="Determines a route between the selected Metro Stations"></property>
+        <property name="BOLD_TOOLTIP"                   value="Toggles bold font"></property>
+        <property name="ITALIC_TOOLTIP"                 value="Toggles italic font"></property>
+        <property name="ZOOM_IN_TOOLTIP"                value="Zoom in on the map"></property>
+        <property name="ZOOM_OUT_TOOLTIP"               value="Zoom out on the map"></property>
+        <property name="SMALLER_TOOLTIP"                value="Decreases the map size"></property>
+        <property name="LARGER_TOOLTIP"                 value="Increases the mapsize"></property>
+        
+        <!--Toolbar Text-->
+        <property name="METRO_LINES_TOOLBAR_TITLE"      value="Metro Lines"></property>
+        <property name="METRO_STATIONS_TOOLBAR_TITLE"   value="Metro Stations"></property>
+        <property name="DECOR_TOOLBAR_TITLE"            value="Decor"></property>
+        <property name="FONT_TOOLBAR_TITLE"             value="Font"></property>
+        <property name="NAVIGATION_TOOLBAR_TITLE"       value="Navigation"></property>
+        <property name="ADD_STATION_TEXT"               value="Add Station"></property>
+        <property name="REMOVE_STATION_TEXT"            value="Remove Station"></property>
+        <property name="SNAP_TEXT"                      value="Snap"></property>
+        <property name="MOVE_LABEL_TEXT"                value="Move Label"></property>
+        <property name="SHOW_GRID_TEXT"                 value="Show Grid"></property>
+        
+        <!--Message Window Titles-->
+        <property name="NEW_METRO_MAP_TITLE"            value="New Metro Map"></property>
+        <property name="INIT_METRO_LINE_TITLE"          value="Initialize Metro Line"></property>
+        <property name="INIT_METRO_STATION_TITLE"       value="Initialize Metro Station"></property>
+        <property name="EDIT_METRO_LINE_TITLE"          value="Edit Metro Line"></property>
+        <property name="EDIT_METRO_STATION_TITLE"       value="Edit Metro Station"></property>
+        <property name="METRO_LINE_INFO"                value="Metro Line Stops"></property>
+        <property name="ROUTE_TITLE"                    value="Route"></property>
+        
+        <!--Message Window Messages-->
+        <property name="NEW_METRO_MAP_MESSAGE"          value="Enter the city name"></property>
+    </property_list>
+    <property_options_list>
+    </property_options_list>
+</properties>

@@ -23,11 +23,12 @@ import javafx.stage.Stage;
 public class WelcomeDialogSingleton extends Stage {
     // Singleton
     private static WelcomeDialogSingleton singleton;
-    private static double PREFERRED_HEIGHT = 320;
-    private static double PREFERRED_WIDTH = 500;
+    private static final double PREFERRED_HEIGHT = 320;
+    private static final double PREFERRED_WIDTH = 500;
     
     private ListView<String> recentMapsListView;
     private String metroMapFilepath;
+    private String metroMapName;
     private boolean ready;
     
     /**
@@ -106,6 +107,13 @@ public class WelcomeDialogSingleton extends Stage {
      * Handles when the user presses the New Metro Map button.
      */
     public void processNewMap() {
+        EnterTextDialogSingleton enterTextDialog = 
+                EnterTextDialogSingleton.getSingleton();
+        
+        enterTextDialog.show("New Metro Map", "Enter Metro Map name");
+        
+        // DO CRAP
+        if (enterTextDialog.isReady());
     }
     
     /**
@@ -124,5 +132,8 @@ public class WelcomeDialogSingleton extends Stage {
     public boolean isReady() {
         return ready;
     }
-    
+
+    public String getMetroMapName() {
+        return metroMapName;
+    }
 }

@@ -181,4 +181,16 @@ public class MMMData implements AppDataComponent {
     public void setImageFilepath(String imageFilepath) {
         this.imageFilepath = imageFilepath;
     }
+
+    public void setShapes(ObservableList<Node> shapes) {
+        this.shapes = shapes;
+    }
+
+    public void setMetroLines(ObservableList<MetroLine> metroLines) {
+        this.metroLines = metroLines;
+    }
+
+    public void setMetroStations(ObservableList<MetroStation> metroStations) {
+        this.metroStations = metroStations;
+    }
 }

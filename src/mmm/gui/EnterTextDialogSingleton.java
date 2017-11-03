@@ -5,9 +5,16 @@
  */
 package mmm.gui;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -20,10 +27,7 @@ public class EnterTextDialogSingleton extends Stage {
     
     private Label messageLabel;
     private TextField textField;
-    private boolean initialize;
-    // The purpose of these two things is for Language Support (maybe)
-    private Button okButton;
-    private Button cancelButton;
+    private boolean ready;
     
     private EnterTextDialogSingleton() {}
     
@@ -46,20 +50,67 @@ public class EnterTextDialogSingleton extends Stage {
      * @param primaryStage
      *      The owner of an instance of EnterTextDialogSingleton
      */
-    public void init(Stage primaryStage) {}
+    public void init(Stage primaryStage) {
+        // Set window mode to Modal
+        initModality(Modality.WINDOW_MODAL);
+        initOwner(primaryStage);
+        
+        // Initialize all the instance variables
+        messageLabel = new Label();
+        textField = new TextField();
+        ready = false;
+        
+        // Containers
+        BorderPane mainContainer = new BorderPane();
+        VBox centerPane = new VBox();
+        HBox bottomPane = new HBox();
+        
+        // Main container content and settings
+        mainContainer.setPadding(new Insets(10));
+        mainContainer.setCenter(centerPane);
+        mainContainer.setBottom(bottomPane);
+        
+        // centerPane content and settings
+        centerPane.setAlignment(Pos.CENTER);
+        centerPane.setSpacing(10);
+        centerPane.setPadding(new Insets(10));
+        centerPane.getChildren().addAll(messageLabel, textField);
+        
+        // bottomPane content and settings
+        // CHANGE THESE LATER TO LOAD FROM LANGUAGE PROPERTIES
+        Button okButton = new Button("OK");
+        Button cancelButton = new Button("Cancel");
+        bottomPane.setAlignment(Pos.CENTER);
+        bottomPane.setSpacing(10);
+        bottomPane.getChildren().addAll(okButton, cancelButton);
+        
+        // Controllers
+        okButton.setOnAction(e -> {
+            ready = true;
+            hide();
+        });
+        
+        cancelButton.setOnAction(e -> {
+            hide();
+        });
+        
+        // Set the scene and put this in it
+        Scene scene = new Scene(mainContainer);
+        setScene(scene);
+    }
     
     /**
      * This method displays the window with the contents set to the parameters
      * @param messageTitle
      *      The value of this.Title
-     * @param messageContent 
+     * @param labelText
      *      The value of messageLabel
      */
-    public void show(String messageTitle, String messageContent) {
-        initialize = false;
+    public void show(String messageTitle, String labelText) {
+        ready = false;
         
         setTitle(messageTitle);
-        messageLabel.setText(messageContent);
+        messageLabel.setText(labelText);
         showAndWait();
     }
     
@@ -76,7 +127,7 @@ public class EnterTextDialogSingleton extends Stage {
     // Accessor/Mutator Methods //
     //////////////////////////////
 
-    public boolean isInitialize() {
-        return initialize;
+    public boolean isReady() {
+        return ready;
     }
 }

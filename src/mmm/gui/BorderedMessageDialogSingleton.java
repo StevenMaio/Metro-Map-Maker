@@ -5,8 +5,13 @@
  */
 package mmm.gui;
 
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -42,10 +47,32 @@ public class BorderedMessageDialogSingleton extends Stage {
      *      The owner of this instance
      */
     public void init(Stage primaryStage) {
+        // make trhe window modal
+        initModality(Modality.WINDOW_MODAL);
+        initOwner(primaryStage);
+        
+        // Initialize variables and properties
         messageTitleLabel = new Label();
         messageBodyTextArea = new TextArea();
-        
         messageBodyTextArea.setEditable(false); // make the textArea uneditable
+        
+        // Pane settings
+        BorderPane pane = new BorderPane();
+        pane.setPadding(new Insets(10));
+        
+        // Pane content
+        pane.setTop(messageTitleLabel);
+        pane.setCenter(messageBodyTextArea);
+        Button okButton = new Button("OK"); // LANGUAGE PROPERTIES CRAP MAYBE
+        pane.setBottom(okButton);
+        
+        okButton.setOnAction(e -> {
+            hide();
+        });
+        
+        // Create and a scene and put it in the window
+        Scene scene = new Scene(pane);
+        setScene(scene);
     }
     
     /**

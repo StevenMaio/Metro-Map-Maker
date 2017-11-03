@@ -5,10 +5,18 @@
  */
 package mmm.gui;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mmm.data.MetroLine;
 
@@ -18,12 +26,13 @@ import mmm.data.MetroLine;
  */
 public class MetroLineSettingsDialogSingleton extends Stage {
     private static MetroLineSettingsDialogSingleton singleton;
+    private static final double PREFERRED_WIDTH = 266;
+    private static final double PREFERRED_HEIGHT = 106;
     
+    private Label nameLabel;
     private TextField nameTextField;
     private ColorPicker lineColorPicker;
-    private boolean continueAction;
-    private Button okButton;
-    private Button cancelButton;
+    private boolean ready;
     
     private MetroLineSettingsDialogSingleton() {}
     
@@ -45,7 +54,57 @@ public class MetroLineSettingsDialogSingleton extends Stage {
      * @param primaryStage 
      *      The owner of this class
      */
-    public void init(Stage primaryStage) {}
+    public void init(Stage primaryStage) {
+        // Make it modal
+        initModality(Modality.WINDOW_MODAL);
+        initOwner(primaryStage);
+        
+        // Initialize variables
+        nameLabel = new Label("Metro Line");    // LANGUAGE PROPERTIES
+        nameTextField = new TextField();
+        lineColorPicker = new ColorPicker();
+        ready = false;
+        
+        // Containers
+        BorderPane pane = new BorderPane();
+        HBox centerPane = new HBox();
+        HBox bottomPane = new HBox();
+        
+        // pane settings and content
+        pane.setPadding(new Insets(10));
+        pane.setPrefHeight(PREFERRED_HEIGHT);
+        pane.setPrefWidth(PREFERRED_WIDTH);
+        pane.setCenter(centerPane);
+        pane.setBottom(bottomPane);
+        
+        // centerPane and contents
+        centerPane.setSpacing(20);
+        VBox centerPaneVBox = new VBox();
+        centerPaneVBox.getChildren().addAll(nameLabel, nameTextField);
+        centerPane.getChildren().addAll(centerPaneVBox, lineColorPicker);
+        HBox.setMargin(lineColorPicker, new Insets(16, 0, 0, 0));
+        
+        // bottomPane settings and content
+        bottomPane.setAlignment(Pos.CENTER);
+        bottomPane.setSpacing(10);
+        Button okButton = new Button("Ok");
+        Button cancelButton = new Button("Cancel");
+        bottomPane.getChildren().addAll(okButton, cancelButton);
+        
+        // Event handlers
+        okButton.setOnAction(e -> {
+            ready = true;
+            hide();
+        });
+        
+        cancelButton.setOnAction(e -> {
+            hide();
+        });
+        
+        // Put it in a window
+        Scene scene = new Scene(pane);
+        setScene(scene);
+    }
     
     /**
      * This method pops open an instance of MetroLineSettingsDialogSingleton and loads
@@ -56,7 +115,7 @@ public class MetroLineSettingsDialogSingleton extends Stage {
      *      The title of the window
      */
     public void show(MetroLine metroLine, String messageTitle) {
-        continueAction = false;
+        ready = false;
         setTitle(messageTitle);
         
         // Load MetroLine settings
@@ -90,7 +149,7 @@ public class MetroLineSettingsDialogSingleton extends Stage {
     // Accessor/Mutator Methods //
     //////////////////////////////
 
-    public boolean getContinueAction() {
-        return continueAction;
+    public boolean isReady() {
+        return ready;
     }
 }
