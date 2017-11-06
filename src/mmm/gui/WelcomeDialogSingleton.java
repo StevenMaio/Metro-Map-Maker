@@ -72,7 +72,7 @@ public class WelcomeDialogSingleton extends Stage {
         mainPane.setPrefHeight(PREFERRED_HEIGHT);
         
         // Center Pane content and settings
-        //THESE NEED TO BE CHANGED LATER TO LOAD FROM LANGUAGE PROPERTIES
+        // TODO: THESE NEED TO BE CHANGED LATER TO LOAD FROM LANGUAGE PROPERTIES
         Label centerPaneLabel = new Label("Metro Map Maker");
         Button newMetroMapButton = new Button("New Metro Map");
         centerPane.setAlignment(Pos.CENTER);
@@ -80,7 +80,7 @@ public class WelcomeDialogSingleton extends Stage {
         centerPane.getChildren().addAll(centerPaneLabel, newMetroMapButton);
         
         // Left Pane content and settings
-        // THIS NEEDS TO BE CHANGED LATER TO LOAD FROM LAGNUAGE PROPERTIES
+        // TODO: THIS NEEDS TO BE CHANGED LATER TO LOAD FROM LAGNUAGE PROPERTIES
         Label rightPaneLabel = new Label("Recent Maps");
         recentMapsListView = new ListView<>();
         leftPane.setAlignment(Pos.CENTER_LEFT);
@@ -113,7 +113,11 @@ public class WelcomeDialogSingleton extends Stage {
         enterTextDialog.show("New Metro Map", "Enter Metro Map name");
         
         // DO CRAP
-        if (enterTextDialog.isReady());
+        if (enterTextDialog.isReady()) {
+            
+            // Close at the end
+            hide();
+        }
     }
     
     /**

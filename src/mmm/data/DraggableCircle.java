@@ -7,6 +7,9 @@ import javafx.scene.shape.Circle;
  * @author steve
  */
 public class DraggableCircle extends Circle implements Draggable {
+    public static final double MIN_RADIUS = 5;
+    public static final double MAX_RADIUS = 15;
+    
     private double startCenterX;
     private double startCenterY;
     private MetroStation metroStation;

@@ -17,6 +17,8 @@ import javafx.scene.shape.Line;
  */
 public class MetroLine extends LinkedList<MetroLineNode> {
     private static Color DEFAULT_METRO_LINE_COLOR = Color.ORANGE;
+    public static final double MAX_THICKNESS = 8;
+    public static final double MIN_THICKNESS = 2;
     
     // instance variables
     private String name;

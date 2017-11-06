@@ -1,6 +1,9 @@
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import mmm.gui.BorderedMessageDialogSingleton;
+import mmm.gui.EnterTextDialogSingleton;
+import mmm.gui.MetroLineSettingsDialogSingleton;
 import mmm.gui.WelcomeDialogSingleton;
 
 /*
@@ -19,9 +22,25 @@ public class Test extends Application {
     }
     
     public void start(Stage primaryStage) {
-        WelcomeDialogSingleton singleton = WelcomeDialogSingleton.getSingleton();
+        WelcomeDialogSingleton welcomeDialog = WelcomeDialogSingleton.getSingleton();
+        welcomeDialog.init(primaryStage);
         
-        singleton.init(primaryStage);
-        singleton.show();
+        EnterTextDialogSingleton enterTextDialog = 
+                EnterTextDialogSingleton.getSingleton();
+        enterTextDialog.init(primaryStage);
+        
+//        welcomeDialog.show();
+
+        MetroLineSettingsDialogSingleton metroLineSettings = 
+                MetroLineSettingsDialogSingleton.getSingleton();
+        metroLineSettings.init(primaryStage);
+        
+//        metroLineSettings.show();
+
+        BorderedMessageDialogSingleton borderedMessage =
+                BorderedMessageDialogSingleton.getSingleton();
+        borderedMessage.init(primaryStage);
+        
+        borderedMessage.show();
     }
 }

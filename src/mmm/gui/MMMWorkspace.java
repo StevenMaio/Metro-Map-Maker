@@ -9,6 +9,8 @@ import djf.AppTemplate;
 import djf.components.AppDataComponent;
 import djf.components.AppWorkspaceComponent;
 import djf.ui.AppGUI;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -24,7 +26,12 @@ import mmm.data.MMMData;
 import mmm.data.MetroLine;
 import mmm.data.MetroStation;
 import properties_manager.PropertiesManager;
-import mmm.MMMLanguageProperty;
+import static mmm.MMMLanguageProperty.*;
+import static mmm.data.MetroLine.MAX_THICKNESS;
+import static mmm.data.MetroLine.MIN_THICKNESS;
+import static mmm.data.DraggableCircle.MIN_RADIUS;
+import static mmm.data.DraggableCircle.MAX_RADIUS;
+import static mmm.css.MMMStyle.*;
 
 /**
  *
@@ -143,18 +150,147 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         metroLineToolbarRow1 = new HBox();
         metroLineToolbarRow2 = new HBox();
         Label metroLineToolbarLabel = new Label(
-                props.getProperty(MMMLanguageProperty.METRO_LINES_TOOLBAR_TITLE));
-        metroLineComboBox = new ComboBox<MetroLine>();
+                props.getProperty(METRO_LINES_TOOLBAR_TITLE));
+        metroLineComboBox = new ComboBox<>();
+        metroLineColorPicker = new ColorPicker();
+        // TODO: THESE NEED TO BE CHANGED
+        addMetroLineButton = new Button("Add line");
+        deleteMetroLineButton = new Button("Delete Line");
+        metroLineInfoButton = new Button("Info");
+        
+        appendStationButton = new Button(
+                props.getProperty(APPEND_STATION_TEXT));
+        removeStationButton = new Button(
+                props.getProperty(REMOVE_STATION_TEXT));
+        metroLineThicknessSlider = new Slider(MIN_THICKNESS, MAX_THICKNESS, 1);
+        
+        // Put everything together
+        metroLineToolbarRow1.getChildren().addAll(metroLineToolbarLabel, 
+                metroLineComboBox, metroLineColorPicker);
+        metroLineToolbarRow2.getChildren().addAll(addMetroLineButton, 
+                deleteMetroLineButton, appendStationButton, removeStationButton,
+                metroLineInfoButton);
+        metroLineToolbar.getChildren().addAll(metroLineToolbarRow1, 
+                metroLineToolbarRow2, metroLineThicknessSlider);
+        
+        // Metro Stations Toolbar
+        metroStationToolbar = new VBox();
+        metroStationToolbarRow1 = new HBox();
+        metroStationToolbarRow2 = new HBox();
+        Label metroStationToolbarLabel = new Label(
+                props.getProperty(METRO_STATIONS_TOOLBAR_TITLE));
+        metroStationsComboBox = new ComboBox<>();
+        metroStationColorPicker = new ColorPicker();
+        
+        // TODO: ADD BUTTONS LATER
+        newMetroStationButton = new Button("New Station");
+        deleteMetroStationButton = new Button("Delete Station");
+        rotateStationLabelButton = new Button("Rotate Label");
+        snapToGridCheckBox = new CheckBox(props.getProperty(SNAP_TEXT));
+        moveStationLabelButton = new Button(
+                props.getProperty(MOVE_LABEL_TEXT));
+        metroStationRadiusSlider = new Slider(MIN_RADIUS, MAX_RADIUS, 5);
+        metroStationToolbarRow1.getChildren().addAll(metroStationToolbarLabel, 
+                metroStationsComboBox, metroStationColorPicker);
+        metroStationToolbarRow2.getChildren().addAll(newMetroStationButton, 
+                deleteMetroStationButton, snapToGridCheckBox,
+                moveStationLabelButton, rotateStationLabelButton);
+        metroStationToolbar.getChildren().addAll(metroStationToolbarRow1, 
+                metroStationToolbarRow2, metroStationRadiusSlider);
+        
+        // Route finder toolbar
+        routeFinderToolbar = new HBox();
+        routeFinderToolbarLeftPane = new VBox();
+        startingStationComboBox = new ComboBox<>();
+        destinationStationComboBox = new ComboBox<>();
+        findRouteButton = new Button("Find Route"); // TODO: IMAGE
+        routeFinderToolbarLeftPane.getChildren().addAll(startingStationComboBox,
+                destinationStationComboBox);
+        routeFinderToolbar.getChildren().addAll(routeFinderToolbarLeftPane, 
+                findRouteButton);
+        
+        // Decor toolbar
+        decorToolbar = new VBox();
+        decorToolbarRow1 = new HBox();
+        decorToolbarRow2 = new HBox();
+        Label decorLabel = new Label(
+            props.getProperty(DECOR_TOOLBAR_TITLE));
+        decorToolbarColorPicker = new ColorPicker();
+        setBackgroundImageButton = new Button("Set Image Background");
+        addImageButton = new Button("Add Image");
+        addLabelButton = new Button("Add Label");
+        removeElementButton = new Button("Remove Element");
+        decorToolbarRow1.getChildren().addAll(decorLabel, decorToolbarColorPicker);
+        decorToolbarRow2.getChildren().addAll(setBackgroundImageButton, addImageButton,
+                addLabelButton, removeElementButton);
+        decorToolbar.getChildren().addAll(decorToolbarRow1, decorToolbarRow2);
+        
+        // Font toolbar
+        fontEditorToolbar = new VBox();
+        fontEditorToolbarRow1 = new HBox();
+        fontEditorToolbarRow2 = new HBox();
+        Label fontLabel = new Label(
+                props.getProperty(FONT_TOOLBAR_TITLE));
+        fontFillColorPicker = new ColorPicker();
+        // TODO: PICTURES
+        boldFontButton = new Button("Bold");
+        italicFontButton = new Button("Italic");
+        fontSizeComboBox = new ComboBox<>();
+        fontFamilyComboBox = new ComboBox<>();
+        fontEditorToolbarRow1.getChildren().addAll(fontLabel, fontFillColorPicker);
+        fontEditorToolbarRow2.getChildren().addAll(boldFontButton, italicFontButton,
+                fontSizeComboBox, fontFamilyComboBox);
+        fontEditorToolbar.getChildren().addAll(fontEditorToolbarRow1, 
+                fontEditorToolbarRow2);
+        
+        // Navigation TOolbar
+        navigationToolbar = new VBox();
+        navigationToolbarRow1 = new HBox();
+        navigationToolbarRow2 = new HBox();
+        Label navigationLabel = new Label(
+                props.getProperty(NAVIGATION_TOOLBAR_TITLE));
+        showGridCheckBox = new CheckBox(
+                props.getProperty(SHOW_GRID_TEXT));
+        // TODO: PICUTRES
+        zoomOutButton = new Button("Zoom Out");
+        zoomInButton = new Button("Zoom In");
+        increaseMapSizeButton = new Button("Bigger");
+        decreaseMapSizeButton = new Button("Smaller");
+        navigationToolbarRow1.getChildren().addAll(navigationLabel, showGridCheckBox);
+        navigationToolbarRow2.getChildren().addAll(zoomOutButton, zoomInButton,
+                increaseMapSizeButton, decreaseMapSizeButton);
+        navigationToolbar.getChildren().addAll(navigationToolbarRow1, 
+                navigationToolbarRow2);
+        
+        // Add everything to the editToolbar
+        editToolbar = new VBox();
+        ObservableList<Node> editToolbarChildren = editToolbar.getChildren();
+        editToolbarChildren.add(metroLineToolbar);
+        editToolbarChildren.add(metroStationToolbar);
+        editToolbarChildren.add(routeFinderToolbar);
+        editToolbarChildren.add(decorToolbar);
+        editToolbarChildren.add(fontEditorToolbar);
+        editToolbarChildren.add(navigationToolbar);
+        
+//        add(metroLineToolbar, metroStationToolbar, 
+//                routeFinderToolbar, decorToolbar, fontEditorToolbar, 
+//                navigationToolbar);
         
         // This goes at the end
         canvas = new Pane();
         
-        // Link data with the ObservableLists here
+        // Link data with the ObservableLists here/
         MMMData data = (MMMData) app.getDataComponent();
         data.setShapes(canvas.getChildren());
         data.setMetroLines(metroLineComboBox.getItems());
         data.setMetroStations(metroStationsComboBox.getItems());
+        startingStationComboBox.setItems(metroStationsComboBox.getItems());
+        destinationStationComboBox.setItems(metroStationsComboBox.getItems());
         
+        // Set up the workspaces
+        workspace = new BorderPane();
+        ((BorderPane)workspace).setLeft(editToolbar);
+	((BorderPane)workspace).setCenter(canvas);
     }
     
     private void initControllers() {
@@ -167,6 +303,37 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     
     private void initStyle() {
     /* This method initializes the style for the application */
+        editToolbar.getStyleClass().add(CLASS_EDIT_TOOLBAR);
+        
+        // make the color pickers and combo boxes buttons
+        fontFillColorPicker.getStyleClass().add(CLASS_BUTTON);
+        metroLineColorPicker.getStyleClass().add(CLASS_BUTTON);
+        metroStationColorPicker.getStyleClass().add(CLASS_BUTTON);
+        decorToolbarColorPicker.getStyleClass().add(CLASS_BUTTON);
+        
+        // Style for the toolbars
+        metroLineToolbar.getStyleClass().add(CLASS_EDIT_TOOLBAR_ROW);
+        metroLineToolbarRow1.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
+        metroLineToolbarRow2.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
+        
+        metroStationToolbar.getStyleClass().add(CLASS_EDIT_TOOLBAR_ROW);
+        metroStationToolbarRow1.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
+        metroStationToolbarRow2.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
+        
+        routeFinderToolbar.getStyleClass().add(CLASS_EDIT_TOOLBAR_ROW);
+        routeFinderToolbarLeftPane.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
+        
+        decorToolbar.getStyleClass().add(CLASS_EDIT_TOOLBAR_ROW);
+        decorToolbarRow1.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
+        decorToolbarRow2.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
+        
+        fontEditorToolbar.getStyleClass().add(CLASS_EDIT_TOOLBAR_ROW);
+        fontEditorToolbarRow1.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
+        fontEditorToolbarRow2.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
+        
+        navigationToolbar.getStyleClass().add(CLASS_EDIT_TOOLBAR_ROW);
+        navigationToolbarRow1.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
+        navigationToolbarRow2.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
     }
     
     /**

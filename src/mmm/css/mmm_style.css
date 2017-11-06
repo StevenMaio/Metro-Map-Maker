@@ -8,3 +8,50 @@ and open the template in the editor.
     Author     : steve
 */
 
+.color-picker {
+    -fx-padding: 2px;
+}
+
+.edit_toolbar_row {
+    -fx-alignment: center;
+    -fx-padding: 0px;
+    -fx-background-color: #ddddff;
+    -fx-background-radius: 5.0;
+    -fx-border-width: 2px;
+    -fx-border-color: #7777dd;
+}
+
+.edit_toolbar_sub_row {
+    -fx-alignment: center;
+    -fx-padding: 0px;
+    -fx-spacing: 5;
+    -fx-background-color: #ddddff;
+    -fx-background-radius: 5.0;
+    -fx-padding: 15;
+}
+
+.edit_toolbar {
+    -fx-background-color: #ddddff;
+    -fx-max-width: 200px;
+    -fx-spacing: 10px;
+    -fx-margin-top: 200px;
+}
+
+.color_chooser_pane {
+    -fx-background-color:seashell;
+    -fx-padding: 0px;
+}
+
+.color_chooser_control {
+    -fx-font-weight:bold;
+    -fx-font-size:20;     
+}
+
+.bordered_pane {
+    -fx-background-color: #aaaaff;
+    -fx-background-radius: 5.0;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+    -fx-border-width: 2px;
+    -fx-border-color: #7777dd;
+}

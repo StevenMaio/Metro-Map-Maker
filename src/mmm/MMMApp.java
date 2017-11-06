@@ -98,6 +98,10 @@ public class MMMApp extends AppTemplate {
                 // CHILD CLASS
 		buildAppComponentsHook();
                 
+                // Show the welcome dialog, we'll process some crap 
+                // after this i think
+                welcomeDialog.showAndWait();
+                
                 // NOW OPEN UP THE WINDOW
                 primaryStage.show();
 	    } 

@@ -153,13 +153,13 @@ public class MMMData implements AppDataComponent {
     
     /* 
     
-        FONT PROPERTIES NEED TO BE ESTABLISHED I GUESS
+    TODO: FONT PROPERTIES NEED TO BE ESTABLISHED I GUESS
     
     */
     
     @Override
     public void resetData() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     //////////////////////////////
@@ -192,5 +192,21 @@ public class MMMData implements AppDataComponent {
 
     public void setMetroStations(ObservableList<MetroStation> metroStations) {
         this.metroStations = metroStations;
+    }
+
+    public ObservableList<Node> getShapes() {
+        return shapes;
+    }
+
+    public ObservableList<MetroLine> getMetroLines() {
+        return metroLines;
+    }
+
+    public ObservableList<MetroStation> getMetroStations() {
+        return metroStations;
+    }
+
+    public MMMData getState() {
+        return state;
     }
 }
