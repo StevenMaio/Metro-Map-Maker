@@ -21,6 +21,8 @@
         <property name="START_MAXIMIZED"                value="true"></property>
         
         <!--Program Icon Files-->
+        <property name="SAVE_AS_ICON"                   value="Save_As.png"></property>
+        <property name="SET_IMAGE_BACKGROUND_ICON"      value="Set_Image_Background.png"></property>
         <property name="NEW_ICON"                       value="New.png"></property>
         <property name="LOAD_ICON"                      value="Load.png"></property>
         <property name="SAVE_ICON"                      value="Save.png"></property>
@@ -32,6 +34,7 @@
         <property name="PICTURE_ICON"                   value="Picture.png"></property>
         <property name="EXPORT_ICON"                    value="Export.png"></property>
         <property name="ITALICS_ICON"                   value="Italics.png"></property>
+        <property name="BOLD_ICON"                      value="Bold.png"></property>
         <property name="LARGER_ICON"                    value="Larger.png"></property>
         <property name="METRO_LINE_INFO_ICON"           value="MetroLineInfo.png"></property>
         <property name="SMALLER_ICON"                   value="Smaller.png"></property>
@@ -40,23 +43,37 @@
         <property name="ZOOM_OUT_ICON"                  value="Zoom_Out.png"></property>
         <property name="UNDO_ICON"                      value="Undo.png"></property>
         <property name="REDO_ICON"                      value="Redo.png"></property>
+        <property name="FIND_ROUTE_ICON"                value="Find_Route.png"></property>
+        <property name="ADD_IMAGE_ICON"                 value="Picture.png"></property>
+        <property name="REMOVE_ELEMENT_ICON"            value="Remove_Element.png"></property>
         
         <!--Tooltips-->
+        <property name="UNDO_TOOLTIP"                   value="Undo the last edit in the project"></property>
+        <property name="REDO_TOOLTIP"                   value="Redo the last edit in the project"></property>
+        <property name="ABOUT_TOOLTIP"                  value="About the Metro Map Maker"></property>
+        <property name="EXPORT_TOOLTIP"                 value="Export the project into an image file"></property>
+        <property name="SAVE_AS_TOOLTIP"                value="Save the current project under a different name"></property>
+        <property name="SET_IMAGE_BACKGROUND_TOOLTIP"   value="Set an image as the background of the project"></property>
+        <property name="FIND_ROUTE_TOOLTIP"             value="Find a route between the two stations"></property>
+        <property name="REMOVE_ELEMENT_TOOLTIP"         value="Removes the selected item"></property>
         <property name="NEW_TOOLTIP"                    value="Create a new project"></property>
         <property name="LOAD_TOOLTIP"                   value="Load an existing project"></property>
         <property name="SAVE_TOOLTIP"                   value="Save the current project"></property>
         <property name="EXIT_TOOLTIP"                   value="Exit the application"></property>
         <property name="ADD_LINE_TOOLTIP"               value="Add a new Metro Line to the Metro Map"></property>
+        <property name="ADD_IMAGE_TOOLTIP"              value="Add an image to the project"></property>
         <property name="REMOVE_LINE_TOOLTIP"            value="Remove a Metro Line from the Metro Map"></property>
         <property name="METRO_LINE_INFO_TOOLTIP"        value="Displays all the stops in the selected Metro Line"></property>
+        <property name="ADD_METRO_STATION_TOOLTIP"      value="Add a new Metro Station to the project"></property>
+        <property name="DELETE_METRO_STATION_TOOLTIP"   value="Removes the currently selected Metro Station from the project"></property>
         <property name="ROTATE_LABEL_TOOLTIP"           value="Rotate the Metro Station's label"></property>
-        <property name="FIND_ROUTE_TOOLTIP"             value="Determines a route between the selected Metro Stations"></property>
         <property name="BOLD_TOOLTIP"                   value="Toggles bold font"></property>
         <property name="ITALIC_TOOLTIP"                 value="Toggles italic font"></property>
         <property name="ZOOM_IN_TOOLTIP"                value="Zoom in on the map"></property>
         <property name="ZOOM_OUT_TOOLTIP"               value="Zoom out on the map"></property>
         <property name="SMALLER_TOOLTIP"                value="Decreases the map size"></property>
         <property name="LARGER_TOOLTIP"                 value="Increases the mapsize"></property>
+        <property name="ADD_TEXT_TOOLTIP"               value="Add an image to the project"></property>
         
         <!--Toolbar Text-->
         <property name="METRO_LINES_TOOLBAR_TITLE"      value="Metro Lines"></property>

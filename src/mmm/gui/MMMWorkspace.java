@@ -19,6 +19,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Shape;
@@ -52,6 +53,7 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     private MMMCanvasController canvasController;
     
     // Top Toolbar stuff
+    private FlowPane otherTopBar;
     private Button saveAsButton;
     private Button exportButton;
     private Button undoButton;
@@ -145,6 +147,22 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     // place them inside the appropriate containers
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         
+        // Other top bar stuff
+        otherTopBar = new FlowPane();
+        saveAsButton = gui.initChildButton(otherTopBar, SAVE_AS_ICON.toString(), 
+                SAVE_AS_TOOLTIP.toString(), true);
+        exportButton = gui.initChildButton(otherTopBar, EXPORT_ICON.toString(), 
+                EXPORT_TOOLTIP.toString(), false);
+        undoButton = gui.initChildButton(otherTopBar, UNDO_ICON.toString(), 
+                UNDO_TOOLTIP.toString(), true);
+        redoButton = gui.initChildButton(otherTopBar, REDO_ICON.toString(), 
+                REDO_TOOLTIP.toString(), true);
+        aboutButton = gui.initChildButton(otherTopBar, ABOUT_ICON.toString(),
+                ABOUT_TOOLTIP.toString(), false);
+        
+        gui.getTopToolbarPane().getChildren().add(otherTopBar);
+        otherTopBar.getStyleClass().add(CLASS_BORDERED_PANE);
+        
         // Metro Lines Toolbar
         metroLineToolbar = new VBox();
         metroLineToolbarRow1 = new HBox();
@@ -154,10 +172,11 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         metroLineComboBox = new ComboBox<>();
         metroLineColorPicker = new ColorPicker();
         // TODO: THESE NEED TO BE CHANGED
-        addMetroLineButton = new Button("Add line");
-        deleteMetroLineButton = new Button("Delete Line");
-        metroLineInfoButton = new Button("Info");
-        
+        addMetroLineButton = gui.initChildButton(metroLineToolbarRow2, 
+                ADD_ICON.toString(), ADD_LINE_TOOLTIP.toString(), false);
+        addMetroLineButton = gui.initChildButton(metroLineToolbarRow2, 
+                REMOVE_ICON.toString(), REMOVE_LINE_TOOLTIP.toString(), false);
+
         appendStationButton = new Button(
                 props.getProperty(APPEND_STATION_TEXT));
         removeStationButton = new Button(
@@ -167,11 +186,13 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         // Put everything together
         metroLineToolbarRow1.getChildren().addAll(metroLineToolbarLabel, 
                 metroLineComboBox, metroLineColorPicker);
-        metroLineToolbarRow2.getChildren().addAll(addMetroLineButton, 
-                deleteMetroLineButton, appendStationButton, removeStationButton,
-                metroLineInfoButton);
+        metroLineToolbarRow2.getChildren().addAll(appendStationButton, 
+                removeStationButton);
         metroLineToolbar.getChildren().addAll(metroLineToolbarRow1, 
                 metroLineToolbarRow2, metroLineThicknessSlider);
+        
+        metroLineInfoButton = gui.initChildButton(metroLineToolbarRow2, 
+                METRO_LINE_INFO_ICON.toString(), METRO_LINE_INFO_TOOLTIP.toString(), false);
         
         // Metro Stations Toolbar
         metroStationToolbar = new VBox();
@@ -183,31 +204,35 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         metroStationColorPicker = new ColorPicker();
         
         // TODO: ADD BUTTONS LATER
-        newMetroStationButton = new Button("New Station");
-        deleteMetroStationButton = new Button("Delete Station");
-        rotateStationLabelButton = new Button("Rotate Label");
+        newMetroStationButton = gui.initChildButton(metroStationToolbarRow2, 
+                ADD_ICON.toString(), ADD_METRO_STATION_TOOLTIP.toString(), false);
+        deleteMetroStationButton = gui.initChildButton(metroStationToolbarRow2, 
+                REMOVE_ICON.toString(), DELETE_METRO_STATION_TOOLTIP.toString(), false);
         snapToGridCheckBox = new CheckBox(props.getProperty(SNAP_TEXT));
+        
         moveStationLabelButton = new Button(
                 props.getProperty(MOVE_LABEL_TEXT));
         metroStationRadiusSlider = new Slider(MIN_RADIUS, MAX_RADIUS, 5);
         metroStationToolbarRow1.getChildren().addAll(metroStationToolbarLabel, 
                 metroStationsComboBox, metroStationColorPicker);
-        metroStationToolbarRow2.getChildren().addAll(newMetroStationButton, 
-                deleteMetroStationButton, snapToGridCheckBox,
-                moveStationLabelButton, rotateStationLabelButton);
+        metroStationToolbarRow2.getChildren().addAll(snapToGridCheckBox,
+                moveStationLabelButton);
         metroStationToolbar.getChildren().addAll(metroStationToolbarRow1, 
                 metroStationToolbarRow2, metroStationRadiusSlider);
+        
+        rotateStationLabelButton = gui.initChildButton(metroStationToolbarRow2, 
+                ROTATE_ICON.toString(), ROTATE_LABEL_TOOLTIP.toString(), false);
         
         // Route finder toolbar
         routeFinderToolbar = new HBox();
         routeFinderToolbarLeftPane = new VBox();
         startingStationComboBox = new ComboBox<>();
         destinationStationComboBox = new ComboBox<>();
-        findRouteButton = new Button("Find Route"); // TODO: IMAGE
         routeFinderToolbarLeftPane.getChildren().addAll(startingStationComboBox,
                 destinationStationComboBox);
-        routeFinderToolbar.getChildren().addAll(routeFinderToolbarLeftPane, 
-                findRouteButton);
+        routeFinderToolbar.getChildren().addAll(routeFinderToolbarLeftPane);
+        findRouteButton = gui.initChildButton(routeFinderToolbar, 
+                FIND_ROUTE_ICON.toString(), FIND_ROUTE_TOOLTIP.toString(), false);
         
         // Decor toolbar
         decorToolbar = new VBox();
@@ -216,14 +241,17 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         Label decorLabel = new Label(
             props.getProperty(DECOR_TOOLBAR_TITLE));
         decorToolbarColorPicker = new ColorPicker();
-        setBackgroundImageButton = new Button("Set Image Background");
-        addImageButton = new Button("Add Image");
-        addLabelButton = new Button("Add Label");
-        removeElementButton = new Button("Remove Element");
         decorToolbarRow1.getChildren().addAll(decorLabel, decorToolbarColorPicker);
-        decorToolbarRow2.getChildren().addAll(setBackgroundImageButton, addImageButton,
-                addLabelButton, removeElementButton);
         decorToolbar.getChildren().addAll(decorToolbarRow1, decorToolbarRow2);
+        setBackgroundImageButton = gui.initChildButton(decorToolbarRow2, 
+                SET_IMAGE_BACKGROUND_ICON.toString(), SET_IMAGE_BACKGROUND_TOOLTIP.toString()
+                , false);
+        addImageButton = gui.initChildButton(decorToolbarRow2, ADD_IMAGE_ICON.toString(),
+                ADD_LINE_TOOLTIP.toString(), false);
+        addLabelButton = gui.initChildButton(decorToolbarRow2, TEXT_ICON.toString(), 
+                ADD_TEXT_TOOLTIP.toString(), false);
+        removeElementButton = gui.initChildButton(decorToolbarRow2, REMOVE_ELEMENT_ICON.toString(),
+                REMOVE_ELEMENT_TOOLTIP.toString(), false);
         
         // Font toolbar
         fontEditorToolbar = new VBox();
@@ -233,13 +261,15 @@ public class MMMWorkspace extends AppWorkspaceComponent {
                 props.getProperty(FONT_TOOLBAR_TITLE));
         fontFillColorPicker = new ColorPicker();
         // TODO: PICTURES
-        boldFontButton = new Button("Bold");
-        italicFontButton = new Button("Italic");
+        boldFontButton = gui.initChildButton(fontEditorToolbarRow2, BOLD_ICON.toString(),
+                BOLD_TOOLTIP.toString(), false);
+        italicFontButton = gui.initChildButton(fontEditorToolbarRow2, ITALICS_ICON.toString(),
+                ITALIC_TOOLTIP.toString(), false);
         fontSizeComboBox = new ComboBox<>();
         fontFamilyComboBox = new ComboBox<>();
         fontEditorToolbarRow1.getChildren().addAll(fontLabel, fontFillColorPicker);
-        fontEditorToolbarRow2.getChildren().addAll(boldFontButton, italicFontButton,
-                fontSizeComboBox, fontFamilyComboBox);
+        fontEditorToolbarRow2.getChildren().addAll(fontSizeComboBox, 
+                fontFamilyComboBox);
         fontEditorToolbar.getChildren().addAll(fontEditorToolbarRow1, 
                 fontEditorToolbarRow2);
         
@@ -252,13 +282,15 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         showGridCheckBox = new CheckBox(
                 props.getProperty(SHOW_GRID_TEXT));
         // TODO: PICUTRES
-        zoomOutButton = new Button("Zoom Out");
-        zoomInButton = new Button("Zoom In");
-        increaseMapSizeButton = new Button("Bigger");
-        decreaseMapSizeButton = new Button("Smaller");
+        zoomOutButton = gui.initChildButton(navigationToolbarRow2, ZOOM_OUT_ICON.toString(),
+                ZOOM_OUT_TOOLTIP.toString(), false);
+        zoomInButton = gui.initChildButton(navigationToolbarRow2, ZOOM_IN_ICON.toString(),
+                ZOOM_IN_TOOLTIP.toString(), false);
+        increaseMapSizeButton = gui.initChildButton(navigationToolbarRow2, 
+                LARGER_ICON.toString(), LARGER_TOOLTIP.toString(), false);
+        decreaseMapSizeButton = gui.initChildButton(navigationToolbarRow2, 
+                SMALLER_ICON.toString(), SMALLER_TOOLTIP.toString(), false);
         navigationToolbarRow1.getChildren().addAll(navigationLabel, showGridCheckBox);
-        navigationToolbarRow2.getChildren().addAll(zoomOutButton, zoomInButton,
-                increaseMapSizeButton, decreaseMapSizeButton);
         navigationToolbar.getChildren().addAll(navigationToolbarRow1, 
                 navigationToolbarRow2);
         
@@ -299,6 +331,11 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     
         editController = new MMMEditController(app);
         canvasController = new MMMCanvasController(app);
+        
+        // Other top toolbar stuff
+        aboutButton.setOnAction(e -> {
+            editController.processAbout();
+        });
     }
     
     private void initStyle() {
@@ -310,6 +347,12 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         metroLineColorPicker.getStyleClass().add(CLASS_BUTTON);
         metroStationColorPicker.getStyleClass().add(CLASS_BUTTON);
         decorToolbarColorPicker.getStyleClass().add(CLASS_BUTTON);
+        
+        // Color picker settings
+        fontFillColorPicker.getStyleClass().add(CLASS_COLOR_PICKER);
+        decorToolbarColorPicker.getStyleClass().add(CLASS_COLOR_PICKER);
+        metroLineColorPicker.getStyleClass().add(CLASS_COLOR_PICKER);
+        metroStationColorPicker.getStyleClass().add(CLASS_COLOR_PICKER);
         
         // Style for the toolbars
         metroLineToolbar.getStyleClass().add(CLASS_EDIT_TOOLBAR_ROW);

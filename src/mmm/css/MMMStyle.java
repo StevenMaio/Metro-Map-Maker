@@ -22,4 +22,6 @@ public class MMMStyle {
     public static final String CLASS_EDIT_TOOLBAR_SUB_ROW = "edit_toolbar_sub_row";
     public static final String CLASS_COLOR_CHOOSER_PANE = "color_chooser_pane";
     public static final String CLASS_COLOR_CHOOSER_CONTROL = "color_chooser_control";
+    public static final String CLASS_BORDERED_PANE = "bordered_pane";
+    public static final String CLASS_COLOR_PICKER = "color_picker";
 }

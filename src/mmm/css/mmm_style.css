@@ -8,14 +8,16 @@ and open the template in the editor.
     Author     : steve
 */
 
-.color-picker {
+.color_picker {
     -fx-padding: 2px;
+    /*-fx-max-width: 50px;*/
+    -fx-color-label-visible: false ;
 }
 
 .edit_toolbar_row {
     -fx-alignment: center;
-    -fx-padding: 0px;
-    -fx-background-color: #ddddff;
+    -fx-padding: 10px;
+    -fx-background-color: white;
     -fx-background-radius: 5.0;
     -fx-border-width: 2px;
     -fx-border-color: #7777dd;
@@ -25,16 +27,18 @@ and open the template in the editor.
     -fx-alignment: center;
     -fx-padding: 0px;
     -fx-spacing: 5;
-    -fx-background-color: #ddddff;
+    -fx-background-color: white;
     -fx-background-radius: 5.0;
-    -fx-padding: 15;
+    -fx-padding: 5;
+    -fx-margin: 5;
 }
 
-.edit_toolbar {
-    -fx-background-color: #ddddff;
-    -fx-max-width: 200px;
-    -fx-spacing: 10px;
-    -fx-margin-top: 200px;
+.edit_toolbar { 
+    /*-fx-background-color: #ddddff;*/
+    -fx-background-color: linear-gradient(cadetblue, cornflowerblue);
+    -fx-max-width: 300px;
+    /*-fx-spacing: 5px;*/
+    -fx-margin-left: 20px;
 }
 
 .color_chooser_pane {
@@ -48,10 +52,10 @@ and open the template in the editor.
 }
 
 .bordered_pane {
-    -fx-background-color: #aaaaff;
+    -fx-background-color: linear-gradient(cornflowerblue, cadetblue);
     -fx-background-radius: 5.0;
     -fx-padding: 15;
     -fx-spacing: 10;
     -fx-border-width: 2px;
-    -fx-border-color: #7777dd;
+    -fx-border-color: whitesmoke;
 }

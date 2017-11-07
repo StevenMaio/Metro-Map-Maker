@@ -6,7 +6,10 @@
 package mmm.gui;
 
 import djf.AppTemplate;
+import djf.ui.AppMessageDialogSingleton;
 import mmm.data.MMMData;
+import properties_manager.PropertiesManager;
+import static mmm.MMMLanguageProperty.*;
 
 /**
  *
@@ -32,7 +35,19 @@ public class MMMEditController {
     
     public void processRedo() {};
     
-    public void processAbout() {}
+    /**
+     * This method displays the about window. Here it describes information 
+     * about Metro Map Maker.
+     */
+    public void processAbout() {
+        AppMessageDialogSingleton singleton = AppMessageDialogSingleton.getSingleton();
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        
+        String aboutMessage = props.getProperty(ABOUT_MESSAGE);
+        String aboutTitle = props.getProperty(ABOUT_TITLE);
+        
+        singleton.show(aboutTitle, aboutMessage);
+    }
     
     public void processExport() {}
     
