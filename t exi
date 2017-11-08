@@ -1,0 +1,69 @@
+[33mcommit e70be043ac550eafee586b86001263f302937ff6[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Steven Maio <Stevenmaio.321@gmail.com>
+Date:   Wed Nov 8 10:06:45 2017 -0500
+
+    Made things a bit more convenient
+
+[33mcommit 2ab767f90efccb8fc74c035b87cdcc9e6dad40b7[m
+Author: Steven Maio <Stevenmaio.321@gmail.com>
+Date:   Wed Nov 8 10:03:42 2017 -0500
+
+    Moved everything (including all the resources into one folder to make
+    life easier)
+
+[33mcommit 9462d086760794c25c6fa066abdea472d8e7d889[m
+Author: Steven Maio <Stevenmaio.321@gmail.com>
+Date:   Tue Nov 7 15:25:16 2017 -0500
+
+    The GUI is relatively finished. There are some icons that will
+    eventually be changed to be more relevant to what they're supposed to
+    represent. Also the About button has been implemented (however, the
+    contents of the About message probably needs to be changed).
+
+[33mcommit 4d47093007f646e34bdcade56a9c0deb0efb94a5[m
+Author: Steven Maio <Stevenmaio.321@gmail.com>
+Date:   Mon Nov 6 15:29:30 2017 -0500
+
+    The GUI seems to be working. Added style to the most of the GUI, but
+    buttons haven't been implemented fully. This shouldn't be a problem. The
+    Welcome Dialog doesn't meet its requirements yet and needs to be full
+    implemented.
+
+[33mcommit 23ff1fdb09931f151a48540f0eb47e4c91df3e24[m
+Author: Steven Maio <Stevenmaio.321@gmail.com>
+Date:   Fri Nov 3 01:02:34 2017 -0400
+
+    Added icons for images and an application properties in xml (still
+    missing a lot of stuff). All of the dialog windows (except for the
+    WelcomeDialogSingleton) are finished and work as expected.
+
+[33mcommit e76fa022dd9f4e7455f8f646f72fb28faa9fdc38[m
+Author: Steven Maio <Stevenmaio.321@gmail.com>
+Date:   Thu Nov 2 17:58:17 2017 -0400
+
+    Skeleton code is almost complete. I've began coding some of the external
+    dialogs. At the moment MMMData.java is missing ways to handle changing
+    the font properties of text.
+
+[33mcommit 3aee4fc50738f1844e6cdea23d9e2f8442f81a93[m
+Author: Steven Maio <Stevenmaio.321@gmail.com>
+Date:   Wed Nov 1 22:31:38 2017 -0400
+
+    Wrote more skeleton code. Following classes have skeleton code:
+            -mmm/data/MetroStation.java
+            -mmm/data/MetroLine.java
+            -mmm/data/MetroLineNode.java
+            -mmm/gui/MMMCanvasController.java
+            -mmm/gui/MMMEditController.java
+    
+    Although, MMMEditController needs to be fully document.
+
+[33mcommit 0f5e72b1ec418d061ddd588df5420f40e6a3af67[m
+Author: Steven Maio <Stevenmaio.321@gmail.com>
+Date:   Tue Oct 31 14:33:23 2017 -0400
+
+    Starting the writing of skeleton code. So far the only classes that have
+    skeleton code are:
+            -src/mmm/MMMApp.java
+            -src/mmm/gui/MMMWorkspace.java
+            -src/mmm/data/MetroStation.java

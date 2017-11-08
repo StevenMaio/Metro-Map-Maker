@@ -42,6 +42,8 @@ public class MMMFiles implements AppFileComponent {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    // CreateNewFIle thing
+    
     // Gets a double value of data from something
     private double getDataAsDouble(JsonObject json, String dataName) {
         JsonValue value = json.get(dataName);
