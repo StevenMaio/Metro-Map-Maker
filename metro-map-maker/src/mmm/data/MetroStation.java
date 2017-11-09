@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import javafx.scene.paint.Color;
 
 /**
- *
- * @author steve
+ * Represents a Metro Station in a project. Contains basic styling options 
+ * @author Steven Maio
  */
 public class MetroStation {
     // These static variables the positions available for the station's label
@@ -25,14 +25,9 @@ public class MetroStation {
     // Label properties
     private DraggableLabel stationLabel;
     private int labelLocation;
-    private boolean labelBoldFont;
-    private boolean labelItalicFont;
-    private String labelFontFamily;
-    private int labelFontSize;
     
     // station circle properties
     private DraggableCircle stationCircle;
-    private Color stationFillColor;
     
     /**
      * This is the constructor for the MetroStation object.
@@ -119,46 +114,6 @@ public class MetroStation {
 
     public DraggableCircle getStationCircle() {
         return stationCircle;
-    }
-
-    public boolean isLabelBoldFont() {
-        return labelBoldFont;
-    }
-
-    public void setLabelBoldFont(boolean labelBoldFont) {
-        this.labelBoldFont = labelBoldFont;
-    }
-
-    public boolean isLabelItalicFont() {
-        return labelItalicFont;
-    }
-
-    public void setLabelItalicFont(boolean labelItalicFont) {
-        this.labelItalicFont = labelItalicFont;
-    }
-
-    public String getLabelFontFamily() {
-        return labelFontFamily;
-    }
-
-    public void setLabelFontFamily(String labelFontFamily) {
-        this.labelFontFamily = labelFontFamily;
-    }
-
-    public int getLabelFontSize() {
-        return labelFontSize;
-    }
-
-    public void setLabelFontSize(int labelFontSize) {
-        this.labelFontSize = labelFontSize;
-    }
-
-    public Color getStationFillColor() {
-        return stationFillColor;
-    }
-
-    public void setStationFillColor(Color stationFillColor) {
-        this.stationFillColor = stationFillColor;
     }
 
     public ArrayList<MetroLineNode> getNodes() {

@@ -3,8 +3,10 @@ package mmm.data;
 import javafx.scene.shape.Circle;
 
 /**
- *
- * @author steve
+ * This class implements a DraggableCircle. This is borrowed heavily from the
+ * goLogoLo project and shares many properties and methods with its analog 
+ * there.
+ * @author Steven Maio
  */
 public class DraggableCircle extends Circle implements Draggable {
     public static final double MIN_RADIUS = 5;
@@ -103,6 +105,10 @@ public class DraggableCircle extends Circle implements Draggable {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * This method is called when the user deselects the current instance of
+     * DraggableCircle
+     */
     @Override
     public void unhighlight() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

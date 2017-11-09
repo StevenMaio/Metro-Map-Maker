@@ -102,6 +102,14 @@ public class MMMApp extends AppTemplate {
                 // after this i think
                 welcomeDialog.showAndWait();
                 
+                // If the user created a map
+                if (welcomeDialog.isReady()) {
+                    String mapName = welcomeDialog.getMapName();
+                    
+                    MMMFiles files = (MMMFiles) fileComponent;
+                    files.createNewMetroMap(mapName, this);
+                }
+                
                 // NOW OPEN UP THE WINDOW
                 primaryStage.show();
 	    } 

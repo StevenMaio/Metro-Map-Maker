@@ -308,4 +308,8 @@ public class AppGUI {
 	saveButton.getStyleClass().add(CLASS_FILE_BUTTON);
 	exitButton.getStyleClass().add(CLASS_FILE_BUTTON);
     }
+
+    public Button getNewButton() {
+        return newButton;
+    }
 }

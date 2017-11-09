@@ -8,8 +8,9 @@ package mmm.data;
 import javafx.scene.shape.Rectangle;
 
 /**
- *
- * @author steve
+ * This class implements a draggable image onto the canvas. This is object is
+ * able to be dragged and loads an image from an file path.
+ * @author Steven Maio
  */
 public class DraggableImage extends Rectangle implements Draggable {
     // instance variables

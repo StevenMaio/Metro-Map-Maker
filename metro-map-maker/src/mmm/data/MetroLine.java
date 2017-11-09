@@ -16,7 +16,7 @@ import javafx.scene.shape.Line;
  * @author Steven Maio
  */
 public class MetroLine extends LinkedList<MetroLineNode> {
-    private static Color DEFAULT_METRO_LINE_COLOR = Color.ORANGE;
+    public static final Color DEFAULT_METRO_LINE_COLOR = Color.ORANGE;
     public static final double MAX_THICKNESS = 8;
     public static final double MIN_THICKNESS = 2;
     
@@ -25,12 +25,6 @@ public class MetroLine extends LinkedList<MetroLineNode> {
     private Color color;
     private double lineThickness;
     private Line firstLine;
-    
-    // Label Font Properties
-    private boolean labelBoldFont;
-    private boolean labelItalicFont;
-    private String labelFontFamily;
-    private int labelFontSize;
     
     // startLabel & Properties
     private DraggableLabel startLabel;
@@ -72,7 +66,30 @@ public class MetroLine extends LinkedList<MetroLineNode> {
     /**
      * This method will initialize the firstLine variable
      */
-    public void initLine() {}
+    public void initLine() {
+        firstLine = new Line();
+        firstLine.setStroke(color);
+        firstLine.setStrokeWidth(lineThickness);
+        
+        // bind starting point to startLabel
+        firstLine.startXProperty().bind(startLabel.xProperty());
+        firstLine.startYProperty().bind(startLabel.yProperty());
+        
+        // two acses for the end point -- either line contains no stops or 
+        // contains stops
+        if (getFirst() == null) {
+            firstLine.endXProperty().bind(endLabel.xProperty());
+            firstLine.endYProperty().bind(endLabel.yProperty());
+        } else {
+            DraggableCircle stationCircle = 
+                    getFirst().getValue().getStationCircle();
+            
+            firstLine.endXProperty().bind(stationCircle.centerXProperty());
+            firstLine.endYProperty().bind(stationCircle.centerYProperty());
+        }
+        
+        getFirst().resetLine(lineThickness, color);
+    }
     
     /**
      * This method will refresh the initLine, that is set what it's connected
@@ -110,22 +127,6 @@ public class MetroLine extends LinkedList<MetroLineNode> {
         return firstLine;
     }
 
-    public boolean isLabelBoldFont() {
-        return labelBoldFont;
-    }
-
-    public boolean isLabelItalicFont() {
-        return labelItalicFont;
-    }
-
-    public String getLabelFontFamily() {
-        return labelFontFamily;
-    }
-
-    public int getLabelFontSize() {
-        return labelFontSize;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -138,21 +139,19 @@ public class MetroLine extends LinkedList<MetroLineNode> {
         this.lineThickness = lineThickness;
     }
 
-    public void setLabelBoldFont(boolean labelBoldFont) {
-        this.labelBoldFont = labelBoldFont;
+    public void setStartLabel(DraggableLabel startLabel) {
+        this.startLabel = startLabel;
     }
 
-    public void setLabelItalicFont(boolean labelItalicFont) {
-        this.labelItalicFont = labelItalicFont;
-    }
-
-    public void setLabelFontFamily(String labelFontFamily) {
-        this.labelFontFamily = labelFontFamily;
-    }
-
-    public void setLabelFontSize(int labelFontSize) {
-        this.labelFontSize = labelFontSize;
+    public DraggableLabel getStartLabel() {
+        return startLabel;
     }
     
-    
+    public void setEndLabel(DraggableLabel endLabel) {
+        this.endLabel = endLabel;
+    }
+
+    public DraggableLabel getEndLabel() {
+        return endLabel;
+    }
 }

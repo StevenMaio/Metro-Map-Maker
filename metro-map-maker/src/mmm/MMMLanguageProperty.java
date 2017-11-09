@@ -17,6 +17,9 @@ public enum MMMLanguageProperty {
     NEW_METRO_MAP_TITLE,
     NEW_METRO_MAP_MESSAGE,
     
+    NAME_TAKEN_MESSAGE,
+    NAME_TAKEN_TITLE,
+    
     // Toolbar Items
     METRO_LINES_TOOLBAR_TITLE,
     METRO_STATIONS_TOOLBAR_TITLE,

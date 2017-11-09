@@ -97,6 +97,10 @@
         <property name="ROUTE_TITLE"                    value="Route"></property>
         
         <!--Message Window Messages-->
+        <property name="NAME_TAKEN_MESSAGE"             value="That name is already taken."></property>
+        <property name="NAME_TAKEN_TITLE"               value="Name Taken"></property>
+        <property name="NEW_ERROR_MESSAGE"              value="An error occured creating New Work."></property>
+        <property name="NEW_ERROR_TITLE"                value="New Work Eror"></property>
         <property name="NEW_METRO_MAP_MESSAGE"          value="Enter the city name"></property>
         <property name="NEW_COMPLETED_MESSAGE"		value="New Work Ready for Editing"></property>
         <property name="NEW_COMPLETED_TITLE"		value="New Work Created"></property>

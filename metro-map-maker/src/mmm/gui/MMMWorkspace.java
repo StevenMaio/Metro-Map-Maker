@@ -33,6 +33,7 @@ import static mmm.data.MetroLine.MIN_THICKNESS;
 import static mmm.data.DraggableCircle.MIN_RADIUS;
 import static mmm.data.DraggableCircle.MAX_RADIUS;
 import static mmm.css.MMMStyle.*;
+import mmm.data.DraggableLabel;
 
 /**
  *
@@ -332,6 +333,11 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         editController = new MMMEditController(app);
         canvasController = new MMMCanvasController(app);
         
+        // overrtte new
+        app.getGUI().getNewButton().setOnAction(e -> {
+            editController.processNewMetroMap();
+        });
+        
         // Other top toolbar stuff
         aboutButton.setOnAction(e -> {
             editController.processAbout();
@@ -403,6 +409,9 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     */
     }
     
+    // THis method loads the style settings of some kind of text object
+    private void loadTextSettings(DraggableLabel text) {}
+    
     
     //////////////////////////////
     // ACCESSOR/MUTATOR METHODS //
@@ -446,5 +455,13 @@ public class MMMWorkspace extends AppWorkspaceComponent {
 
     public CheckBox getShowGridCheckBox() {
         return showGridCheckBox;
+    }
+
+    public Pane getCanvas() {
+        return canvas;
+    }
+
+    public ColorPicker getDecorToolbarColorPicker() {
+        return decorToolbarColorPicker;
     }
 }

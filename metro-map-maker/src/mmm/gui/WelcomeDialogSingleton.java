@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mmm.gui;
 
 import javafx.geometry.Insets;
@@ -27,9 +22,15 @@ public class WelcomeDialogSingleton extends Stage {
     private static final double PREFERRED_WIDTH = 500;
     
     private ListView<String> recentMapsListView;
-    private String metroMapFilepath;
-    private String metroMapName;
     private boolean ready;
+    private String mapName;
+    
+    // Text constants
+    private static final String RECENT_MAPS = "Recent Maps";
+    private static final String METRO_MAP_MAKER = "Metro Map Maker";
+    private static final String NEW_METRO_MAP = "New Metro Map";
+    private static final String WELCOME_MESSAGE = "Welcome to the Metro Map Maker";
+    private static final String ENTER_METRO_MAP_NAME = "Enter Metro Map name";
     
     /**
      * Returns the WelcomeDialogSingleton singleton and initializes it if it hasn't been
@@ -73,15 +74,15 @@ public class WelcomeDialogSingleton extends Stage {
         
         // Center Pane content and settings
         // TODO: THESE NEED TO BE CHANGED LATER TO LOAD FROM LANGUAGE PROPERTIES
-        Label centerPaneLabel = new Label("Metro Map Maker");
-        Button newMetroMapButton = new Button("New Metro Map");
+        Label centerPaneLabel = new Label(METRO_MAP_MAKER);
+        Button newMetroMapButton = new Button(NEW_METRO_MAP);
         centerPane.setAlignment(Pos.CENTER);
         centerPane.setSpacing(50);
         centerPane.getChildren().addAll(centerPaneLabel, newMetroMapButton);
         
         // Left Pane content and settings
         // TODO: THIS NEEDS TO BE CHANGED LATER TO LOAD FROM LAGNUAGE PROPERTIES
-        Label rightPaneLabel = new Label("Recent Maps");
+        Label rightPaneLabel = new Label(RECENT_MAPS);
         recentMapsListView = new ListView<>();
         leftPane.setAlignment(Pos.CENTER_LEFT);
         leftPane.setSpacing(5);
@@ -98,7 +99,7 @@ public class WelcomeDialogSingleton extends Stage {
         
         // Create a scene and put it in the window
         // THIS NEEDS TO BE CHANGED LATER TO LOAD FROM LAGNUAGE PROPERTIES
-        setTitle("Welcome to the Metro Map Maker");
+        setTitle(WELCOME_MESSAGE);
         Scene scene = new Scene(mainPane);
         this.setScene(scene);
     }
@@ -110,11 +111,28 @@ public class WelcomeDialogSingleton extends Stage {
         EnterTextDialogSingleton enterTextDialog = 
                 EnterTextDialogSingleton.getSingleton();
         
-        enterTextDialog.show("New Metro Map", "Enter Metro Map name");
+        enterTextDialog.show(NEW_METRO_MAP, ENTER_METRO_MAP_NAME);
         
         // DO CRAP
         if (enterTextDialog.isReady()) {
+            mapName = enterTextDialog.getText();
+                    
+            // if the text is empty do nothing, otherwise
+            if (mapName.equals(""))
+                return;
             
+            ready = true;
+            // Try to create a new file
+//            try {
+//                metroMapFile = new File(PATH_WORK + cityName + FILE_EXTENSION);
+//
+//                if (metroMapFile.createNewFile())
+//                    ready = true;
+//                else
+//                    ready = false;
+//            } catch (IOException e) {
+//                ready = false;
+//            }
             // Close at the end
             hide();
         }
@@ -129,15 +147,11 @@ public class WelcomeDialogSingleton extends Stage {
     // Accessor/Mutator Methods //
     //////////////////////////////
 
-    public String getMetroMapFilepath() {
-        return metroMapFilepath;
-    }
-
     public boolean isReady() {
         return ready;
     }
 
-    public String getMetroMapName() {
-        return metroMapName;
+    public String getMapName() {
+        return mapName;
     }
 }

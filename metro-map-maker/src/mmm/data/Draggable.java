@@ -2,7 +2,7 @@ package mmm.data;
 
 /**
  * This interface provides the utility for draggable objects. Such as dragging,
- * and highlighting
+ * and highlighting.
  * 
  * @author Steven Maio
  */

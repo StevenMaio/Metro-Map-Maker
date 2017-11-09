@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mmm.data;
 
 import javafx.scene.text.Text;
@@ -10,9 +5,13 @@ import static mmm.css.MMMStyle.STYLE_BOLD_FONT;
 import static mmm.css.MMMStyle.STYLE_FONT_FAMILY;
 import static mmm.css.MMMStyle.STYLE_FONT_SIZE;
 import static mmm.css.MMMStyle.STYLE_ITALICIZED_FONT;
+
 /**
- *
- * @author steve
+ * This class represents a label of text that can be dragged across the canvas.
+ * Supports some basic styling options, such as font family, font size, bold,
+ * italicized font, and custom fill colors.
+ * 
+ * @author Steven Maio
  */
 public class DraggableLabel extends Text implements Draggable {
     // style properties

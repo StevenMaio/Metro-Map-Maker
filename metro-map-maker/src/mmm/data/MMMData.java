@@ -7,24 +7,32 @@ package mmm.data;
 import djf.AppTemplate;
 import djf.components.AppDataComponent;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
 import jtps.jTPS;
+import mmm.gui.MMMWorkspace;
 
 /**
- *
- * @author steve
+ * This class handles the data for a project in the Metro Map Maker application.
+ * 
+ * @author Steven Maio
  */
 public class MMMData implements AppDataComponent {
     // Some useful constatns
     public static final String WHITE_HEX = "#FFFFFF";
     public static final String BLACK_HEX = "#000000";
-    private static final Paint DEFAULT_BACKGROUND_COLOR 
-            = Paint.valueOf(WHITE_HEX);
+    public static final Color DEFAULT_BACKGROUND_COLOR 
+            = Color.WHITE;
     
     // instance variables
+    private String name;
     private AppTemplate app;
     private ObservableList<Node> shapes;
     private ObservableList<MetroLine> metroLines;
@@ -34,6 +42,8 @@ public class MMMData implements AppDataComponent {
     private jTPS transactionHistory;
     
     // Style things
+    private int width;
+    private int height;
     private Color backgroundColor;
     private Color outlineColor;
     private String imageFilepath;
@@ -172,6 +182,14 @@ public class MMMData implements AppDataComponent {
 
     public void setBackgroundColor(Color backgroundColor) {
         this.backgroundColor = backgroundColor;
+        
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        
+        Pane canvas = workspace.getCanvas();
+        BackgroundFill fill = new BackgroundFill(backgroundColor, null, null);
+        Background background = new Background(fill);
+        canvas.setBackground(background);
+        workspace.getDecorToolbarColorPicker().setValue(backgroundColor);
     }
 
     public String getImageFilepath() {
@@ -209,4 +227,14 @@ public class MMMData implements AppDataComponent {
     public MMMData getState() {
         return state;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    
 }

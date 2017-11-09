@@ -6,11 +6,14 @@
 package mmm.data;
 
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 /**
- *
- * @author steve
+ * Represents a node in an instance of Metro Line. Contains a reference to a 
+ * Metro Station and a reference to the Metro Line an instance is a part of.
+ * 
+ * @author Steven Maio
  */
 public class MetroLineNode {
     private MetroStation value;
@@ -27,9 +30,48 @@ public class MetroLineNode {
     public MetroLineNode() {}
     
     /**
-     * This method refreshes the line instance variable
+     * This method initializes the line instance variable
+     * @param thickness The value of the stroke width of the line
+     * @param color The value of the stroke fill of the line
      */
-    public void resetLine() {}
+    public void initLine(double thickness, Color fillColor) {
+        // init line and set style
+        line = new Line();
+        line.setStroke(fillColor);
+        line.setStrokeWidth(thickness);
+        
+        // bind the starting point to the Metro Station
+        Circle stationCircle = value.getStationCircle();
+        line.startXProperty().bind(stationCircle.centerXProperty());
+        line.startYProperty().bind(stationCircle.centerYProperty());
+        
+        // If this is the last node, bind it to the end label of Metro Line
+        if (nextNode == null) {
+            DraggableLabel endLabel = metroLine.getEndLabel();
+            
+            line.endXProperty().bind(endLabel.xProperty());
+            line.endYProperty().bind(endLabel.yProperty());
+        } else {
+            Circle nextCircle = nextNode.value.getStationCircle();
+            
+            line.endXProperty().bind(nextCircle.centerXProperty());
+            line.endYProperty().bind(nextCircle.centerYProperty());
+        }
+    }
+    
+    /**
+     * This method resets all of the lines in a Metro Line.
+     * @param thickness The value of the stroke width
+     * @param fillColor The value of the stroke color
+     */
+    public void resetLine(double thickness, Color fillColor) {
+        // If this is null, then do nothing
+        if (this == null)
+            return;
+        
+        initLine(thickness, fillColor);
+        nextNode.resetLine(thickness, fillColor);
+    }
     
     /**
      * This method updates the line's style
@@ -86,5 +128,9 @@ public class MetroLineNode {
 
     public void setMetroLine(MetroLine metroLine) {
         this.metroLine = metroLine;
+    }
+
+    public Line getLine() {
+        return line;
     }
 }

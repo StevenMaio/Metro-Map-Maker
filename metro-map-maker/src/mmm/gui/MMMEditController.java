@@ -10,6 +10,7 @@ import djf.ui.AppMessageDialogSingleton;
 import mmm.data.MMMData;
 import properties_manager.PropertiesManager;
 import static mmm.MMMLanguageProperty.*;
+import mmm.file.MMMFiles;
 
 /**
  *
@@ -47,6 +48,27 @@ public class MMMEditController {
         String aboutTitle = props.getProperty(ABOUT_TITLE);
         
         singleton.show(aboutTitle, aboutMessage);
+    }
+    
+    public void processNewMetroMap() {
+        EnterTextDialogSingleton enterTextDialg = 
+                EnterTextDialogSingleton.getSingleton();
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        
+        enterTextDialg.show(props.getProperty(NEW_METRO_MAP_TITLE),
+                props.getProperty(NEW_METRO_MAP_MESSAGE));
+        
+        // if the user selected ok
+        if (enterTextDialg.isReady()) {
+            String metroMapName = enterTextDialg.getText();
+            
+            // exit if metroMapName is null or empty
+            if ("".equals(metroMapName))
+                return;
+            
+            MMMFiles fileManager = (MMMFiles) app.getFileComponent();
+            fileManager.createNewMetroMap(metroMapName, app);;
+        }
     }
     
     public void processExport() {}

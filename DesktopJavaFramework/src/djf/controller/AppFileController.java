@@ -353,4 +353,16 @@ public class AppFileController {
     public boolean isSaved() {
         return saved;
     }
+    
+    //////////////////////////////
+    // Accessor/Mutator Methods //
+    //////////////////////////////
+
+    public File getCurrentWorkFile() {
+        return currentWorkFile;
+    }
+
+    public void setCurrentWorkFile(File currentWorkFile) {
+        this.currentWorkFile = currentWorkFile;
+    }
 }
