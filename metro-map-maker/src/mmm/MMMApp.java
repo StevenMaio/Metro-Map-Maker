@@ -26,9 +26,8 @@ import mmm.gui.MetroLineSettingsDialogSingleton;
 import mmm.gui.WelcomeDialogSingleton;
 import properties_manager.PropertiesManager;
 
-
 /**
- *
+ * 
  * @author steve
  */
 public class MMMApp extends AppTemplate {

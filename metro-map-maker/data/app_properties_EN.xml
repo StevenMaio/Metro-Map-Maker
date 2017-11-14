@@ -94,6 +94,9 @@
         <property name="EDIT_METRO_STATION_TITLE" value="Edit Metro Station"/>
         <property name="METRO_LINE_INFO" value="Metro Line Stops"/>
         <property name="ROUTE_TITLE" value="Route"/>
+        <property name="ADD_METRO_STATION_TITLE" value="Add Metro Station"/>
+        <property name="ADD_METRO_STATION_MESSAGE" value="Enter Metro Station Title"/>
+        
         
         <!--Message Window Messages-->
         <property name="PROPERTIES_LOAD_ERROR_MESSAGE" value="There was an error loading the file"/>
@@ -122,11 +125,11 @@
 	<property name="WORK_FILE_EXT_DESC" value="Metro Map Maker Files"/>
         
         <!--Recent File List This is lazy and I could probably implement this in a better way-->
-        <property name="RECENT_FILE_1" value="Wok"/>
-        <property name="RECENT_FILE_2" value="Little Dude"/>
-        <property name="RECENT_FILE_3" value="F"/>
-        <property name="RECENT_FILE_4" value="Balls"/>
-        <property name="RECENT_FILE_5" value="BallsAreTaken"/>
+        <property name="RECENT_FILE_1" value="F"/>
+        <property name="RECENT_FILE_2" value="Wok"/>
+        <property name="RECENT_FILE_3" value="Balls"/>
+        <property name="RECENT_FILE_4" value="BallsAreTaken"/>
+        <property name="RECENT_FILE_5" value="Little Dude"/>
     </property_list>
     <property_options_list>
     </property_options_list>

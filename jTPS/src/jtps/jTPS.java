@@ -68,6 +68,10 @@ public class jTPS {
         return (mostRecentTransaction < transactions.size() - 1);
     }
     
+    public boolean canUndo() {
+        return mostRecentTransaction >= 0;
+    }
+    
     public int getTransactionsSize() {
         return transactions.size();
     }

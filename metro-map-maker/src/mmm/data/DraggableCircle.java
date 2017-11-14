@@ -17,6 +17,14 @@ public class DraggableCircle extends Circle implements Draggable {
     private MetroStation metroStation;
     
     /**
+     * Default constructor for DraggableCircle. Sets the value of the radius to
+     * the minimum value.
+     */
+    public DraggableCircle() {
+        setRadius(MIN_RADIUS);
+    }
+    
+    /**
      * This method will be called when an instance of DraggableCircle is 
      * selected
      * 

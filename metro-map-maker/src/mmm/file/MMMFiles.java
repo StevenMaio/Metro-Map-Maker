@@ -52,6 +52,7 @@ import static djf.settings.AppStartupConstants.PATH_WORK;
 public class MMMFiles implements AppFileComponent {
     // constants and other crap
     private static final String JSON_BACKGROUND = "background";
+    private static final String JSON_BACKGROUND_IMAGE = "background_inage";
     private static final String JSON_RED = "red";
     private static final String JSON_GREEN = "green";
     private static final String JSON_BLUE = "blue";
@@ -108,7 +109,6 @@ public class MMMFiles implements AppFileComponent {
         
         
         JsonObject dataManagerJSO = Json.createObjectBuilder()
-//                .add(JSON_NAME, name)
                 .add(JSON_BACKGROUND, backgroundJson)
                 .add(JSON_NAME, name)
                 .build();
@@ -146,8 +146,10 @@ public class MMMFiles implements AppFileComponent {
         Color backgroundColor = loadColor(json, JSON_BACKGROUND);
         dataManager.setBackgroundColor(backgroundColor);
         String name = json.getString(JSON_NAME);
+        dataManager.setName(name);
         
         resetRecentMaps(name);
+        dataManager.refreshBackground();
     }
 
     @Override

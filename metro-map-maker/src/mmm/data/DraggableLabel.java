@@ -14,6 +14,12 @@ import static mmm.css.MMMStyle.STYLE_ITALICIZED_FONT;
  * @author Steven Maio
  */
 public class DraggableLabel extends Text implements Draggable {
+    // Default Style properties
+    private final boolean DEFAULT_BOLD = false;
+    private final boolean DEFAULT_ITALIC = false;
+    private final String DEFAULT_FONT_FAMILY = "Calibri";
+    private final int DEFAULT_FONT_SIZE = 14;
+    
     // style properties
     private String fontFamily;
     private int fontSize;
@@ -23,6 +29,20 @@ public class DraggableLabel extends Text implements Draggable {
     // Location properties
     private double startX;
     private double startY;
+    
+    /**
+     * Default constructor for an instance of DraggableLabel. Sets the values
+     * of all the style properties to their default values.
+     */
+    public DraggableLabel(String text) {
+        setText(text);
+        fontFamily = DEFAULT_FONT_FAMILY;
+        fontSize = DEFAULT_FONT_SIZE;
+        bold = DEFAULT_BOLD;
+        italicized = DEFAULT_ITALIC;
+        
+        resetStyle();
+    }
     
     /**
      * This method is called when an instance of DraggableLabel is about to 

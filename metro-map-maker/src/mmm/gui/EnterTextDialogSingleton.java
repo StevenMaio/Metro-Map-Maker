@@ -111,6 +111,7 @@ public class EnterTextDialogSingleton extends Stage {
         
         setTitle(messageTitle);
         messageLabel.setText(labelText);
+        textField.setText("");
         showAndWait();
     }
     

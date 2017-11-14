@@ -22,6 +22,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
 import mmm.data.MMMData;
 import mmm.data.MetroLine;
@@ -33,6 +35,7 @@ import static mmm.data.MetroLine.MIN_THICKNESS;
 import static mmm.data.DraggableCircle.MIN_RADIUS;
 import static mmm.data.DraggableCircle.MAX_RADIUS;
 import static mmm.css.MMMStyle.*;
+import mmm.data.DraggableCircle;
 import mmm.data.DraggableLabel;
 
 /**
@@ -333,14 +336,70 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         editController = new MMMEditController(app);
         canvasController = new MMMCanvasController(app);
         
+        //canvas stuff
+        canvas.setOnMouseDragged(e -> {
+            canvasController.processCanvasMouseDragged((int) e.getX(), (int) e.getY());
+        });
+        
+        canvas.setOnMousePressed(e -> {
+            canvasController.processCanvasMousePressDown((int) e.getX(), (int) e.getY());
+        });
+        
+        canvas.setOnMouseReleased(e -> {    
+            canvasController.processCanvasMouseRelease((int) e.getX(), (int) e.getY());
+        });
+        
+        canvas.setOnMouseClicked(e -> {
+            canvasController.processCanvasMouseClick((int) e.getX(), (int)e.getY());
+        });
+        
         // overrtte new
         app.getGUI().getNewButton().setOnAction(e -> {
             editController.processNewMetroMap();
         });
         
         // Other top toolbar stuff
+        undoButton.setOnAction(e -> {
+            editController.processUndo();
+        });
+        redoButton.setOnAction(e -> {
+            editController.processRedo();
+        });
         aboutButton.setOnAction(e -> {
             editController.processAbout();
+        });
+        
+        // Metro Line Toolbar
+        
+        // Metro Station Toolbar
+        newMetroStationButton.setOnAction(e -> {
+            editController.processNewMetroStation();
+        });
+        moveStationLabelButton.setOnAction(e -> {
+            editController.processMoveStationLabel();
+        });
+        rotateStationLabelButton.setOnAction(e -> {
+            editController.processRotateStationLabel();
+        });
+        metroStationsComboBox.setOnAction(e -> {
+            editController.processSelectMetroStation();
+        });
+        
+        // Route Finder
+        
+        // Decor TOolbar
+        decorToolbarColorPicker.setOnAction(e -> {
+            editController.processChangeBackgroundColor();
+        });
+        
+        // Font Toolbar
+        
+        // Navigation Toolbar
+        zoomInButton.setOnAction(e -> {
+            editController.processZoomIn();
+        });
+        zoomOutButton.setOnAction(e -> {
+            editController.processZoomOut();
         });
     }
     
@@ -400,7 +459,20 @@ public class MMMWorkspace extends AppWorkspaceComponent {
      *      MMMWorkspace.
      */
     @Override
-    public void reloadWorkspace(AppDataComponent dataComponent) {}
+    public void reloadWorkspace(AppDataComponent dataComponent) {
+        MMMData dataManager = (MMMData) dataComponent;
+        gui.updateToolbarControls(false);
+        
+        reloadTransactionsToolbar(dataManager);
+    }
+    
+    private void reloadTransactionsToolbar(MMMData dataManager) {
+        boolean canUndo = dataManager.getTransactionHistory().canUndo();
+        boolean canRedo = dataManager.getTransactionHistory().canRedo();
+        
+        undoButton.setDisable(! canUndo);
+        redoButton.setDisable(! canRedo);
+    }
     
     private void loadSelectedShapeSettings(Shape shape) {
     /*
@@ -412,6 +484,30 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     // THis method loads the style settings of some kind of text object
     private void loadTextSettings(DraggableLabel text) {}
     
+    /**
+     * This method will load the values of into a few of the editors.
+     * @param metroStation The Metro Station we are loading the settings from
+     */
+    public void loadMetroStationSettings(MetroStation metroStation) {
+        DraggableCircle stationCircle = metroStation.getStationCircle();
+        DraggableLabel stationLabel = metroStation.getStationLabel();
+        
+        metroStationsComboBox.getSelectionModel().select(metroStation);
+        
+        // Load Circle setttings
+        metroStationColorPicker.setValue((Color) stationCircle.getFill());
+        metroStationRadiusSlider.setValue(stationCircle.getRadius());
+        
+        // Load Text Settings
+        fontSizeComboBox.getSelectionModel().select(new Integer(stationLabel.getFontSize()));
+        fontFamilyComboBox.getSelectionModel().select(stationLabel.getFontFamily());
+    }
+    
+    /**
+     * This method loads the style settings of a MetroLine into the controls
+     * @param metroLine The Metro line we are loading the sttings from
+     */
+    public void loadMetroLineSettings(MetroLine metroLine) {}
     
     //////////////////////////////
     // ACCESSOR/MUTATOR METHODS //
@@ -453,6 +549,7 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         return fontSizeComboBox;
     }
 
+    // TODO: This might not be necessary
     public CheckBox getShowGridCheckBox() {
         return showGridCheckBox;
     }
