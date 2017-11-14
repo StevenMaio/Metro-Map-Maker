@@ -1,10 +1,22 @@
 package properties_manager;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 /**
  * This class is used for loading properties from XML files that can
@@ -44,7 +56,8 @@ public class PropertiesManager
     public static final String NAME_ATT                         = "name";
     public static final String VALUE_ATT                        = "value";
     public static final String DATA_PATH_PROPERTY               = "DATA_PATH";
-
+    private static final String PROPERTIES_FILE = "app_properties_EN.xml";
+    
     /**
      * The constructor is private because this is a singleton.
      */
@@ -112,6 +125,42 @@ public class PropertiesManager
     {
         String propName = property.toString();
         return propertyOptionsLists.get(propName);
+    }
+    
+    /**
+     * This method will change the value of a property in a properties file
+     * @param property
+     *      The property who's value we are changing.
+     * @param value
+     *      The new value of the property.
+     */
+    public void setProperty(Object property, String propertyValue) {
+        try {
+            String dataPath = getProperty(DATA_PATH_PROPERTY) + PROPERTIES_FILE;
+           
+            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+            Document doc = DocumentBuilderFactory.newInstance()
+                    .newDocumentBuilder().parse(new InputSource(dataPath));
+
+            // Locate the node
+            XPath xpath = XPathFactory.newInstance().newXPath();
+                    NodeList nodes = (NodeList)xpath.evaluate("//*[contains(@name, '" + property.toString() + "')]",
+                                              doc, XPathConstants.NODESET);
+
+            // change value to default language
+            org.w3c.dom.Node value = nodes.item(0).getAttributes().getNamedItem("value");
+                        String val = value.getNodeValue();
+                        value.setNodeValue(propertyValue);
+
+            // write the content into xml file
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                    Transformer transformer = transformerFactory.newTransformer();
+                    DOMSource source = new DOMSource(doc);
+                    StreamResult result = new StreamResult(new File(dataPath));
+                    transformer.transform(source, result);
+           
+        } catch (Exception e) {}
     }
 
     /**

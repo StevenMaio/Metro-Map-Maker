@@ -78,4 +78,11 @@ public enum MMMLanguageProperty {
     ZOOM_OUT_ICON,
     UNDO_ICON,
     REDO_ICON,
+    
+    // Recent File Stuff
+    RECENT_FILE_1,
+    RECENT_FILE_2,
+    RECENT_FILE_3,
+    RECENT_FILE_4,
+    RECENT_FILE_5,
 }

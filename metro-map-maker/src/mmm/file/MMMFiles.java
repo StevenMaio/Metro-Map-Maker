@@ -9,6 +9,11 @@ import static djf.settings.AppPropertyType.NEW_COMPLETED_MESSAGE;
 import static djf.settings.AppPropertyType.NEW_COMPLETED_TITLE;
 import static mmm.MMMLanguageProperty.NAME_TAKEN_MESSAGE;
 import static mmm.MMMLanguageProperty.NAME_TAKEN_TITLE;
+import static mmm.MMMLanguageProperty.RECENT_FILE_1;
+import static mmm.MMMLanguageProperty.RECENT_FILE_2;
+import static mmm.MMMLanguageProperty.RECENT_FILE_3;
+import static mmm.MMMLanguageProperty.RECENT_FILE_4;
+import static mmm.MMMLanguageProperty.RECENT_FILE_5;
 import djf.ui.AppMessageDialogSingleton;
 import java.io.File;
 import java.io.FileInputStream;
@@ -105,6 +110,7 @@ public class MMMFiles implements AppFileComponent {
         JsonObject dataManagerJSO = Json.createObjectBuilder()
 //                .add(JSON_NAME, name)
                 .add(JSON_BACKGROUND, backgroundJson)
+                .add(JSON_NAME, name)
                 .build();
         
         // TODO: Make it so that shapes are saved -- but this isn't important
@@ -139,6 +145,9 @@ public class MMMFiles implements AppFileComponent {
         
         Color backgroundColor = loadColor(json, JSON_BACKGROUND);
         dataManager.setBackgroundColor(backgroundColor);
+        String name = json.getString(JSON_NAME);
+        
+        resetRecentMaps(name);
     }
 
     @Override
@@ -284,6 +293,8 @@ public class MMMFiles implements AppFileComponent {
                 saveData(dataManager, filePath);
                 dialog.show(props.getProperty(NEW_COMPLETED_TITLE), 
                         props.getProperty(NEW_COMPLETED_MESSAGE));
+                
+                resetRecentMaps(mapName);
             } 
             // Name is already taken maybe
             else {
@@ -304,5 +315,29 @@ public class MMMFiles implements AppFileComponent {
 	double alpha = getDataAsDouble(jsonColor, JSON_ALPHA);
 	Color loadedColor = new Color(red, green, blue, alpha);
 	return loadedColor;
+    }
+    
+    // The method will do something to reset the loaded files
+    private void resetRecentMaps(String fileName) {
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        
+        // get recent maps
+        String[] recentMaps = new String[5];
+        recentMaps[0] = props.getProperty(RECENT_FILE_1);
+        recentMaps[1] = props.getProperty(RECENT_FILE_2);
+        recentMaps[2] = props.getProperty(RECENT_FILE_3);
+        recentMaps[3] = props.getProperty(RECENT_FILE_4);
+        recentMaps[4] = props.getProperty(RECENT_FILE_5);
+        
+        int currentIndex = 2;
+        props.setProperty(RECENT_FILE_1, fileName);
+        
+        for (int i = 0; i < 5; i++) {
+            if (currentIndex > 5)
+                return;
+            
+            if (! fileName.equals(recentMaps[i]))
+                props.setProperty("RECENT_FILE_" + currentIndex++, recentMaps[i]);
+        }
     }
 }

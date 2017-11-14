@@ -5,7 +5,7 @@
             <url>src/mmm/data/DraggableCircle.java</url>
             <bookmark id="1">
                 <name/>
-                <line>36</line>
+                <line>38</line>
                 <key/>
             </bookmark>
         </file>
@@ -59,8 +59,7 @@
             <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/file/MMMFiles.java</file>
             <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/MMMApp.java</file>
             <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/data/app_properties_EN.xml</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/data/DraggableLabel.java</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/data/DraggableImage.java</file>
+            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/gui/MMMEditController.java</file>
             <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/gui/MMMWorkspace.java</file>
             <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/data/MMMData.java</file>
             <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/gui/WelcomeDialogSingleton.java</file>

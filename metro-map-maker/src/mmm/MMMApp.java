@@ -9,13 +9,16 @@ import static djf.settings.AppPropertyType.APP_TITLE;
 import static djf.settings.AppPropertyType.PROPERTIES_LOAD_ERROR_MESSAGE;
 import static djf.settings.AppPropertyType.PROPERTIES_LOAD_ERROR_TITLE;
 import static djf.settings.AppStartupConstants.APP_PROPERTIES_FILE_NAME;
+import static djf.settings.AppStartupConstants.PATH_WORK;
 import djf.ui.AppGUI;
 import djf.ui.AppMessageDialogSingleton;
 import djf.ui.AppYesNoCancelDialogSingleton;
+import java.io.File;
 import java.util.Locale;
 import javafx.stage.Stage;
 import mmm.data.MMMData;
 import mmm.file.MMMFiles;
+import static mmm.file.MMMFiles.FILE_EXTENSION;
 import mmm.gui.BorderedMessageDialogSingleton;
 import mmm.gui.EnterTextDialogSingleton;
 import mmm.gui.MMMWorkspace;
@@ -100,14 +103,41 @@ public class MMMApp extends AppTemplate {
                 
                 // Show the welcome dialog, we'll process some crap 
                 // after this i think
+                welcomeDialog.loadRecentMaps();
                 welcomeDialog.showAndWait();
                 
-                // If the user created a map
-                if (welcomeDialog.isReady()) {
-                    String mapName = welcomeDialog.getMapName();
-                    
-                    MMMFiles files = (MMMFiles) fileComponent;
-                    files.createNewMetroMap(mapName, this);
+                try {
+                    // If the user created a map
+                    if (welcomeDialog.isReady()) {
+                        String mapName = welcomeDialog.getMapName();
+
+                        // If the user didn't select load recent map
+                        if (! welcomeDialog.getLoadRecentMap()) {
+                            MMMFiles files = (MMMFiles) fileComponent;
+                            files.createNewMetroMap(mapName, this);
+                        } else {
+                            // Load all of the stuff
+                            String filepath = PATH_WORK + mapName + FILE_EXTENSION;
+                            MMMFiles files = (MMMFiles) fileComponent;
+
+                            workspaceComponent.resetWorkspace();
+                            dataComponent.resetData();
+
+                            files.loadData(dataComponent, filepath);
+                            workspaceComponent.activateWorkspace(gui.getAppPane());
+
+                            gui.getFileController().setSaved(true);
+                            gui.updateToolbarControls(gui.getFileController().isSaved());
+
+                            File file = new File(filepath);
+
+                            gui.getFileController().setCurrentWorkFile(file);
+                        }
+                    }
+                } catch (Exception e) {
+                    // Display a message if an error happens while loading a file
+                    AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
+                    dialog.show(props.getProperty(PROPERTIES_LOAD_ERROR_TITLE), props.getProperty(PROPERTIES_LOAD_ERROR_MESSAGE));
                 }
                 
                 // NOW OPEN UP THE WINDOW

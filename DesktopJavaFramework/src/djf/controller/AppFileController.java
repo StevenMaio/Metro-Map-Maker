@@ -365,4 +365,8 @@ public class AppFileController {
     public void setCurrentWorkFile(File currentWorkFile) {
         this.currentWorkFile = currentWorkFile;
     }
+
+    public void setSaved(boolean saved) {
+        this.saved = saved;
+    }
 }
