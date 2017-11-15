@@ -125,10 +125,10 @@
 	<property name="WORK_FILE_EXT_DESC" value="Metro Map Maker Files"/>
         
         <!--Recent File List This is lazy and I could probably implement this in a better way-->
-        <property name="RECENT_FILE_1" value="F"/>
-        <property name="RECENT_FILE_2" value="Wok"/>
-        <property name="RECENT_FILE_3" value="Balls"/>
-        <property name="RECENT_FILE_4" value="BallsAreTaken"/>
+        <property name="RECENT_FILE_1" value="Balls"/>
+        <property name="RECENT_FILE_2" value="BallsAreTaken"/>
+        <property name="RECENT_FILE_3" value="F"/>
+        <property name="RECENT_FILE_4" value="Wok"/>
         <property name="RECENT_FILE_5" value="Little Dude"/>
     </property_list>
     <property_options_list>

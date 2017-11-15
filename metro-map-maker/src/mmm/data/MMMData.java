@@ -142,6 +142,12 @@ public class MMMData implements AppDataComponent {
     public void addStationToLine(MetroLine metroLine,
             MetroStation metroStation) {}
 
+    public void deleteMetroStation(MetroStation metroStation) {
+        DeleteMetroStation_Transaction transaction = new DeleteMetroStation_Transaction(this, metroStation);
+        
+        transactionHistory.addTransaction(transaction);
+    }
+    
     /**
      * Sets the radius of the selected Metro Station
      * @param metroStation
@@ -223,6 +229,19 @@ public class MMMData implements AppDataComponent {
         MoveShape_Transaction transaction = new MoveShape_Transaction(this, draggableShape);
         
         transactionHistory.addTransaction(transaction);
+    }
+    
+    public void setFill(Shape shape, Color color) {
+        ChangeFill_Transaction transaction = new ChangeFill_Transaction(this, shape, color);
+        
+        transactionHistory.addTransaction(transaction);
+    }
+    
+    public void changeRadius(DraggableCircle circle, double newRadius) {
+        ChangeCircleRadius_Transaction transaction = new ChangeCircleRadius_Transaction(this, circle, newRadius);
+        
+        transactionHistory.addTransaction(transaction);
+        
     }
 
     //////////////////////////////

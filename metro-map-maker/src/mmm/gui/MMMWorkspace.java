@@ -384,6 +384,15 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         metroStationsComboBox.setOnAction(e -> {
             editController.processSelectMetroStation();
         });
+        deleteMetroStationButton.setOnAction(e -> {
+            editController.processDeleteMetroStation();
+        });
+        metroStationColorPicker.setOnAction(e -> {
+            editController.processChangeStationColor();
+        });
+        metroStationRadiusSlider.setOnMouseDragged(e -> {
+            editController.processChangeStationRadius();
+        });
         
         // Route Finder
         
@@ -560,5 +569,9 @@ public class MMMWorkspace extends AppWorkspaceComponent {
 
     public ColorPicker getDecorToolbarColorPicker() {
         return decorToolbarColorPicker;
+    }
+
+    public Slider getMetroStationRadiusSlider() {
+        return metroStationRadiusSlider;
     }
 }

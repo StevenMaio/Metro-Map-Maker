@@ -5,6 +5,7 @@
  */
 package mmm.gui;
 
+import com.sun.javafx.font.FontConstants;
 import djf.AppTemplate;
 import djf.ui.AppMessageDialogSingleton;
 import javafx.scene.layout.Pane;
@@ -115,6 +116,8 @@ public class MMMEditController {
         
         MetroStation selectedMetroStation = workspace.getMetroStationComboBox().getSelectionModel().getSelectedItem();
         workspace.loadMetroStationSettings(selectedMetroStation);
+        
+        dataManager.setState(SELECTED_METRO_STATION);
     }
     
     /**
@@ -152,7 +155,12 @@ public class MMMEditController {
         }
     }
     
-    public void processDeleteMetroStation() {}
+    public void processDeleteMetroStation() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        MetroStation selectedMetroStation = workspace.getMetroStationComboBox().getSelectionModel().getSelectedItem();
+        
+        dataManager.deleteMetroStation(selectedMetroStation);
+    }
     
     /**
      * This method handles move the label of a MetroStation.
@@ -171,9 +179,25 @@ public class MMMEditController {
         dataManager.rotateStationLabel(metroStation);
     }
     
-    public void processChangeStationColor() {}
+    public void processChangeStationColor() {
+        // Get selected Station's Circle and selectedColor
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        DraggableCircle selectedStation = workspace.getMetroStationComboBox()
+                .getSelectionModel().getSelectedItem().getStationCircle();
+        Color selectedColor = workspace.getMetroStationColorPicker().getValue();
+        
+        dataManager.setFill(selectedStation, selectedColor);
+    }
     
-    public void processChangeStationRadius() {}
+    public void processChangeStationRadius() {
+        // Get the new Radius and circle
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        double newRadius = workspace.getMetroStationRadiusSlider().getValue();
+        DraggableCircle selectedCircle = workspace.getMetroStationComboBox()
+                .getSelectionModel().getSelectedItem().getStationCircle();
+        
+        dataManager.changeRadius(selectedCircle, newRadius);
+    }
     
     public void processFindRoute() {}
     

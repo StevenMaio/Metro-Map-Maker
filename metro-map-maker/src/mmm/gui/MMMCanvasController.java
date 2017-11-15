@@ -110,8 +110,17 @@ public class MMMCanvasController {
      */
     public void processCanvasMouseDragged(int x, int y) {
         MMMData dataManager = (MMMData) app.getDataComponent();
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        
         if (dataManager.getState() == DRAGGING_SHAPE) {
             Draggable selectedDraggableShape = (Draggable) dataManager.getSelectedShape();
+            
+            // If snap to grid is selected, then make x, y multiples of 10
+            if (workspace.getSnapToGridCheckBox().isSelected()) {
+                x = x - (x%10);
+                y = y - (y%10);
+            }
+            
             selectedDraggableShape.drag(x, y);
             app.getGUI().updateToolbarControls(false);
         }
