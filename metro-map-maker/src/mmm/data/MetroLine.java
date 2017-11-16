@@ -11,7 +11,7 @@ import static mmm.data.DraggableLabel.*;
  * 
  * @author Steven Maio
  */
-public class MetroLine extends ArrayList<MetroLineNode> {
+public class MetroLine extends ArrayList<MetroStation> {
     public static final Color DEFAULT_METRO_LINE_COLOR = Color.ORANGE;
     public static final double MAX_THICKNESS = 8;
     public static final double MIN_THICKNESS = 2;
@@ -34,13 +34,69 @@ public class MetroLine extends ArrayList<MetroLineNode> {
     public MetroLine() {
         color = DEFAULT_METRO_LINE_COLOR;
         lineThickness = MIN_THICKNESS;
+        lines = new ArrayList<>();
     }
     
     /**
      * This method will handle the process of adding a Metro Station to the 
      * Metro Line instance
+     * @param metroStation
      */
-    public void addMetroStation(MetroStation metroStation) {}
+    public void addMetroStation(MetroStation metroStation) {
+        
+        // If stations is empty, simply add the station to it, otherwise
+        if (contains(metroStation))
+            return ;
+        else if (isEmpty())
+            add(metroStation);
+        else {
+            // Get the first stop and calculate the distance
+            MetroStation firstStop = get(0);
+            int minIndex = 0;
+            double minDistance = metroStation.distance(firstStop);
+            
+            // Iterate through to find the closest station to metroStation
+            for (int i = 1; i < size(); i ++) {
+                MetroStation currentStation = get(i);
+                double distance = metroStation.distance(currentStation);
+                
+                if (distance < minDistance) {
+                    minIndex = i;
+                    minDistance = distance;
+                }
+            }
+            
+            // FUCK -- Okay. First, let's figure out what is the 'previous' thing
+            Draggable previousNode;
+            Draggable nextNode;
+            
+            // If minIndex == 0, get the startLabel, otherwise. Get what is at minIndex - 1
+            if (minIndex == 0)
+                previousNode = (Draggable) startLabel;
+            else
+                previousNode = (Draggable) get(minIndex - 1).getStationCircle();
+            
+            if (minIndex == size() - 1)
+                nextNode = (Draggable) endLabel;
+            else
+                nextNode = (Draggable) get(minIndex + 1).getStationCircle();
+            
+            DraggableCircle stationCircle = metroStation.getStationCircle();
+
+            // calculate distances between the two
+            double prevXDisplacement = Math.abs(stationCircle.getX() - previousNode.getX());
+            double prevYDisplacement = Math.abs(stationCircle.getY() - previousNode.getY());
+            
+            double nextXDisplacement = Math.abs(stationCircle.getX() - nextNode.getX());
+            double nextYDisplacement = Math.abs(stationCircle.getY() - nextNode.getY());
+            
+            if (Math.hypot(prevXDisplacement, prevYDisplacement) < 
+                    Math.hypot(nextXDisplacement, nextYDisplacement))
+                add(minIndex, metroStation);
+            else
+                add(minIndex + 1, metroStation);
+        }
+    }
     
     /**
      * This method will handle removing a Metro Station from the Metro Line 
@@ -49,7 +105,10 @@ public class MetroLine extends ArrayList<MetroLineNode> {
      * @param metroStation 
      *      The Metro Station that is being removed from the Metro Line
      */
-    public void removeMetroStation(MetroStation metroStation) {}
+    public void removeMetroStation(MetroStation metroStation) {
+        if (contains(metroStation))
+            remove(metroStation);
+    }
     
     /**
      * This method returns a string of information that lists of all of the 
@@ -59,7 +118,12 @@ public class MetroLine extends ArrayList<MetroLineNode> {
      *      The string listing off all of the Metro Stations visited by this
      */
     public String getLineDestinations() {
-        return null;
+        String destinations = "";
+        for (MetroStation e: this) {
+            destinations += String.format("-%s\n", e.getName());
+        }
+        
+        return destinations;
     }
     
     /**
@@ -72,7 +136,45 @@ public class MetroLine extends ArrayList<MetroLineNode> {
      * This method will refresh the initLine, that is set what it's connected
      * to and maybe refresh the style... I'm not sure
      */
-    public void refreshLine() {}
+    public void resetLine(MMMData data) {
+        // Clear lines
+        clearLines(data);
+        
+        // Now loop through the stations
+        for (int i = -1; i < size(); i++) {
+            Line line = new Line();
+            Draggable firstObject;
+            Draggable secondObject;
+            
+            line.setStroke(color);
+            line.setStrokeWidth(lineThickness);
+
+            if (i == -1)
+                firstObject = (Draggable) startLabel;
+            else
+                firstObject = (Draggable) get(i).getStationCircle();
+
+            if (i == size() - 1)
+                secondObject = (Draggable) endLabel;
+            else
+                secondObject = (Draggable) get(i + 1).getStationCircle();
+
+            // bind the properties and add them to line
+            line.startXProperty().bind(firstObject.xProperty());
+            line.startYProperty().bind(firstObject.yProperty());
+            line.endXProperty().bind(secondObject.xProperty());
+            line.endYProperty().bind(secondObject.yProperty());
+
+            // disable the line and all it to the thing
+            line.setDisable(true);
+            lines.add(line);
+        }
+    }
+    
+    public void clearLines(MMMData data) {
+        data.getShapes().removeAll(lines);
+        lines.clear();
+    }
 
     /**
      * Returns a string of info that describes the MetroLine
@@ -144,5 +246,9 @@ public class MetroLine extends ArrayList<MetroLineNode> {
 
     public void setFirstLine(Line firstLine) {
         this.firstLine = firstLine;
+    }
+
+    public ArrayList<Line> getLines() {
+        return lines;
     }
 }

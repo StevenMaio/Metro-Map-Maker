@@ -141,7 +141,12 @@ public class MMMData implements AppDataComponent {
      *      The Metro Station being added to the Metro Line
      */
     public void addStationToLine(MetroLine metroLine,
-            MetroStation metroStation) {}
+            MetroStation metroStation) {
+        AddStationToLine_Transaction transaction = new 
+        AddStationToLine_Transaction(this, metroLine, metroStation);
+        
+        transactionHistory.addTransaction(transaction);
+    }
 
     public void deleteMetroStation(MetroStation metroStation) {
         DeleteMetroStation_Transaction transaction = new DeleteMetroStation_Transaction(this, metroStation);
@@ -246,6 +251,12 @@ public class MMMData implements AppDataComponent {
         
     public void addMetroLine() {
         AddMetroLine_Transaction transaction = new AddMetroLine_Transaction(this, newMetroLine);
+        
+        transactionHistory.addTransaction(transaction);
+    }
+    
+    public void removeStationFromLine(MetroStation metroStation, MetroLine metroLine) {
+        RemoveStationFromLine_Transaction transaction = new RemoveStationFromLine_Transaction(this, metroLine, metroStation);
         
         transactionHistory.addTransaction(transaction);
     }

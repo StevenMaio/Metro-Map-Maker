@@ -1,5 +1,7 @@
 package mmm.data;
 
+import javafx.beans.property.DoubleProperty;
+
 /**
  * This interface provides the utility for draggable objects. Such as dragging,
  * and highlighting.
@@ -15,4 +17,6 @@ public interface Draggable {
     public double getY();
     public void highlight();
     public void unhighlight();
+    public DoubleProperty xProperty();
+    public DoubleProperty yProperty();
 }

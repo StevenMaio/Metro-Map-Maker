@@ -51,11 +51,13 @@ public class MMMCanvasController {
         Scene scene = app.getGUI().getPrimaryScene();
         MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
         MetroLine metroLine;
+        Draggable selectedShape;
+        MetroStation metroStation;
         
         // Determine what to do
         switch (dataManager.getState()) {
             case SELECTING_SHAPE:
-                Draggable selectedShape = (Draggable) dataManager.getTopShape(x, y);
+                selectedShape = (Draggable) dataManager.getTopShape(x, y);
                 
                 
                 if (selectedShape == null) {
@@ -82,7 +84,7 @@ public class MMMCanvasController {
                 stationCircle.setX(x);
                 stationCircle.setY(y);
                 
-                MetroStation metroStation = ((DraggableCircle) stationCircle).getMetroStation();
+                metroStation = ((DraggableCircle) stationCircle).getMetroStation();
                 AddMetroStation_Transaction transaction = new AddMetroStation_Transaction(dataManager, metroStation);
                 
                 dataManager.getTransactionHistory().addTransaction(transaction);
@@ -94,6 +96,7 @@ public class MMMCanvasController {
                 metroLine = dataManager.getNewMetroLine();
                 metroLine.getEndLabel().setX(x);
                 metroLine.getEndLabel().setY(y);
+                metroLine.resetLine(dataManager);
                 
                 dataManager.setState(SELECTING_SHAPE);
                 dataManager.addMetroLine();
@@ -108,9 +111,55 @@ public class MMMCanvasController {
                 dataManager.setState(CREATING_METRO_LINE_END_POINT);
                 break;
                 
+            case ADD_STATIONS_MODE:
+                // Make sure that a metroline is selected.
+                if (workspace.getMetroLineComboBox().getSelectionModel().getSelectedItem() == null){
+                        dataManager.setState(SELECTING_SHAPE);
+                        app.getGUI().getPrimaryScene().setCursor(Cursor.DEFAULT);
+                }
+                else {
+                    selectedShape = (Draggable) dataManager.getTopShape(x, y);
+                    if (selectedShape instanceof DraggableCircle) {
+                        DraggableCircle circle = (DraggableCircle) selectedShape;
+                        MetroStation selectedStation = circle.getMetroStation();
+
+                        metroLine = workspace.getMetroLineComboBox().getSelectionModel().getSelectedItem();
+
+                        dataManager.addStationToLine(metroLine, selectedStation);
+                    } else {
+                        dataManager.setState(SELECTING_SHAPE);
+                        app.getGUI().getPrimaryScene().setCursor(Cursor.DEFAULT);
+                    }
+                }
+                break;
+                
+            case REMOVE_STATIONS_MODE:
+                // Check to see if a metroLine is selected
+                metroLine = workspace.getMetroLineComboBox().getSelectionModel().getSelectedItem();
+                
+                // check to see if the selected line is null
+                if (metroLine == null) {
+                        dataManager.setState(SELECTING_SHAPE);
+                        app.getGUI().getPrimaryScene().setCursor(Cursor.DEFAULT);
+                } else {
+                    selectedShape = (Draggable) dataManager.getTopShape(x, y);
+                    
+                    // check to see if selected shape is a DraggableCircle
+                    if (selectedShape instanceof DraggableCircle) {
+                        metroStation = (MetroStation)((DraggableCircle) selectedShape).getMetroStation();
+                        
+                        dataManager.removeStationFromLine(metroStation, metroLine);
+                    } else {
+                        dataManager.setState(SELECTING_SHAPE);
+                        app.getGUI().getPrimaryScene().setCursor(Cursor.DEFAULT);
+                    }
+                }
+                break;
                 
             default:
+                // Set State to normal and change the cursor
                 dataManager.setState(SELECTING_SHAPE);
+                app.getGUI().getPrimaryScene().setCursor(Cursor.DEFAULT);
                 break;
         }
         
@@ -137,8 +186,8 @@ public class MMMCanvasController {
             
             // If snap to grid is selected, then make x, y multiples of 10
             if (workspace.getSnapToGridCheckBox().isSelected()) {
-                x = x - (x%10);
-                y = y - (y%10);
+                x = x - (x%20);
+                y = y - (y%20);
             }
             
             selectedDraggableShape.drag(x, y);

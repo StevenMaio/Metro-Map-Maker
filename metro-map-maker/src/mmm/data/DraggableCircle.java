@@ -1,5 +1,6 @@
 package mmm.data;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.shape.Circle;
 
 /**
@@ -120,6 +121,16 @@ public class DraggableCircle extends Circle implements Draggable {
     @Override
     public void unhighlight() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public DoubleProperty xProperty() {
+        return centerXProperty();
+    }
+
+    @Override
+    public DoubleProperty yProperty() {
+        return centerYProperty();
     }
     
     //////////////////////////////

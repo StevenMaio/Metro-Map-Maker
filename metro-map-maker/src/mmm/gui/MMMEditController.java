@@ -8,6 +8,7 @@ package mmm.gui;
 import com.sun.javafx.font.FontConstants;
 import djf.AppTemplate;
 import djf.ui.AppMessageDialogSingleton;
+import javafx.scene.Cursor;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -130,18 +131,6 @@ public class MMMEditController {
             metroLine.setEndLabel(endLabel);
             metroLine.setColor(color);
             
-            Line startLine = new Line();
-            startLine.setDisable(true);
-            metroLine.setFirstLine(startLine);
-            startLine.setStroke(color);
-            metroLine.setColor(color);
-            
-            // Bind the shit
-            startLine.startXProperty().bind(startLabel.xProperty());
-            startLine.startYProperty().bind(startLabel.yProperty());
-            startLine.endXProperty().bind(endLabel.xProperty());
-            startLine.endYProperty().bind(endLabel.yProperty());
-            
             dataManager.setNewMetroLine(metroLine);
             dataManager.setState(CREATING_METRO_LINE_START_POINT);
         }
@@ -149,9 +138,18 @@ public class MMMEditController {
   
     public void processDeleteMetroLine() {}
     
-    public void processAppendStation() {}
+    public void processAppendStation() {
+        // Change the state and the cursor
+        dataManager.setState(ADD_STATIONS_MODE);
+        app.getGUI().getPrimaryScene().setCursor(Cursor.HAND);
+    }
     
-    public void processRemoveStation() {}
+    public void processRemoveStation() {
+        // Change the state and the crusor
+        dataManager.setState(REMOVE_STATIONS_MODE);
+        app.getGUI().getPrimaryScene().setCursor(Cursor.CROSSHAIR);
+        
+    }
     
     public void processMetroLineInfo() {}
     

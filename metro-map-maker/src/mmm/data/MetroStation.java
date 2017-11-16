@@ -31,7 +31,9 @@ public class MetroStation {
     /**
      * This is the constructor for the MetroStation object.
      */
-    public MetroStation() {}
+    public MetroStation() {
+        neighbors = new ArrayList<>();
+    }
     
     /**
      * This method adjusts the label location so that it moves clockwise
@@ -45,6 +47,17 @@ public class MetroStation {
      */
     public void moveLabelLocationClockwise() {
         labelLocation = (labelLocation - 1) % NUMBER_OF_POSITIONS;
+    }
+    
+    /**
+     * This method adds a Metro Station to the neighbors list, and then adds
+     * this to other.neighbors
+     * 
+     * @param other The other Metro Station.
+     */
+    public void addNeighbor(MetroStation other) {
+        neighbors.add(other);
+        other.neighbors.add(this);
     }
 
     /**
@@ -68,29 +81,6 @@ public class MetroStation {
         stationLabel.setRotate(rotation);
         
     }
-        
-    /**
-     * This method initializes the label, that is it updates the values of the label
-     * to reflect a change in the Metro Station
-     */
-    public void initLabel() {}
-    
-    /**
-     * This method refreshes the stationLabel variable to update any changes 
-     * that are made to the label's properties.
-     */
-    public void refreshLabel() {}
-    
-    /**
-     * This method resets the Station's stationCircle variable
-     */
-    public void initStationCircle() {}
-    
-    /**
-     * This method will refresh the station circle so that any changes to the
-     * station circle will be visible to the user.
-     */
-    public void refreshStationCircle() {}
     
     /**
      * Returns the name of the instance of Metro Station.
@@ -118,6 +108,18 @@ public class MetroStation {
                 stationCircle.centerYProperty().add(yDisplacement));
         stationLabel.xProperty().bind(
                 stationCircle.centerXProperty().add(xDisplacement));
+    }
+    
+    /**
+     * The method calculates the distance between two MetroStations.
+     * @param other
+     * @return 
+     */
+    public double distance(MetroStation other) {
+        double xDisplacement = Math.abs(stationCircle.getX() - other.stationCircle.getX());
+        double yDisplacement = Math.abs(stationCircle.getY() - other.stationCircle.getY());
+        
+        return Math.hypot(xDisplacement, yDisplacement);
     }
     
     //////////////////////////////

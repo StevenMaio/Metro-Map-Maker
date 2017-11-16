@@ -8,33 +8,36 @@ package mmm.transactions;
 import jtps.jTPS_Transaction;
 import mmm.data.MMMData;
 import mmm.data.MetroLine;
+import mmm.data.MetroStation;
 
 /**
  *
  * @author steve
  */
-public class AddMetroLine_Transaction implements jTPS_Transaction {
+public class AddStationToLine_Transaction implements jTPS_Transaction {
     private MMMData data;
     private MetroLine metroLine;
+    private MetroStation metroStation;
     
-    public AddMetroLine_Transaction(MMMData data, MetroLine metroLine) {
+    public AddStationToLine_Transaction(MMMData data, MetroLine metroLine, MetroStation metroStation) {
         this.data = data;
         this.metroLine = metroLine;
+        this.metroStation = metroStation;
     }
 
     @Override
     public void doTransaction() {
-        data.getMetroLines().add(metroLine);
-        data.getShapes().addAll(metroLine.getEndLabel(), 
-                metroLine.getStartLabel());
+        metroLine.addMetroStation(metroStation);
+        metroLine.resetLine(data);
+        
         data.getShapes().addAll(metroLine.getLines());
     }
 
     @Override
     public void undoTransaction() {
-        data.getMetroLines().remove(metroLine);
-        data.getShapes().removeAll(metroLine.getEndLabel(), 
-                metroLine.getStartLabel());
-        data.getShapes().removeAll(metroLine.getLines());
+        metroLine.removeMetroStation(metroStation);
+        metroLine.resetLine(data);
+        
+        data.getShapes().addAll(metroLine.getLines());
     }
 }

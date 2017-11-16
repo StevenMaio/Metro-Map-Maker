@@ -370,6 +370,12 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         addMetroLineButton.setOnAction(e -> {
             editController.processAddMetroLine();
         });
+        appendStationButton.setOnAction(e -> {
+            editController.processAppendStation();
+        });
+        removeStationButton.setOnAction(e -> {
+            editController.processRemoveStation();
+        });
         
         // Metro Station Toolbar
         newMetroStationButton.setOnAction(e -> {
