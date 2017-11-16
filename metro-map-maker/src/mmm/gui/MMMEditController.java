@@ -10,12 +10,14 @@ import djf.AppTemplate;
 import djf.ui.AppMessageDialogSingleton;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import mmm.data.MMMData;
 import static mmm.data.MMMState.*;
 import properties_manager.PropertiesManager;
 import static mmm.MMMLanguageProperty.*;
 import mmm.data.DraggableCircle;
 import mmm.data.DraggableLabel;
+import mmm.data.MetroLine;
 import mmm.data.MetroStation;
 import mmm.file.MMMFiles;
 import mmm.transactions.MoveStationLabel_Transaction;
@@ -95,10 +97,56 @@ public class MMMEditController {
     
     public void processExport() {}
     
-    public void processSelectMetroLine() {}
+    public void processSelectMetroLine() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        
+        MetroLine metroLine = workspace.getMetroLineComboBox().getSelectionModel().getSelectedItem();
+        
+        // If the selected line is null, do nothing. Otherwise
+        if (metroLine == null);
+        else {
+            
+        }
+    }
     
-    public void processAddMetroLine() {}
-    
+    public void processAddMetroLine() {
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        MetroLineSettingsDialogSingleton singleton = MetroLineSettingsDialogSingleton.getSingleton();
+        
+        // create new metroline and init default settings
+        MetroLine metroLine = new MetroLine();
+        
+        singleton.show(metroLine, props.getProperty(ADD_METRO_LINE_TITLE));
+        
+        // If user clicks ready
+        if (singleton.isReady()) {
+            String name = singleton.getText();
+            Color color = singleton.getColor();
+            
+            metroLine.setName(name);
+            DraggableLabel startLabel = new DraggableLabel(name);
+            DraggableLabel endLabel = new DraggableLabel(name);
+            metroLine.setStartLabel(startLabel);
+            metroLine.setEndLabel(endLabel);
+            metroLine.setColor(color);
+            
+            Line startLine = new Line();
+            startLine.setDisable(true);
+            metroLine.setFirstLine(startLine);
+            startLine.setStroke(color);
+            metroLine.setColor(color);
+            
+            // Bind the shit
+            startLine.startXProperty().bind(startLabel.xProperty());
+            startLine.startYProperty().bind(startLabel.yProperty());
+            startLine.endXProperty().bind(endLabel.xProperty());
+            startLine.endYProperty().bind(endLabel.yProperty());
+            
+            dataManager.setNewMetroLine(metroLine);
+            dataManager.setState(CREATING_METRO_LINE_START_POINT);
+        }
+    }
+  
     public void processDeleteMetroLine() {}
     
     public void processAppendStation() {}
@@ -113,11 +161,15 @@ public class MMMEditController {
     
     public void processSelectMetroStation() {
         MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
-        
         MetroStation selectedMetroStation = workspace.getMetroStationComboBox().getSelectionModel().getSelectedItem();
-        workspace.loadMetroStationSettings(selectedMetroStation);
         
-        dataManager.setState(SELECTED_METRO_STATION);
+        // If the selected station is null, do nothing
+        if (selectedMetroStation == null);
+        else {
+            workspace.loadMetroStationSettings(selectedMetroStation);
+
+            dataManager.setState(SELECTED_METRO_STATION);
+        }
     }
     
     /**

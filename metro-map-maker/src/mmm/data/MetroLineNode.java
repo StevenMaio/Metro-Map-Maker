@@ -10,6 +10,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 /**
+ * THIS IS NO LONGER BEING USED
+ * 
  * Represents a node in an instance of Metro Line. Contains a reference to a 
  * Metro Station and a reference to the Metro Line an instance is a part of.
  * 

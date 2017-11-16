@@ -44,6 +44,8 @@ import mmm.data.MetroLine;
 import mmm.data.MetroStation;
 import properties_manager.PropertiesManager;
 import static djf.settings.AppStartupConstants.PATH_WORK;
+import java.math.BigDecimal;
+import mmm.data.DraggableCircle;
 
 /**
  * Handles saving and loading projects in the Metro Map Maker.
@@ -78,7 +80,10 @@ public class MMMFiles implements AppFileComponent {
     private static final String METRO_LINE = "METRO_LINE";
     private static final String DRAGGABLE_IMAGE = "DRAGGABLE_IMAGE";
     private static final String DRAGGABLE_LABEL = "DRAGGABLE_LABEL";
+    private static final String DRAGGABLE_CIRCLE = "DRAGGABLE_CIRCLE";
+    private static final String JSON_CIRCLE = "circle";
     public static final String FILE_EXTENSION = ".mmm";
+    
     
     /**
      * This method saves the users work.
@@ -178,7 +183,37 @@ public class MMMFiles implements AppFileComponent {
     
     
     private JsonObject saveMetroStation(MetroStation metroStation) {
-        return null;
+        JsonObject circleJson = saveDraggableCircle(metroStation.getStationCircle());
+        JsonObject labelJson = saveDraggableLabel(metroStation.getStationLabel());
+        
+        String name = metroStation.getName();
+        int labelLocation = metroStation.getLabelLocation();
+        int labelRotation = metroStation.getLabelRotation();
+        
+        JsonObject stationJson = Json.createObjectBuilder()
+                .add(JSON_NAME, name)
+                .add(JSON_LABEL, labelJson)
+                .add(JSON_CIRCLE, circleJson)
+                .add(JSON_LABEL_LOCATION, labelLocation)
+                .add(JSON_LABEL_ROTATION, labelRotation).build();
+        
+        return stationJson;
+    }
+    
+    private JsonObject saveDraggableCircle(DraggableCircle circle) {
+        JsonObject fillColor = makeJsonColorObject((Color) circle.getFill());
+        double radius = circle.getRadius();
+        double x = circle.getX();
+        double y = circle.getY();
+        
+        JsonObject circleJson = Json.createObjectBuilder()
+                .add(JSON_TYPE, DRAGGABLE_CIRCLE)
+                .add(JSON_RADIUS, radius)
+                .add(JSON_COLOR, fillColor)
+                .add(JSON_X, x)
+                .add(JSON_Y, y).build();
+        
+        return circleJson;
     }
     
     private JsonObject saveDraggableLabel(DraggableLabel draggableLabel) {
@@ -198,6 +233,7 @@ public class MMMFiles implements AppFileComponent {
                 .add(JSON_FONT_SIZE, fontSize)
                 .add(JSON_ITALIC_FONT, italized)
                 .add(JSON_BOLD_FONT, bold)
+                .add(JSON_COLOR, fillColor)
                 .add(JSON_X, x)
                 .add(JSON_Y, y).build();
         

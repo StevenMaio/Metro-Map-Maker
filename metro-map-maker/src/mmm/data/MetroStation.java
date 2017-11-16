@@ -16,19 +16,16 @@ public class MetroStation {
     // as well as the positions available for the rotation of the label
     public final static int NUMBER_OF_POSITIONS = 4;
     public final static int NUMBER_OF_ROTATIONS = 4;
-    private final static double LABEL_DISPLACEMENT = 20;
+    private final static double LABEL_DISPLACEMENT = 30;
     
     // instance variables
     private String name;
-    private ArrayList<MetroLineNode> nodes;
+    private ArrayList<MetroStation> neighbors;
     
     // Graphical Elements
-    // Label properties
     private DraggableLabel stationLabel;
     private int labelLocation;
     private int labelRotation;
-    
-    // station circle properties
     private DraggableCircle stationCircle;
     
     /**
@@ -155,7 +152,11 @@ public class MetroStation {
         this.stationLabel = stationLabel;
     }
 
-    public ArrayList<MetroLineNode> getNodes() {
-        return nodes;
+    public int getLabelRotation() {
+        return labelRotation;
+    }
+
+    public void setLabelRotation(int labelRotation) {
+        this.labelRotation = labelRotation;
     }
 }

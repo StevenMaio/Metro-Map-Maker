@@ -15,6 +15,7 @@ import mmm.data.DraggableCircle;
 import mmm.data.MMMData;
 import mmm.data.MMMState;
 import static mmm.data.MMMState.*;
+import mmm.data.MetroLine;
 import mmm.data.MetroStation;
 import mmm.transactions.AddMetroStation_Transaction;
 
@@ -49,6 +50,7 @@ public class MMMCanvasController {
         MMMData dataManager = (MMMData) app.getDataComponent();
         Scene scene = app.getGUI().getPrimaryScene();
         MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        MetroLine metroLine;
         
         // Determine what to do
         switch (dataManager.getState()) {
@@ -88,6 +90,24 @@ public class MMMCanvasController {
                 dataManager.setNewShape(null);
                 dataManager.setState(SELECTING_SHAPE);
                 break;
+            case CREATING_METRO_LINE_END_POINT:
+                metroLine = dataManager.getNewMetroLine();
+                metroLine.getEndLabel().setX(x);
+                metroLine.getEndLabel().setY(y);
+                
+                dataManager.setState(SELECTING_SHAPE);
+                dataManager.addMetroLine();
+                
+                break;
+                
+            case CREATING_METRO_LINE_START_POINT:
+                metroLine = dataManager.getNewMetroLine();
+                metroLine.getStartLabel().setX(x);
+                metroLine.getStartLabel().setY(y);
+                
+                dataManager.setState(CREATING_METRO_LINE_END_POINT);
+                break;
+                
                 
             default:
                 dataManager.setState(SELECTING_SHAPE);

@@ -23,7 +23,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Shape;
 import mmm.data.MMMData;
 import mmm.data.MetroLine;
@@ -49,8 +48,6 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     private Pane canvas;
     private BorderPane mainPane;
     private VBox editToolbar;
-    
-    private boolean snapToGrid; // This might be taken out
     
     // Controlers
     private MMMEditController editController;
@@ -178,7 +175,7 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         // TODO: THESE NEED TO BE CHANGED
         addMetroLineButton = gui.initChildButton(metroLineToolbarRow2, 
                 ADD_ICON.toString(), ADD_LINE_TOOLTIP.toString(), false);
-        addMetroLineButton = gui.initChildButton(metroLineToolbarRow2, 
+        deleteMetroLineButton = gui.initChildButton(metroLineToolbarRow2, 
                 REMOVE_ICON.toString(), REMOVE_LINE_TOOLTIP.toString(), false);
 
         appendStationButton = new Button(
@@ -370,6 +367,9 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         });
         
         // Metro Line Toolbar
+        addMetroLineButton.setOnAction(e -> {
+            editController.processAddMetroLine();
+        });
         
         // Metro Station Toolbar
         newMetroStationButton.setOnAction(e -> {

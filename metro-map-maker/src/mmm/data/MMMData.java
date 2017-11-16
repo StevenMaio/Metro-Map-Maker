@@ -36,7 +36,8 @@ public class MMMData implements AppDataComponent {
     private Shape newShape; // This will be where a new shap will be placed
     private jTPS transactionHistory;
     private Point2D startingPoint;
-
+    private MetroLine newMetroLine;
+    
     // Style things
     private int width;
     private int height;
@@ -241,7 +242,12 @@ public class MMMData implements AppDataComponent {
         ChangeCircleRadius_Transaction transaction = new ChangeCircleRadius_Transaction(this, circle, newRadius);
         
         transactionHistory.addTransaction(transaction);
+    }
         
+    public void addMetroLine() {
+        AddMetroLine_Transaction transaction = new AddMetroLine_Transaction(this, newMetroLine);
+        
+        transactionHistory.addTransaction(transaction);
     }
 
     //////////////////////////////
@@ -331,5 +337,13 @@ public class MMMData implements AppDataComponent {
 
     public void setStartingPoint(Point2D startingPoint) {
         this.startingPoint = startingPoint;
+    }
+
+    public MetroLine getNewMetroLine() {
+        return newMetroLine;
+    }
+
+    public void setNewMetroLine(MetroLine newMetroLine) {
+        this.newMetroLine = newMetroLine;
     }
 }

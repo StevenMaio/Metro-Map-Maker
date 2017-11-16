@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mmm.data;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import static mmm.data.DraggableLabel.*;
 
 /**
  * This class will represent a Metro Line object. This class will deal with
@@ -15,7 +11,7 @@ import javafx.scene.shape.Line;
  * 
  * @author Steven Maio
  */
-public class MetroLine extends LinkedList<MetroLineNode> {
+public class MetroLine extends ArrayList<MetroLineNode> {
     public static final Color DEFAULT_METRO_LINE_COLOR = Color.ORANGE;
     public static final double MAX_THICKNESS = 8;
     public static final double MIN_THICKNESS = 2;
@@ -25,17 +21,20 @@ public class MetroLine extends LinkedList<MetroLineNode> {
     private Color color;
     private double lineThickness;
     private Line firstLine;
+    private ArrayList<Line> lines;
     
-    // startLabel & Properties
+    // Metro Line labels
     private DraggableLabel startLabel;
-    
-    // endLabel & Properties
     private DraggableLabel endLabel;
+    
     
     /**
      * This is the constructor method for the MetroLine class.
      */
-    public MetroLine() {}
+    public MetroLine() {
+        color = DEFAULT_METRO_LINE_COLOR;
+        lineThickness = MIN_THICKNESS;
+    }
     
     /**
      * This method will handle the process of adding a Metro Station to the 
@@ -67,28 +66,6 @@ public class MetroLine extends LinkedList<MetroLineNode> {
      * This method will initialize the firstLine variable
      */
     public void initLine() {
-        firstLine = new Line();
-        firstLine.setStroke(color);
-        firstLine.setStrokeWidth(lineThickness);
-        
-        // bind starting point to startLabel
-        firstLine.startXProperty().bind(startLabel.xProperty());
-        firstLine.startYProperty().bind(startLabel.yProperty());
-        
-        // two acses for the end point -- either line contains no stops or 
-        // contains stops
-        if (getFirst() == null) {
-            firstLine.endXProperty().bind(endLabel.xProperty());
-            firstLine.endYProperty().bind(endLabel.yProperty());
-        } else {
-            DraggableCircle stationCircle = 
-                    getFirst().getValue().getStationCircle();
-            
-            firstLine.endXProperty().bind(stationCircle.centerXProperty());
-            firstLine.endYProperty().bind(stationCircle.centerYProperty());
-        }
-        
-        getFirst().resetLine(lineThickness, color);
     }
     
     /**
@@ -105,6 +82,16 @@ public class MetroLine extends LinkedList<MetroLineNode> {
      */
     public String toString() {
         return name;
+    }
+    
+    public DraggableLabel initLabel() {
+        DraggableLabel label = new DraggableLabel(name);
+        label.setBold(DEFAULT_BOLD);
+        label.setItalicized(DEFAULT_ITALIC);
+        label.setFontFamily(DEFAULT_FONT_FAMILY);
+        label.setFontSize(DEFAULT_FONT_SIZE);
+        
+        return label;
     }
     
     //////////////////////////////
@@ -153,5 +140,9 @@ public class MetroLine extends LinkedList<MetroLineNode> {
 
     public DraggableLabel getEndLabel() {
         return endLabel;
+    }
+
+    public void setFirstLine(Line firstLine) {
+        this.firstLine = firstLine;
     }
 }

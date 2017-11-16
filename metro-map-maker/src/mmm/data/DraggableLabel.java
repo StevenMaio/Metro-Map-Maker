@@ -15,10 +15,10 @@ import static mmm.css.MMMStyle.STYLE_ITALICIZED_FONT;
  */
 public class DraggableLabel extends Text implements Draggable {
     // Default Style properties
-    private final boolean DEFAULT_BOLD = false;
-    private final boolean DEFAULT_ITALIC = false;
-    private final String DEFAULT_FONT_FAMILY = "Calibri";
-    private final int DEFAULT_FONT_SIZE = 14;
+    public static final boolean DEFAULT_BOLD = false;
+    public static final boolean DEFAULT_ITALIC = false;
+    public static final String DEFAULT_FONT_FAMILY = "Calibri";
+    public static final int DEFAULT_FONT_SIZE = 14;
     
     // style properties
     private String fontFamily;
@@ -57,7 +57,8 @@ public class DraggableLabel extends Text implements Draggable {
      */
     @Override
     public void start(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        startX = x;
+        startY = y;
     }
     
     /**
@@ -72,7 +73,15 @@ public class DraggableLabel extends Text implements Draggable {
      */
     @Override
     public void drag(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        double diffX = x - (startX);
+	double diffY = y - (startY);
+	double newX = getX() + diffX;
+	double newY = getY() + diffY;
+        
+        xProperty().set(newX);
+        yProperty().set(newY);
+	startX = x;
+	startY = y;
     }
 
     /**
@@ -81,7 +90,7 @@ public class DraggableLabel extends Text implements Draggable {
      */
     @Override
     public void highlight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     /**
@@ -147,6 +156,6 @@ public class DraggableLabel extends Text implements Draggable {
 
     @Override
     public void unhighlight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
