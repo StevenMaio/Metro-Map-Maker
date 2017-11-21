@@ -6,5 +6,9 @@
         "blue":0.4000000059604645,
         "alpha":1.0
     },
-    "name":"BallsAreTaken"
+    "name":"BallsAreTaken",
+	"metro_stations":[
+	],
+    "metro_lines":[
+    ]
 }

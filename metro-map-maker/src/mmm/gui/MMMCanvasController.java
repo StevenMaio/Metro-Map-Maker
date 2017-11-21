@@ -70,6 +70,7 @@ public class MMMCanvasController {
                                 ((DraggableCircle) selectedShape).getMetroStation());
                     }
                     Point2D startingPoint = new Point2D(selectedShape.getX(), selectedShape.getY());
+                    
                     selectedShape.start(x, y);
                     
                     dataManager.setStartingPoint(startingPoint);
@@ -180,17 +181,15 @@ public class MMMCanvasController {
     public void processCanvasMouseDragged(int x, int y) {
         MMMData dataManager = (MMMData) app.getDataComponent();
         MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        boolean snapToGrid = false;
         
         if (dataManager.getState() == DRAGGING_SHAPE) {
             Draggable selectedDraggableShape = (Draggable) dataManager.getSelectedShape();
             
             // If snap to grid is selected, then make x, y multiples of 10
-            if (workspace.getSnapToGridCheckBox().isSelected()) {
-                x = x - (x%20);
-                y = y - (y%20);
-            }
+            snapToGrid = workspace.getSnapToGridCheckBox().isSelected();
             
-            selectedDraggableShape.drag(x, y);
+            selectedDraggableShape.drag(x, y, snapToGrid);
             app.getGUI().updateToolbarControls(false);
         }
     }

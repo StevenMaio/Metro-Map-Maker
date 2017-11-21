@@ -26,6 +26,9 @@ public enum MMMLanguageProperty {
     ADD_METRO_LINE_TITLE,
     ADD_METRO_LINE_MESSAGE,
     
+    EDIT_METRO_LINE_TITLE,
+    METRO_LINE_INFO,
+    
     // Toolbar Items
     METRO_LINES_TOOLBAR_TITLE,
     METRO_STATIONS_TOOLBAR_TITLE,
@@ -61,8 +64,10 @@ public enum MMMLanguageProperty {
     UNDO_TOOLTIP,
     REDO_TOOLTIP,
     ABOUT_TOOLTIP,
+    EDIT_METRO_LINE_TOOLTIP,
     
     // Icons
+    EDIT_ICON,
     SAVE_AS_ICON,
     SET_IMAGE_BACKGROUND_ICON,
     REMOVE_ELEMENT_ICON,

@@ -6,5 +6,9 @@
         "blue":1.0,
         "alpha":1.0
     },
-    "name":"Wok"
+    "name":"Wok",
+	"metro_stations":[
+	],
+    "metro_lines":[
+    ]
 }

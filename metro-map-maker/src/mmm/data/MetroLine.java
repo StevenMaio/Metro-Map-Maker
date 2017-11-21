@@ -20,7 +20,6 @@ public class MetroLine extends ArrayList<MetroStation> {
     private String name;
     private Color color;
     private double lineThickness;
-    private Line firstLine;
     private ArrayList<Line> lines;
     
     // Metro Line labels
@@ -120,7 +119,7 @@ public class MetroLine extends ArrayList<MetroStation> {
     public String getLineDestinations() {
         String destinations = "";
         for (MetroStation e: this) {
-            destinations += String.format("-%s\n", e.getName());
+            destinations += String.format("%s\n", e.getName());
         }
         
         return destinations;
@@ -175,6 +174,16 @@ public class MetroLine extends ArrayList<MetroStation> {
         data.getShapes().removeAll(lines);
         lines.clear();
     }
+    
+    /**
+     * This method refreshes the style of each of the lines.
+     */
+    public void refreshLineStyle() {
+        for (Line e: lines) {
+            e.setStroke(color);
+            e.setStrokeWidth(lineThickness);
+        }
+    }
 
     /**
      * Returns a string of info that describes the MetroLine
@@ -212,10 +221,6 @@ public class MetroLine extends ArrayList<MetroStation> {
         return lineThickness;
     }
 
-    public Line getFirstLine() {
-        return firstLine;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -242,10 +247,6 @@ public class MetroLine extends ArrayList<MetroStation> {
 
     public DraggableLabel getEndLabel() {
         return endLabel;
-    }
-
-    public void setFirstLine(Line firstLine) {
-        this.firstLine = firstLine;
     }
 
     public ArrayList<Line> getLines() {

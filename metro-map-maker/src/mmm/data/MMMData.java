@@ -131,7 +131,12 @@ public class MMMData implements AppDataComponent {
      *      The name of the metroStation
      */
     public void setMetroLineSettings(MetroLine metroLine, Color color,
-            String name) {}
+            String name) {
+        EditMetroLineSettings_Transaction transaction = new 
+                EditMetroLineSettings_Transaction(this, metroLine, name, color);
+        
+        transactionHistory.addTransaction(transaction);
+    }
 
     /**
      * Handles adding a Metro Station to a Metro Line
@@ -211,6 +216,7 @@ public class MMMData implements AppDataComponent {
         metroLines.clear();
         metroStations.clear();
         selectedShape = null;
+        state = MMMState.SELECTING_SHAPE;
     }
 
     /**
@@ -356,5 +362,21 @@ public class MMMData implements AppDataComponent {
 
     public void setNewMetroLine(MetroLine newMetroLine) {
         this.newMetroLine = newMetroLine;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }

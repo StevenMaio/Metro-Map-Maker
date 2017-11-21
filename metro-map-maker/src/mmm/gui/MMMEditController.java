@@ -5,23 +5,21 @@
  */
 package mmm.gui;
 
-import com.sun.javafx.font.FontConstants;
 import djf.AppTemplate;
 import djf.ui.AppMessageDialogSingleton;
 import javafx.scene.Cursor;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import mmm.data.MMMData;
 import static mmm.data.MMMState.*;
 import properties_manager.PropertiesManager;
+import static mmm.gui.BorderedMessageDialogSingleton.DESTINATIONS;
 import static mmm.MMMLanguageProperty.*;
 import mmm.data.DraggableCircle;
 import mmm.data.DraggableLabel;
 import mmm.data.MetroLine;
 import mmm.data.MetroStation;
 import mmm.file.MMMFiles;
-import mmm.transactions.MoveStationLabel_Transaction;
 
 /**
  *
@@ -96,17 +94,21 @@ public class MMMEditController {
         }
     }
     
-    public void processExport() {}
+    public void processExport() {
+    }
     
     public void processSelectMetroLine() {
         MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
         
         MetroLine metroLine = workspace.getMetroLineComboBox().getSelectionModel().getSelectedItem();
         
-        // If the selected line is null, do nothing. Otherwise
+        // If the selected line is null, do nothing. Otherwise load the settings
+        // and change the state of the application
         if (metroLine == null);
         else {
+            workspace.loadMetroLineSettings(metroLine);
             
+            dataManager.setState(SELECTED_METRO_LINE);
         }
     }
     
@@ -135,6 +137,31 @@ public class MMMEditController {
             dataManager.setState(CREATING_METRO_LINE_START_POINT);
         }
     }
+    
+    public void processEditMetroLine() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        
+        // get selected metroLine and the metro line singleton
+        MetroLine selectedMetroLine = workspace.getMetroLineComboBox()
+                .getSelectionModel().getSelectedItem();
+        
+        MetroLineSettingsDialogSingleton singleton =
+                MetroLineSettingsDialogSingleton.getSingleton();
+        
+        singleton.show(selectedMetroLine, props.getProperty(EDIT_METRO_LINE_TITLE));
+        
+        // now determine what to do
+        if (singleton.isReady()) {
+            String name = singleton.getText();
+            
+            if ("".equals(name))
+                return;
+            
+            dataManager.setMetroLineSettings(selectedMetroLine, 
+                    singleton.getColor(), name);
+        }
+    }
   
     public void processDeleteMetroLine() {}
     
@@ -151,7 +178,23 @@ public class MMMEditController {
         
     }
     
-    public void processMetroLineInfo() {}
+    public void processMetroLineInfo() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        MetroLine metroLine = workspace.getMetroLineComboBox()
+                .getSelectionModel().getSelectedItem();
+        
+        if (metroLine == null)
+            return;
+        
+        String lineInfo = metroLine.getLineDestinations();
+        
+        BorderedMessageDialogSingleton singleton = BorderedMessageDialogSingleton.getSingleton();
+        
+        singleton.show(props.getProperty(METRO_LINE_INFO), metroLine.getName() + " "
+                + DESTINATIONS, lineInfo);
+        
+    }
     
     public void processChangeMetroLineColor() {}
     

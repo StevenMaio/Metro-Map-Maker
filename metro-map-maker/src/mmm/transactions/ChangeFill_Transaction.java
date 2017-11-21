@@ -8,6 +8,7 @@ package mmm.transactions;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import jtps.jTPS_Transaction;
+import mmm.data.DraggableCircle;
 import mmm.data.MMMData;
 
 /**
@@ -29,11 +30,18 @@ public class ChangeFill_Transaction implements jTPS_Transaction {
 
     @Override
     public void doTransaction() {
-        shape.setFill(newColor);
+        // change circle color thing
+        if (shape instanceof DraggableCircle)
+            shape.setStroke(newColor);
+        else
+            shape.setFill(newColor);
     }
 
     @Override
     public void undoTransaction() {
-        shape.setFill(oldColor);
+        if (shape instanceof DraggableCircle)
+            shape.setStroke(oldColor);
+        else
+            shape.setFill(oldColor);
     }
 }

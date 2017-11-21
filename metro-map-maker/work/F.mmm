@@ -6,5 +6,42 @@
         "blue":0.6000000238418579,
         "alpha":1.0
     },
-    "name":"F"
+    "name":"F",
+    "metro_stations":[
+        {
+            "name":"1",
+            "label":{
+                "type":"DRAGGABLE_LABEL",
+                "text":"1",
+                "font_family":"Calibri",
+                "font_size":14,
+                "italic":false,
+                "bold":false,
+                "fill_color":{
+                    "red":0.0,
+                    "green":0.0,
+                    "blue":0.0,
+                    "alpha":1.0
+                },
+                "x":360.0,
+                "y":370.0
+            },
+            "circle":{
+                "type":"DRAGGABLE_CIRCLE",
+                "radius":5.0,
+                "fill_color":{
+                    "red":1.0,
+                    "green":0.6470588445663452,
+                    "blue":0.0,
+                    "alpha":1.0
+                },
+                "x":360.0,
+                "y":400.0
+            },
+            "label_location":0,
+            "label_rotation":0
+        }
+    ],
+    "metro_lines":[
+    ]
 }

@@ -6,5 +6,9 @@
         "blue":1.0,
         "alpha":1.0
     },
-	"name": "Little Dude"
+	"name": "Little Dude",
+	"metro_stations":[
+	],
+    "metro_lines":[
+    ]
 }

@@ -92,6 +92,12 @@ public class MetroStation {
        return name; 
     }
     
+    public void refreshRotation() {
+        double rotation = labelRotation * 360 / NUMBER_OF_ROTATIONS;
+        stationLabel.setRotate(-rotation);
+        
+    }
+    
     /**
      * This method binds the station label to the circle
      */
@@ -160,5 +166,9 @@ public class MetroStation {
 
     public void setLabelRotation(int labelRotation) {
         this.labelRotation = labelRotation;
+    }
+
+    public void setLabelLocation(int labelLocation) {
+        this.labelLocation = labelLocation;
     }
 }

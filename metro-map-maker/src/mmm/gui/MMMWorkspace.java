@@ -191,6 +191,8 @@ public class MMMWorkspace extends AppWorkspaceComponent {
                 removeStationButton);
         metroLineToolbar.getChildren().addAll(metroLineToolbarRow1, 
                 metroLineToolbarRow2, metroLineThicknessSlider);
+        editMetroLineButton = gui.initChildButton(metroLineToolbarRow1, EDIT_ICON.toString(), 
+                EDIT_METRO_LINE_TOOLTIP.toString(), false);
         
         metroLineInfoButton = gui.initChildButton(metroLineToolbarRow2, 
                 METRO_LINE_INFO_ICON.toString(), METRO_LINE_INFO_TOOLTIP.toString(), false);
@@ -213,7 +215,7 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         
         moveStationLabelButton = new Button(
                 props.getProperty(MOVE_LABEL_TEXT));
-        metroStationRadiusSlider = new Slider(MIN_RADIUS, MAX_RADIUS, 5);
+        metroStationRadiusSlider = new Slider(MIN_RADIUS, MAX_RADIUS, MIN_RADIUS);
         metroStationToolbarRow1.getChildren().addAll(metroStationToolbarLabel, 
                 metroStationsComboBox, metroStationColorPicker);
         metroStationToolbarRow2.getChildren().addAll(snapToGridCheckBox,
@@ -376,6 +378,15 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         removeStationButton.setOnAction(e -> {
             editController.processRemoveStation();
         });
+        metroLineComboBox.setOnAction(e -> {
+            editController.processSelectMetroLine();
+        });
+        editMetroLineButton.setOnAction(e -> {
+            editController.processEditMetroLine();
+        });
+        metroLineInfoButton.setOnAction(e -> {
+            editController.processMetroLineInfo();
+        });
         
         // Metro Station Toolbar
         newMetroStationButton.setOnAction(e -> {
@@ -497,7 +508,13 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     }
     
     // THis method loads the style settings of some kind of text object
-    private void loadTextSettings(DraggableLabel text) {}
+    private void loadTextSettings(DraggableLabel text) {
+        // Load Text Settings
+        fontSizeComboBox.getSelectionModel().select(new Integer(text.getFontSize()));
+        fontFamilyComboBox.getSelectionModel().select(text.getFontFamily());
+        
+        // TODO: Bold and Italic
+    }
     
     /**
      * This method will load the values of into a few of the editors.
@@ -510,19 +527,24 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         metroStationsComboBox.getSelectionModel().select(metroStation);
         
         // Load Circle setttings
-        metroStationColorPicker.setValue((Color) stationCircle.getFill());
+        metroStationColorPicker.setValue((Color) stationCircle.getStroke());
         metroStationRadiusSlider.setValue(stationCircle.getRadius());
         
         // Load Text Settings
-        fontSizeComboBox.getSelectionModel().select(new Integer(stationLabel.getFontSize()));
-        fontFamilyComboBox.getSelectionModel().select(stationLabel.getFontFamily());
+        loadTextSettings(stationLabel);
     }
     
     /**
      * This method loads the style settings of a MetroLine into the controls
      * @param metroLine The Metro line we are loading the sttings from
      */
-    public void loadMetroLineSettings(MetroLine metroLine) {}
+    public void loadMetroLineSettings(MetroLine metroLine) {
+        metroLineColorPicker.setValue((Color) metroLine.getColor());
+        
+        // load label settings
+        loadTextSettings(metroLine.getStartLabel());
+        
+    }
     
     //////////////////////////////
     // ACCESSOR/MUTATOR METHODS //

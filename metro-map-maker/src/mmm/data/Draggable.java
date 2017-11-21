@@ -10,7 +10,7 @@ import javafx.beans.property.DoubleProperty;
  */
 public interface Draggable {
     public void start(int x, int y);
-    public void drag(int x, int y);
+    public void drag(int x, int y, boolean snapToGrid);
     public void setX(double x);
     public void setY(double y);
     public double getX();

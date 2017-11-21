@@ -72,7 +72,7 @@ public class DraggableLabel extends Text implements Draggable {
      *      The Y-Coordinaate of the mosue drag event.
      */
     @Override
-    public void drag(int x, int y) {
+    public void drag(int x, int y, boolean snapToGrid) {
         double diffX = x - (startX);
 	double diffY = y - (startY);
 	double newX = getX() + diffX;

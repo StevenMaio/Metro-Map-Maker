@@ -40,7 +40,7 @@ public class DraggableImage extends Rectangle implements Draggable {
      *      The Y-Coordinate of the mouse drag event
      */
     @Override
-    public void drag(int x, int y) {
+    public void drag(int x, int y, boolean snapToGrid) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

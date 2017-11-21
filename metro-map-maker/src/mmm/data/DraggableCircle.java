@@ -1,6 +1,7 @@
 package mmm.data;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 /**
@@ -10,6 +11,7 @@ import javafx.scene.shape.Circle;
  * @author Steven Maio
  */
 public class DraggableCircle extends Circle implements Draggable {
+    public static final double OUTLINE = 3;
     public static final double MIN_RADIUS = 5;
     public static final double MAX_RADIUS = 15;
     
@@ -23,6 +25,9 @@ public class DraggableCircle extends Circle implements Draggable {
      */
     public DraggableCircle() {
         setRadius(MIN_RADIUS);
+        setFill(Color.WHITE);
+        setStroke(Color.ORANGE);
+        setStrokeWidth(OUTLINE);
     }
     
     /**
@@ -50,15 +55,22 @@ public class DraggableCircle extends Circle implements Draggable {
      *      The Y-Coordinate of the mouse drag event
      */
     @Override
-    public void drag(int x, int y) {
-        double diffX = x - startCenterX;
-	double diffY = y - startCenterY;
-	double newX = getCenterX() + diffX;
-	double newY = getCenterY() + diffY;
-	setCenterX(newX);
-	setCenterY(newY);
-	startCenterX = x;
-	startCenterY = y;
+    public void drag(int x, int y, boolean snapToGrid) {
+        x = (snapToGrid) ? x - x%20 : x;
+        y = (snapToGrid) ? y - y%20: y;
+        if (snapToGrid) {
+            setCenterX(x);
+            setCenterY(y);
+        } else {
+            double diffX = x - startCenterX;
+            double diffY = y - startCenterY;
+            double newX = getCenterX() + diffX;
+            double newY = getCenterY() + diffY;
+            setCenterX(newX);
+            setCenterY(newY);
+            startCenterX = x;
+            startCenterY = y;
+        }
     }
 
     /**

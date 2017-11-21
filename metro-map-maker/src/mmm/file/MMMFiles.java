@@ -29,6 +29,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonNumber;
 import javax.json.JsonObject;
@@ -44,7 +45,8 @@ import mmm.data.MetroLine;
 import mmm.data.MetroStation;
 import properties_manager.PropertiesManager;
 import static djf.settings.AppStartupConstants.PATH_WORK;
-import java.math.BigDecimal;
+import java.util.Hashtable;
+import java.util.Scanner;
 import mmm.data.DraggableCircle;
 
 /**
@@ -59,8 +61,11 @@ public class MMMFiles implements AppFileComponent {
     private static final String JSON_GREEN = "green";
     private static final String JSON_BLUE = "blue";
     private static final String JSON_ALPHA = "alpha";
+    private static final String JSON_HEIGHT = "height";
+    private static final String JSON_WIDTH = "width";
     private static final String JSON_X = "x";
     private static final String JSON_Y = "y";
+    private static final String JSON_STOPS = "stops";
     private static final String JSON_RADIUS = "radius";
     private static final String JSON_COLOR = "fill_color";
     private static final String JSON_FONT_FAMILY = "font_family";
@@ -76,6 +81,9 @@ public class MMMFiles implements AppFileComponent {
     private static final String JSON_START_LABEL = "start_label";
     private static final String JSON_END_LABEL = "end-label";
     private static final String JSON_LABEL = "label";
+    private static final String JSON_THICKNESS = "thickness";
+    private static final String JSON_METRO_STATIONS = "metro_stations";
+    private static final String JSON_METRO_LINES = "metro_lines";
     private static final String METRO_STATION = "METRO_STATION";
     private static final String METRO_LINE = "METRO_LINE";
     private static final String DRAGGABLE_IMAGE = "DRAGGABLE_IMAGE";
@@ -98,6 +106,8 @@ public class MMMFiles implements AppFileComponent {
         MMMData dataManager = (MMMData) data;
         String imageFilePath = dataManager.getImageFilepath();
         String name = dataManager.getName();
+        int height = dataManager.getHeight();
+        int width = dataManager.getWidth();
         JsonObject backgroundJson;
         
         // Background color
@@ -108,17 +118,31 @@ public class MMMFiles implements AppFileComponent {
             backgroundJson = Json.createObjectBuilder()
                     .add(JSON_FILE_PATH, imageFilePath).build();
         
-        // TODO: This is for creating the shapes. This needs to be implemented
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
         ObservableList<Node> shapes = dataManager.getShapes();
         
+        // TODO: First we do the metro lines
+        for (MetroLine metroLine: dataManager.getMetroLines())
+            arrayBuilder.add(saveMetroLine(metroLine));
+        
+        JsonArray metroLinesJson = arrayBuilder.build();
+        arrayBuilder = Json.createArrayBuilder(); // clear the array builder
+        
+        // Now get Json metro stations
+        for (MetroStation metroStation: dataManager.getMetroStations())
+            arrayBuilder.add(saveMetroStation(metroStation));
+        
+        JsonArray metroStationsJson = arrayBuilder.build();
         
         JsonObject dataManagerJSO = Json.createObjectBuilder()
                 .add(JSON_BACKGROUND, backgroundJson)
                 .add(JSON_NAME, name)
+//                .add(JSON_HEIGHT, height)
+//                .add(JSON_WIDTH, width)
+                .add(JSON_METRO_STATIONS, metroStationsJson)
+                .add(JSON_METRO_LINES, metroLinesJson)
                 .build();
         
-        // TODO: Make it so that shapes are saved -- but this isn't important
         
         // Place all the jazz into a JSON file with nice formating
 	Map<String, Object> properties = new HashMap<>(1);
@@ -144,14 +168,46 @@ public class MMMFiles implements AppFileComponent {
         // Clear old data
         MMMData dataManager = (MMMData) data;
         dataManager.resetData();
+        ObservableList<Node> shapes = dataManager.getShapes();
+        Hashtable<String, MetroStation> metroStationHash = new Hashtable<>();
         
         // Load the JSON file
         JsonObject json = loadJSONFile(filePath);
         
-        Color backgroundColor = loadColor(json, JSON_BACKGROUND);
+        Color backgroundColor = loadColor(json.getJsonObject(JSON_BACKGROUND));
         dataManager.setBackgroundColor(backgroundColor);
         String name = json.getString(JSON_NAME);
         dataManager.setName(name);
+        
+        // Load the Metro Stations
+        JsonArray jsonMetroStationsArray = json.getJsonArray(JSON_METRO_STATIONS);
+        for (int i = 0; i < jsonMetroStationsArray.size(); i++) {
+            MetroStation metroStation = loadMetroStation(jsonMetroStationsArray.getJsonObject(i));
+            
+            metroStationHash.put(metroStation.getName(), metroStation);
+            shapes.add(metroStation.getStationCircle());
+            shapes.add(metroStation.getStationLabel());
+            dataManager.getMetroStations().add(metroStation);
+        }
+        
+        // Load MetroLines
+        JsonArray jsonMetroLinesArray = json.getJsonArray(JSON_METRO_LINES);
+        for (int i = 0; i < jsonMetroLinesArray.size(); i++) {
+            JsonObject metroLineJson = jsonMetroLinesArray.getJsonObject(i);
+            Scanner stops = new Scanner(metroLineJson.getString(JSON_STOPS));
+            
+            MetroLine metroLine = loadMetroLine(metroLineJson);
+            
+            while (stops.hasNextLine()) {
+                metroLine.add(metroStationHash.get(stops.nextLine()));
+            }
+            
+            dataManager.getMetroLines().add(metroLine);
+            shapes.add(metroLine.getStartLabel());
+            shapes.add(metroLine.getEndLabel());
+            metroLine.resetLine(dataManager);
+            shapes.addAll(metroLine.getLines());
+        }
         
         resetRecentMaps(name);
         dataManager.refreshBackground();
@@ -178,7 +234,24 @@ public class MMMFiles implements AppFileComponent {
     
     // 
     private JsonObject saveMetroLine(MetroLine metroLine) {
-        return null;
+        // Get all the properties we're saving
+        JsonObject colorJson = makeJsonColorObject(metroLine.getColor());
+        JsonObject startLabelJson = saveDraggableLabel(metroLine.getStartLabel());
+        JsonObject endLabelJson = saveDraggableLabel(metroLine.getEndLabel());
+        String name = metroLine.getName();
+        String stops = metroLine.getLineDestinations();
+        double thickness = metroLine.getLineThickness();
+        
+        // Put them into a Json object
+        JsonObject metroLineJson = Json.createObjectBuilder()
+                .add(JSON_NAME, name)
+                .add(JSON_COLOR, colorJson)
+                .add(JSON_THICKNESS, thickness)
+                .add(JSON_STOPS, stops)
+                .add(JSON_START_LABEL, startLabelJson)
+                .add(JSON_END_LABEL, endLabelJson).build();
+        
+        return metroLineJson;
     }
     
     
@@ -201,7 +274,7 @@ public class MMMFiles implements AppFileComponent {
     }
     
     private JsonObject saveDraggableCircle(DraggableCircle circle) {
-        JsonObject fillColor = makeJsonColorObject((Color) circle.getFill());
+        JsonObject fillColor = makeJsonColorObject((Color) circle.getStroke());
         double radius = circle.getRadius();
         double x = circle.getX();
         double y = circle.getY();
@@ -254,24 +327,90 @@ public class MMMFiles implements AppFileComponent {
         return draggableImageJson;
     }
     
-    // Creates a MetroLine object from a JsonObject
+    // Creates a MetroLine object from a JsonObject everything except for the stops
     private MetroLine loadMetroLine(JsonObject jsonMetroLine) {
-        return null;
+        String name = jsonMetroLine.getString(JSON_NAME);
+        Color color = loadColor(jsonMetroLine.getJsonObject(JSON_COLOR));
+        double thickness = getDataAsDouble(jsonMetroLine, JSON_THICKNESS);
+        DraggableLabel startLabel = loadDraggableLabel(jsonMetroLine.getJsonObject(JSON_START_LABEL));
+        DraggableLabel endLabel = loadDraggableLabel(jsonMetroLine.getJsonObject(JSON_END_LABEL));
+        
+        MetroLine metroLine = new MetroLine();
+        metroLine.setName(name);
+        metroLine.setColor(color);
+        metroLine.setLineThickness(thickness);
+        metroLine.setStartLabel(startLabel);
+        metroLine.setEndLabel(endLabel);
+        
+        return metroLine;
     }
     
-    // Creates a MetroStation from a JsonObject
+    // Creates a MetroStation from a JsonObject and binds everything appropriatesly
     private MetroStation loadMetroStation(JsonObject jsonMetroStation) {
-        return null;
+        MetroStation metroStation = new MetroStation();
+        String name = jsonMetroStation.getString(JSON_NAME);
+        DraggableLabel label = 
+                loadDraggableLabel(jsonMetroStation.getJsonObject(JSON_LABEL));
+        DraggableCircle circle =
+                loadDraggableCircle(jsonMetroStation.getJsonObject(JSON_CIRCLE));
+        
+        int labelLocation = jsonMetroStation.getInt(JSON_LABEL_LOCATION);
+        int labelRotation = jsonMetroStation.getInt(JSON_LABEL_ROTATION);
+        
+        label.setDisable(true);
+        metroStation.setLabelRotation(labelRotation);
+        metroStation.setLabelLocation(labelLocation);
+        metroStation.setName(name);
+        metroStation.setStationCircle(circle);
+        metroStation.setStationLabel(label);
+        metroStation.refreshRotation();
+        metroStation.bindLabelToCircle();
+        circle.setMetroStation(metroStation);
+        
+        return metroStation;
     }
     
     // Create a draggable label from a JsonObject
     private DraggableLabel loadDraggableLabel(JsonObject jsonDraggableLabel) {
-        return null;
+        String text = jsonDraggableLabel.getString(JSON_TEXT);
+        boolean bold = jsonDraggableLabel.getBoolean(JSON_BOLD_FONT);
+        boolean italic = jsonDraggableLabel.getBoolean(JSON_ITALIC_FONT);
+        int fontSize = jsonDraggableLabel.getInt(JSON_FONT_SIZE);
+        String fontFamily = jsonDraggableLabel.getString(JSON_FONT_FAMILY);
+        int x = jsonDraggableLabel.getInt(JSON_X);
+        int y = jsonDraggableLabel.getInt(JSON_Y);
+        
+        DraggableLabel label = new DraggableLabel(text);
+        label.setX(x);
+        label.setY(y);
+        label.setFontFamily(fontFamily);
+        label.setText(text);
+        label.setFontSize(fontSize);
+        label.setBold(bold);
+        label.setItalicized(italic);
+        label.resetStyle();
+        
+        return label;
     }
     
     // Creates an instace of DraggableImage from a JsonObject
     private DraggableImage loadDraggableImage(JsonObject jsonDraggableImage) {
         return null;
+    }
+    
+    private DraggableCircle loadDraggableCircle(JsonObject jsonCircle) {
+        double radius = getDataAsDouble(jsonCircle, JSON_RADIUS);
+        int x = jsonCircle.getInt(JSON_X);
+        int y = jsonCircle.getInt(JSON_Y);
+        Color fill = loadColor(jsonCircle.getJsonObject(JSON_COLOR));
+        
+        DraggableCircle circle = new DraggableCircle();
+        circle.setX(x);
+        circle.setY(y);
+        circle.setRadius(radius);
+        circle.setStroke(fill);
+        
+        return circle;
     }
     
     private JsonObject makeJsonColorObject(Color color) {
@@ -345,12 +484,11 @@ public class MMMFiles implements AppFileComponent {
         }
     }
     
-    private Color loadColor(JsonObject json, String colorToGet) {
-	JsonObject jsonColor = json.getJsonObject(colorToGet);
-	double red = getDataAsDouble(jsonColor, JSON_RED);
-	double green = getDataAsDouble(jsonColor, JSON_GREEN);
-	double blue = getDataAsDouble(jsonColor, JSON_BLUE);
-	double alpha = getDataAsDouble(jsonColor, JSON_ALPHA);
+    private Color loadColor(JsonObject json) {
+	double red = getDataAsDouble(json, JSON_RED);
+	double green = getDataAsDouble(json, JSON_GREEN);
+	double blue = getDataAsDouble(json, JSON_BLUE);
+	double alpha = getDataAsDouble(json, JSON_ALPHA);
 	Color loadedColor = new Color(red, green, blue, alpha);
 	return loadedColor;
     }

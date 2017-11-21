@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 public class BorderedMessageDialogSingleton extends Stage {
     // Singleton
     private static BorderedMessageDialogSingleton singleton;
+    public static final String DESTINATIONS = "destinations";
     
     // instance variables
     private Label messageTitleLabel;
