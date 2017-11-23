@@ -35,7 +35,7 @@ public class AddStationToLine_Transaction implements jTPS_Transaction {
 
     @Override
     public void undoTransaction() {
-        metroLine.removeMetroStation(metroStation);
+        metroLine.remove(metroStation);
         metroLine.resetLine(data);
         
         data.getShapes().addAll(metroLine.getLines());

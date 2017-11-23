@@ -24,7 +24,10 @@ public class ChangeFill_Transaction implements jTPS_Transaction {
     public ChangeFill_Transaction(MMMData data, Shape shape, Color newColor) {
         this.data = data;
         this.shape = shape;
-        this.oldColor = (Color) shape.getFill();
+        if (shape instanceof DraggableCircle)
+            this.oldColor = (Color) shape.getStroke();
+        else
+            this.oldColor = (Color) shape.getFill();
         this.newColor = newColor;
     }
 

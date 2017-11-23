@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import jtps.jTPS;
 import mmm.gui.MMMWorkspace;
+import static mmm.data.MMMState.SELECTING_SHAPE;
 import mmm.transactions.*;
 
 /**
@@ -119,8 +120,13 @@ public class MMMData implements AppDataComponent {
      * @param thickness
      *      The new thickness of the Metro Line
      */
-    public void SetLineThickness(MetroLine metroLine, double thickness) {}
-
+    public void SetLineThickness(MetroLine metroLine, double thickness) {
+        EditLineThickness_Transaction transaction =
+                new EditLineThickness_Transaction(this, metroLine, thickness);
+        
+        transactionHistory.addTransaction(transaction);
+    }
+        
     /**
      * Sets the fill color and name of the Metro Line instance metroLine
      * @param metroLine
@@ -155,6 +161,12 @@ public class MMMData implements AppDataComponent {
 
     public void deleteMetroStation(MetroStation metroStation) {
         DeleteMetroStation_Transaction transaction = new DeleteMetroStation_Transaction(this, metroStation);
+        
+        transactionHistory.addTransaction(transaction);
+    }
+    
+    public void deleteMetroLine(MetroLine metroLine) {
+        DeleteMetroLine_Transaction transaction = new DeleteMetroLine_Transaction(this, metroLine);
         
         transactionHistory.addTransaction(transaction);
     }
@@ -216,7 +228,8 @@ public class MMMData implements AppDataComponent {
         metroLines.clear();
         metroStations.clear();
         selectedShape = null;
-        state = MMMState.SELECTING_SHAPE;
+        state = SELECTING_SHAPE;
+        app.getWorkspaceComponent().reloadWorkspace(this);
     }
 
     /**

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mmm.data;
 
 import java.util.ArrayList;
@@ -21,6 +16,7 @@ public class MetroStation {
     // instance variables
     private String name;
     private ArrayList<MetroStation> neighbors;
+    private ArrayList<MetroLine> metroLines;
     
     // Graphical Elements
     private DraggableLabel stationLabel;
@@ -32,6 +28,7 @@ public class MetroStation {
      * This is the constructor for the MetroStation object.
      */
     public MetroStation() {
+        metroLines = new ArrayList<>();
         neighbors = new ArrayList<>();
     }
     
@@ -170,5 +167,9 @@ public class MetroStation {
 
     public void setLabelLocation(int labelLocation) {
         this.labelLocation = labelLocation;
+    }
+
+    public ArrayList<MetroLine> getMetroLines() {
+        return metroLines;
     }
 }

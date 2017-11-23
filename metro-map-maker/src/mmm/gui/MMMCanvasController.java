@@ -208,10 +208,14 @@ public class MMMCanvasController {
         MMMData dataManager = (MMMData) app.getDataComponent();
         MMMState state = dataManager.getState();
         Scene scene = app.getGUI().getPrimaryScene();
+        Shape selectedShape = dataManager.getSelectedShape();
         
         switch (state) {
             case DRAGGING_SHAPE:
-                dataManager.setState(SELECTING_SHAPE);
+                if (selectedShape instanceof DraggableCircle)
+                    dataManager.setState(SELECTED_METRO_STATION);
+                else
+                    dataManager.setState(SELECTING_SHAPE);
                 scene.setCursor(Cursor.DEFAULT);
                 app.getGUI().updateToolbarControls(false);
                 
@@ -222,6 +226,8 @@ public class MMMCanvasController {
             default:
                 break;
         }
+        
+        app.getWorkspaceComponent().reloadWorkspace(dataManager);
     }
     
     /**

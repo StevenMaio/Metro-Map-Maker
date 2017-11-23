@@ -117,7 +117,11 @@
         <property name="SAVE_COMPLETED_TITLE" value="Saving Completed"/>
         <property name="SAVE_UNSAVED_WORK_MESSAGE" value="Would you like to save your unsaved work first?"/>
         <property name="SAVE_UNSAVED_WORK_TITLE" value="Save unsaved work?"/>        
-	
+	<property name="EXPORT_SUCCESS_TITLE" value="Export Success"/>
+	<property name="EXPORT_FAILURE_TITLE" value="Export Failure"/>
+        
+        <property name="EXPORT_SUCCESS_MESSAGE" value="Metro Map successfuly exported"/>
+        <property name="EXPORT_FAILURE_MESSAGE" value="Metro Map failed to export"/>
         <property name="NEW_CREATED_MESSAGE" value="New Work Created but not yet Saved"/>
         <property name="WORK_LOADED_MESSAGE" value="The Work has been Loaded"/>
         <property name="WORK_SAVED_MESSAGE" value="The Work has been Saved"/>
@@ -128,7 +132,7 @@
 	<property name="WORK_FILE_EXT_DESC" value="Metro Map Maker Files"/>
         
         <!--Recent File List This is lazy and I could probably implement this in a better way-->
-        <property name="RECENT_FILE_1" value="Miami_Metrorail"/>
+        <property name="RECENT_FILE_1" value="Miami Metrorail"/>
         <property name="RECENT_FILE_2" value="Balls"/>
         <property name="RECENT_FILE_3" value="F"/>
         <property name="RECENT_FILE_4" value="Little Dude"/>

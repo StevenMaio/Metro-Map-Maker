@@ -24,6 +24,9 @@ public class AppStartupConstants
     public static final String PATH_IMAGES = "./images/";
     public static final String PATH_TEMP = "./temp/";
     public static final String PATH_EMPTY = ".";
+    public static final String PATH_EXPORTS = "./exports/";
+    public static final String PNG = ".png";
+    public static final String JSON = ".json";
   
     // ERROR MESSAGE ASSOCIATED WITH PROPERTIES FILE LOADING ERRORS.
     // NOTE THAT THE REASON WE CAN'T LOAD THIS FROM THE XML FILE IS

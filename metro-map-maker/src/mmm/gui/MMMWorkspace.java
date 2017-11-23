@@ -33,9 +33,11 @@ import static mmm.data.MetroLine.MAX_THICKNESS;
 import static mmm.data.MetroLine.MIN_THICKNESS;
 import static mmm.data.DraggableCircle.MIN_RADIUS;
 import static mmm.data.DraggableCircle.MAX_RADIUS;
+import static mmm.data.MMMState.*;
 import static mmm.css.MMMStyle.*;
 import mmm.data.DraggableCircle;
 import mmm.data.DraggableLabel;
+import mmm.data.MMMState;
 
 /**
  *
@@ -72,8 +74,8 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     private Button removeStationButton;
     private Button metroLineInfoButton;
     private Button editMetroLineButton;
-    private ColorPicker metroLineColorPicker;
     private Slider metroLineThicknessSlider;
+    private ColorPicker metroLineColorPicker;
     
     // Metro Stations Toolbar
     private VBox metroStationToolbar;
@@ -182,7 +184,7 @@ public class MMMWorkspace extends AppWorkspaceComponent {
                 props.getProperty(APPEND_STATION_TEXT));
         removeStationButton = new Button(
                 props.getProperty(REMOVE_STATION_TEXT));
-        metroLineThicknessSlider = new Slider(MIN_THICKNESS, MAX_THICKNESS, 1);
+        metroLineThicknessSlider = new Slider(MIN_THICKNESS, MAX_THICKNESS, MIN_THICKNESS);
         
         // Put everything together
         metroLineToolbarRow1.getChildren().addAll(metroLineToolbarLabel, 
@@ -367,10 +369,16 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         aboutButton.setOnAction(e -> {
             editController.processAbout();
         });
+        exportButton.setOnAction(e -> {
+            editController.processExport();
+        });
         
         // Metro Line Toolbar
         addMetroLineButton.setOnAction(e -> {
             editController.processAddMetroLine();
+        });
+        deleteMetroLineButton.setOnAction(e -> {
+            editController.processDeleteMetroLine();
         });
         appendStationButton.setOnAction(e -> {
             editController.processAppendStation();
@@ -386,6 +394,12 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         });
         metroLineInfoButton.setOnAction(e -> {
             editController.processMetroLineInfo();
+        });
+        metroLineThicknessSlider.setOnMouseClicked(e -> {
+            editController.processChangeMetroLineThickness();
+        });
+        metroLineColorPicker.setOnAction(e -> {
+            editController.processChangeMetroLineColor();
         });
         
         // Metro Station Toolbar
@@ -435,15 +449,15 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         
         // make the color pickers and combo boxes buttons
         fontFillColorPicker.getStyleClass().add(CLASS_BUTTON);
-        metroLineColorPicker.getStyleClass().add(CLASS_BUTTON);
         metroStationColorPicker.getStyleClass().add(CLASS_BUTTON);
         decorToolbarColorPicker.getStyleClass().add(CLASS_BUTTON);
+        metroLineColorPicker.getStyleClass().add(CLASS_BUTTON);
         
         // Color picker settings
         fontFillColorPicker.getStyleClass().add(CLASS_COLOR_PICKER);
         decorToolbarColorPicker.getStyleClass().add(CLASS_COLOR_PICKER);
-        metroLineColorPicker.getStyleClass().add(CLASS_COLOR_PICKER);
         metroStationColorPicker.getStyleClass().add(CLASS_COLOR_PICKER);
+        metroLineColorPicker.getStyleClass().add(CLASS_COLOR_PICKER);
         
         // Style for the toolbars
         metroLineToolbar.getStyleClass().add(CLASS_EDIT_TOOLBAR_ROW);
@@ -488,6 +502,10 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     public void reloadWorkspace(AppDataComponent dataComponent) {
         MMMData dataManager = (MMMData) dataComponent;
         gui.updateToolbarControls(false);
+        MMMState state = dataManager.getState();
+        
+        reloadMetroLineToolbar(! (state == SELECTED_METRO_LINE));
+        reloadMetroStationToolbar(! (state == SELECTED_METRO_STATION));
         
         reloadTransactionsToolbar(dataManager);
     }
@@ -505,6 +523,26 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         This private method will load the settings of the selected shape into
         the toolbars where the object can be edited.
     */
+    }
+    
+    private void reloadMetroLineToolbar(boolean disable) {
+        deleteMetroLineButton.setDisable(disable);
+        metroLineColorPicker.setDisable(disable);
+        metroLineInfoButton.setDisable(disable);
+        metroLineThicknessSlider.setDisable(disable);
+        editMetroLineButton.setDisable(disable);
+        appendStationButton.setDisable(disable);
+        removeStationButton.setDisable(disable);
+    }
+    
+    private void reloadMetroStationToolbar(boolean disable) {
+        // Disable delete if no metro station is selected
+        if (metroStationsComboBox.getSelectionModel().getSelectedItem() == null)
+            deleteMetroStationButton.setDisable(false);
+        rotateStationLabelButton.setDisable(disable);
+        moveStationLabelButton.setDisable(disable);
+        metroStationColorPicker.setDisable(disable);
+        metroStationRadiusSlider.setDisable(disable);
     }
     
     // THis method loads the style settings of some kind of text object
@@ -539,7 +577,10 @@ public class MMMWorkspace extends AppWorkspaceComponent {
      * @param metroLine The Metro line we are loading the sttings from
      */
     public void loadMetroLineSettings(MetroLine metroLine) {
-        metroLineColorPicker.setValue((Color) metroLine.getColor());
+        double thickness = metroLine.getLineThickness();
+        metroLineThicknessSlider.setValue(thickness);
+        
+        metroLineColorPicker.setValue(metroLine.getColor());
         
         // load label settings
         loadTextSettings(metroLine.getStartLabel());
@@ -552,10 +593,6 @@ public class MMMWorkspace extends AppWorkspaceComponent {
 
     public ComboBox<MetroLine> getMetroLineComboBox() {
         return metroLineComboBox;
-    }
-
-    public ColorPicker getMetroLineColorPicker() {
-        return metroLineColorPicker;
     }
 
     public ComboBox<MetroStation> getMetroStationComboBox() {
@@ -601,5 +638,13 @@ public class MMMWorkspace extends AppWorkspaceComponent {
 
     public Slider getMetroStationRadiusSlider() {
         return metroStationRadiusSlider;
+    }
+
+    public Slider getMetroLineThicknessSlider() {
+        return metroLineThicknessSlider;
+    }
+
+    public ColorPicker getMetroLineColorPicker() {
+        return metroLineColorPicker;
     }
 }

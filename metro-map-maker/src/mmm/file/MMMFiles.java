@@ -45,9 +45,11 @@ import mmm.data.MetroLine;
 import mmm.data.MetroStation;
 import properties_manager.PropertiesManager;
 import static djf.settings.AppStartupConstants.PATH_WORK;
+import djf.ui.AppGUI;
 import java.util.Hashtable;
 import java.util.Scanner;
 import mmm.data.DraggableCircle;
+import mmm.data.MMMState;
 
 /**
  * Handles saving and loading projects in the Metro Map Maker.
@@ -82,16 +84,14 @@ public class MMMFiles implements AppFileComponent {
     private static final String JSON_END_LABEL = "end-label";
     private static final String JSON_LABEL = "label";
     private static final String JSON_THICKNESS = "thickness";
-    private static final String JSON_METRO_STATIONS = "metro_stations";
-    private static final String JSON_METRO_LINES = "metro_lines";
+    private static final String JSON_METRO_STATIONS = "stations";
+    private static final String JSON_METRO_LINES = "lines";
     private static final String METRO_STATION = "METRO_STATION";
     private static final String METRO_LINE = "METRO_LINE";
-    private static final String DRAGGABLE_IMAGE = "DRAGGABLE_IMAGE";
-    private static final String DRAGGABLE_LABEL = "DRAGGABLE_LABEL";
-    private static final String DRAGGABLE_CIRCLE = "DRAGGABLE_CIRCLE";
     private static final String JSON_CIRCLE = "circle";
+    private static final String JSON_CIRCULAR = "circular";
+    private static final String JSON_STATION_NAMES = "station_names";
     public static final String FILE_EXTENSION = ".mmm";
-    
     
     /**
      * This method saves the users work.
@@ -199,7 +199,9 @@ public class MMMFiles implements AppFileComponent {
             MetroLine metroLine = loadMetroLine(metroLineJson);
             
             while (stops.hasNextLine()) {
-                metroLine.add(metroStationHash.get(stops.nextLine()));
+                MetroStation nextStop = metroStationHash.get(stops.nextLine());
+                metroLine.add(nextStop);
+                nextStop.getMetroLines().add(metroLine);
             }
             
             dataManager.getMetroLines().add(metroLine);
@@ -209,13 +211,97 @@ public class MMMFiles implements AppFileComponent {
             shapes.addAll(metroLine.getLines());
         }
         
+        // Put the currentmap in the title
         resetRecentMaps(name);
         dataManager.refreshBackground();
+        dataManager.setState(MMMState.SELECTING_SHAPE);
     }
 
+    /**
+     * TODO: This needs to be changed to match the format in the HW handout.
+     * @param data
+     * @param filePath
+     * @throws IOException 
+     */
     @Override
     public void exportData(AppDataComponent data, String filePath) throws IOException {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        // Json builder and data Manager
+        MMMData dataManager = (MMMData) data;
+        String name = dataManager.getName();
+        JsonObject backgroundJson;
+        
+        // TODO: Background stuff
+        
+        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+        ObservableList<Node> shapes = dataManager.getShapes();
+        
+        // Create the JsonArray for Metro Lines
+        for (MetroLine metroLine: dataManager.getMetroLines()){
+            JsonObject color = makeJsonColorObject(metroLine.getColor());
+            String metroLineName = metroLine.getName();
+            
+            JsonArrayBuilder stopsArrayJson = Json.createArrayBuilder();
+            Scanner stopsInput = new Scanner(metroLine.getLineDestinations());
+            
+            while(stopsInput.hasNextLine())
+                stopsArrayJson.add(stopsInput.nextLine());
+            
+            // TODO: Circular eventually
+            JsonObject metroLineJson = Json.createObjectBuilder()
+                    .add(JSON_NAME, metroLineName)
+                    .add(JSON_CIRCULAR, false)
+                    .add(JSON_COLOR, color)
+                    .add(JSON_STATION_NAMES, stopsArrayJson.build())
+                    .build();
+            
+            arrayBuilder.add(metroLineJson);
+        }
+        
+        JsonArray metroLinesJson = arrayBuilder.build();
+        arrayBuilder = Json.createArrayBuilder(); // clear the array builder
+        
+        // Now get JsonArray for Metro Stations
+        for (MetroStation metroStation: dataManager.getMetroStations()) {
+            String metroStationName = metroStation.getName();
+            int x = (int) metroStation.getStationCircle().getX();
+            int y = (int) metroStation.getStationCircle().getY();
+            
+            JsonObject metroStationJson = Json.createObjectBuilder()
+                    .add(JSON_NAME, metroStationName)
+                    .add(JSON_X, x)
+                    .add(JSON_Y, y)
+                    .build();
+            
+            arrayBuilder.add(metroStationJson);
+        }
+        
+        JsonArray metroStationsJson = arrayBuilder.build();
+        
+        // Put everything together into one Json object
+        JsonObject dataManagerJSO = Json.createObjectBuilder()
+                .add(JSON_NAME, name)
+                .add(JSON_METRO_LINES, metroLinesJson)
+                .add(JSON_METRO_STATIONS, metroStationsJson)
+                .build();
+        
+        
+        // Place all the jazz into a JSON file with nice formating
+	Map<String, Object> properties = new HashMap<>(1);
+	properties.put(JsonGenerator.PRETTY_PRINTING, true);
+	JsonWriterFactory writerFactory = Json.createWriterFactory(properties);
+	StringWriter sw = new StringWriter();
+	JsonWriter jsonWriter = writerFactory.createWriter(sw);
+	jsonWriter.writeObject(dataManagerJSO);
+	jsonWriter.close();
+
+	// INIT THE WRITER
+	OutputStream os = new FileOutputStream(filePath);
+	JsonWriter jsonFileWriter = Json.createWriter(os);
+	jsonFileWriter.writeObject(dataManagerJSO);
+	String prettyPrinted = sw.toString();
+	PrintWriter pw = new PrintWriter(filePath);
+	pw.write(prettyPrinted);
+	pw.close();
     }
 
     @Override
@@ -280,7 +366,6 @@ public class MMMFiles implements AppFileComponent {
         double y = circle.getY();
         
         JsonObject circleJson = Json.createObjectBuilder()
-                .add(JSON_TYPE, DRAGGABLE_CIRCLE)
                 .add(JSON_RADIUS, radius)
                 .add(JSON_COLOR, fillColor)
                 .add(JSON_X, x)
@@ -300,7 +385,6 @@ public class MMMFiles implements AppFileComponent {
         double y = draggableLabel.getY();
         
         JsonObject draggableLabelJson = Json.createObjectBuilder()
-                .add(JSON_TYPE, DRAGGABLE_LABEL)
                 .add(JSON_TEXT, text)
                 .add(JSON_FONT_FAMILY, fontFamily)
                 .add(JSON_FONT_SIZE, fontSize)
@@ -319,7 +403,6 @@ public class MMMFiles implements AppFileComponent {
         String imageFilePath = draggableImage.getImageFilepath();
         
         JsonObject draggableImageJson = Json.createObjectBuilder()
-                .add(JSON_TYPE, DRAGGABLE_IMAGE)
                 .add(JSON_X, x)
                 .add(JSON_Y, y)
                 .add(JSON_FILE_PATH, imageFilePath).build();

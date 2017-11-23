@@ -7,7 +7,7 @@
         "alpha":1.0
     },
     "name":"Balls",
-    "metro_stations":[
+    "stations":[
         {
             "name":"1",
             "label":{
@@ -75,7 +75,7 @@
             "label_rotation":0
         }
     ],
-    "metro_lines":[
+    "lines":[
         {
             "name":"1",
             "fill_color":{

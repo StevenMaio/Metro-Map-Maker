@@ -6,12 +6,11 @@
         "blue":1.0,
         "alpha":1.0
     },
-    "name":"Miami_Metrorail",
-    "metro_stations":[
+    "name":"Miami Metrorail",
+    "stations":[
         {
             "name":"Palmetto",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Palmetto",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -27,8 +26,7 @@
                 "y":170.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":7.938931297709924,
                 "fill_color":{
                     "red":0.4000000059604645,
                     "green":0.6000000238418579,
@@ -44,7 +42,6 @@
         {
             "name":"Okeechobee",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Okeechobee",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -60,8 +57,7 @@
                 "y":190.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":7.938931297709924,
                 "fill_color":{
                     "red":0.4000000059604645,
                     "green":0.6000000238418579,
@@ -77,7 +73,6 @@
         {
             "name":"Hialeah",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Hialeah",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -93,8 +88,7 @@
                 "y":190.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":7.938931297709924,
                 "fill_color":{
                     "red":0.4000000059604645,
                     "green":0.6000000238418579,
@@ -110,7 +104,6 @@
         {
             "name":"Tri-Rail",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Tri-Rail",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -126,8 +119,7 @@
                 "y":170.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":7.404580152671755,
                 "fill_color":{
                     "red":0.4000000059604645,
                     "green":0.6000000238418579,
@@ -143,7 +135,6 @@
         {
             "name":"Northside",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Northside",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -159,8 +150,7 @@
                 "y":170.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":7.748091603053435,
                 "fill_color":{
                     "red":0.4000000059604645,
                     "green":0.6000000238418579,
@@ -176,7 +166,6 @@
         {
             "name":"Dr. Martin Luther King Jr.",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Dr. Martin Luther King Jr.",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -192,8 +181,7 @@
                 "y":210.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":7.557251908396946,
                 "fill_color":{
                     "red":0.4000000059604645,
                     "green":0.6000000238418579,
@@ -209,7 +197,6 @@
         {
             "name":"Brownsville",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Brownsville",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -225,8 +212,7 @@
                 "y":270.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":7.633587786259541,
                 "fill_color":{
                     "red":0.4000000059604645,
                     "green":0.6000000238418579,
@@ -242,7 +228,6 @@
         {
             "name":"Miami International Airport",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Miami International Airport",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -254,19 +239,18 @@
                     "blue":0.0,
                     "alpha":1.0
                 },
-                "x":360.0,
+                "x":380.0,
                 "y":350.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":7.786259541984733,
                 "fill_color":{
                     "red":1.0,
                     "green":0.6470588445663452,
                     "blue":0.0,
                     "alpha":1.0
                 },
-                "x":360.0,
+                "x":380.0,
                 "y":380.0
             },
             "label_location":0,
@@ -275,7 +259,6 @@
         {
             "name":"Earlington Heights",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Earlington Heights",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -291,8 +274,7 @@
                 "y":330.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":8.473282442748092,
                 "fill_color":{
                     "red":1.0,
                     "green":0.6470588445663452,
@@ -308,7 +290,6 @@
         {
             "name":"Allapattah",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Allapattah",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -324,8 +305,7 @@
                 "y":360.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":8.511450381679388,
                 "fill_color":{
                     "red":1.0,
                     "green":0.6470588445663452,
@@ -341,7 +321,6 @@
         {
             "name":"Santa Clara",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Santa Clara",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -354,11 +333,10 @@
                     "alpha":1.0
                 },
                 "x":710.0,
-                "y":380.0
+                "y":400.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":8.320610687022901,
                 "fill_color":{
                     "red":1.0,
                     "green":0.6470588445663452,
@@ -366,7 +344,7 @@
                     "alpha":1.0
                 },
                 "x":680.0,
-                "y":380.0
+                "y":400.0
             },
             "label_location":-1,
             "label_rotation":0
@@ -374,7 +352,6 @@
         {
             "name":"Civic Center",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Civic Center",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -387,11 +364,10 @@
                     "alpha":1.0
                 },
                 "x":710.0,
-                "y":420.0
+                "y":440.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":8.854961832061068,
                 "fill_color":{
                     "red":1.0,
                     "green":0.6470588445663452,
@@ -399,7 +375,7 @@
                     "alpha":1.0
                 },
                 "x":680.0,
-                "y":420.0
+                "y":440.0
             },
             "label_location":-1,
             "label_rotation":0
@@ -407,7 +383,6 @@
         {
             "name":"Culmer",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Culmer",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -420,11 +395,10 @@
                     "alpha":1.0
                 },
                 "x":730.0,
-                "y":448.0
+                "y":480.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":8.549618320610687,
                 "fill_color":{
                     "red":1.0,
                     "green":0.6470588445663452,
@@ -432,7 +406,7 @@
                     "alpha":1.0
                 },
                 "x":700.0,
-                "y":448.0
+                "y":480.0
             },
             "label_location":-1,
             "label_rotation":0
@@ -440,7 +414,6 @@
         {
             "name":"Historic Overtown/Lyric Theatre",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Historic Overtown/Lyric Theatre",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -453,11 +426,10 @@
                     "alpha":1.0
                 },
                 "x":770.0,
-                "y":480.0
+                "y":500.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":8.625954198473282,
                 "fill_color":{
                     "red":1.0,
                     "green":0.6470588445663452,
@@ -465,7 +437,7 @@
                     "alpha":1.0
                 },
                 "x":740.0,
-                "y":480.0
+                "y":500.0
             },
             "label_location":-1,
             "label_rotation":0
@@ -473,7 +445,6 @@
         {
             "name":"Government Center",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Government Center",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -486,11 +457,10 @@
                     "alpha":1.0
                 },
                 "x":770.0,
-                "y":520.0
+                "y":540.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":7.633587786259541,
                 "fill_color":{
                     "red":1.0,
                     "green":0.6470588445663452,
@@ -498,7 +468,7 @@
                     "alpha":1.0
                 },
                 "x":740.0,
-                "y":520.0
+                "y":540.0
             },
             "label_location":-1,
             "label_rotation":0
@@ -506,7 +476,6 @@
         {
             "name":"Brickell",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Brickell",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -518,20 +487,19 @@
                     "blue":0.0,
                     "alpha":1.0
                 },
-                "x":771.0,
-                "y":547.0
+                "x":770.0,
+                "y":580.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":8.816793893129772,
                 "fill_color":{
                     "red":1.0,
                     "green":0.6470588445663452,
                     "blue":0.0,
                     "alpha":1.0
                 },
-                "x":741.0,
-                "y":547.0
+                "x":740.0,
+                "y":580.0
             },
             "label_location":-1,
             "label_rotation":0
@@ -539,7 +507,6 @@
         {
             "name":"Vizcaya",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Vizcaya",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -552,11 +519,10 @@
                     "alpha":1.0
                 },
                 "x":730.0,
-                "y":580.0
+                "y":620.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":8.702290076335878,
                 "fill_color":{
                     "red":1.0,
                     "green":0.6470588445663452,
@@ -564,7 +530,7 @@
                     "alpha":1.0
                 },
                 "x":700.0,
-                "y":580.0
+                "y":620.0
             },
             "label_location":-1,
             "label_rotation":0
@@ -572,7 +538,6 @@
         {
             "name":"Coconut Grove",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Coconut Grove",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -585,11 +550,10 @@
                     "alpha":1.0
                 },
                 "x":670.0,
-                "y":620.0
+                "y":660.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":7.290076335877862,
                 "fill_color":{
                     "red":1.0,
                     "green":0.6470588445663452,
@@ -597,7 +561,7 @@
                     "alpha":1.0
                 },
                 "x":640.0,
-                "y":620.0
+                "y":660.0
             },
             "label_location":-1,
             "label_rotation":0
@@ -605,7 +569,6 @@
         {
             "name":"Univerity",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Univerity",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -621,8 +584,7 @@
                 "y":650.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":8.969465648854962,
                 "fill_color":{
                     "red":1.0,
                     "green":0.6470588445663452,
@@ -638,7 +600,6 @@
         {
             "name":"South Miami",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"South Miami",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -650,20 +611,19 @@
                     "blue":0.0,
                     "alpha":1.0
                 },
-                "x":561.0,
-                "y":706.0
+                "x":550.0,
+                "y":720.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":8.396946564885496,
                 "fill_color":{
                     "red":1.0,
                     "green":0.6470588445663452,
                     "blue":0.0,
                     "alpha":1.0
                 },
-                "x":531.0,
-                "y":706.0
+                "x":520.0,
+                "y":720.0
             },
             "label_location":-1,
             "label_rotation":0
@@ -671,7 +631,6 @@
         {
             "name":"Dadeland North",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Dadeland North",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -683,20 +642,19 @@
                     "blue":0.0,
                     "alpha":1.0
                 },
-                "x":517.0,
-                "y":742.0
+                "x":510.0,
+                "y":760.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":7.977099236641221,
                 "fill_color":{
                     "red":1.0,
                     "green":0.6470588445663452,
                     "blue":0.0,
                     "alpha":1.0
                 },
-                "x":487.0,
-                "y":742.0
+                "x":480.0,
+                "y":760.0
             },
             "label_location":-1,
             "label_rotation":0
@@ -704,7 +662,6 @@
         {
             "name":"Dadeland South",
             "label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Dadeland South",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -720,8 +677,7 @@
                 "y":815.0
             },
             "circle":{
-                "type":"DRAGGABLE_CIRCLE",
-                "radius":5.0,
+                "radius":8.320610687022901,
                 "fill_color":{
                     "red":1.0,
                     "green":0.6470588445663452,
@@ -735,7 +691,48 @@
             "label_rotation":0
         }
     ],
-    "metro_lines":[
+    "lines":[
+        {
+            "name":"Orange Line",
+            "fill_color":{
+                "red":1.0,
+                "green":0.6470588445663452,
+                "blue":0.0,
+                "alpha":1.0
+            },
+            "thickness":2.8015267175572514,
+            "stops":"Miami International Airport\nEarlington Heights\nAllapattah\nSanta Clara\nCivic Center\nCulmer\nHistoric Overtown/Lyric Theatre\nGovernment Center\nBrickell\nVizcaya\nCoconut Grove\nUniverity\nSouth Miami\nDadeland North\nDadeland South\n",
+            "start_label":{
+                "text":"Orange Line",
+                "font_family":"Calibri",
+                "font_size":14,
+                "italic":false,
+                "bold":false,
+                "fill_color":{
+                    "red":0.0,
+                    "green":0.0,
+                    "blue":0.0,
+                    "alpha":1.0
+                },
+                "x":229.0,
+                "y":361.0
+            },
+            "end-label":{
+                "text":"Orange Line",
+                "font_family":"Calibri",
+                "font_size":14,
+                "italic":false,
+                "bold":false,
+                "fill_color":{
+                    "red":0.0,
+                    "green":0.0,
+                    "blue":0.0,
+                    "alpha":1.0
+                },
+                "x":302.0,
+                "y":689.0
+            }
+        },
         {
             "name":"Green Line",
             "fill_color":{
@@ -744,10 +741,9 @@
                 "blue":0.4000000059604645,
                 "alpha":1.0
             },
-            "thickness":2.0,
+            "thickness":7.175572519083969,
             "stops":"Palmetto\nOkeechobee\nHialeah\nTri-Rail\nNorthside\nDr. Martin Luther King Jr.\nBrownsville\nEarlington Heights\nAllapattah\nSanta Clara\nCivic Center\nCulmer\nHistoric Overtown/Lyric Theatre\nGovernment Center\nBrickell\nVizcaya\nCoconut Grove\nUniverity\nSouth Miami\nDadeland North\nDadeland South\n",
             "start_label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Green Line",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -763,7 +759,6 @@
                 "y":198.0
             },
             "end-label":{
-                "type":"DRAGGABLE_LABEL",
                 "text":"Green Line",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -775,51 +770,8 @@
                     "blue":0.0,
                     "alpha":1.0
                 },
-                "x":380.0,
-                "y":857.0
-            }
-        },
-        {
-            "name":"Orange Line",
-            "fill_color":{
-                "red":1.0,
-                "green":0.6470588445663452,
-                "blue":0.0,
-                "alpha":1.0
-            },
-            "thickness":2.0,
-            "stops":"Miami International Airport\n",
-            "start_label":{
-                "type":"DRAGGABLE_LABEL",
-                "text":"Orange Line",
-                "font_family":"Calibri",
-                "font_size":14,
-                "italic":false,
-                "bold":false,
-                "fill_color":{
-                    "red":0.0,
-                    "green":0.0,
-                    "blue":0.0,
-                    "alpha":1.0
-                },
-                "x":252.0,
-                "y":368.0
-            },
-            "end-label":{
-                "type":"DRAGGABLE_LABEL",
-                "text":"Orange Line",
-                "font_family":"Calibri",
-                "font_size":14,
-                "italic":false,
-                "bold":false,
-                "fill_color":{
-                    "red":0.0,
-                    "green":0.0,
-                    "blue":0.0,
-                    "alpha":1.0
-                },
-                "x":519.0,
-                "y":413.0
+                "x":217.0,
+                "y":704.0
             }
         }
     ]

@@ -7,9 +7,18 @@ package mmm.gui;
 
 import djf.AppTemplate;
 import djf.ui.AppMessageDialogSingleton;
+import java.io.File;
 import javafx.scene.Cursor;
+import javafx.scene.SnapshotParameters;
+import javafx.scene.image.WritableImage;
+import static djf.settings.AppStartupConstants.PATH_EXPORTS;
+import static djf.settings.AppStartupConstants.PNG;
+import static djf.settings.AppStartupConstants.JSON;
+import java.io.IOException;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javax.imageio.ImageIO;
 import mmm.data.MMMData;
 import static mmm.data.MMMState.*;
 import properties_manager.PropertiesManager;
@@ -95,6 +104,29 @@ public class MMMEditController {
     }
     
     public void processExport() {
+        // get an image of the canvas
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        AppMessageDialogSingleton singleton = AppMessageDialogSingleton.getSingleton();
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        Pane canvas = workspace.getCanvas();
+        WritableImage image = canvas.snapshot(new SnapshotParameters(), null);
+        File imageFile = new File(PATH_EXPORTS + dataManager.getName() + PNG);
+        try {
+	    ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", imageFile);
+            String jsonFilePath = PATH_EXPORTS + dataManager.getName() + JSON;
+            
+            // try exporting as well
+            app.getFileComponent().exportData(dataManager, jsonFilePath);
+            
+            // Display a message if it's a success
+            singleton.show(props.getProperty(EXPORT_SUCCESS_TITLE), 
+                    props.getProperty(EXPORT_SUCCESS_MESSAGE));
+	} catch(IOException ioe) {
+	    ioe.printStackTrace();
+            // Display a message if something failed
+            singleton.show(props.getProperty(EXPORT_FAILURE_TITLE), 
+                    props.getProperty(EXPORT_FAILURE_MESSAGE));
+	}
     }
     
     public void processSelectMetroLine() {
@@ -110,6 +142,8 @@ public class MMMEditController {
             
             dataManager.setState(SELECTED_METRO_LINE);
         }
+        
+        workspace.reloadWorkspace(dataManager);
     }
     
     public void processAddMetroLine() {
@@ -135,6 +169,8 @@ public class MMMEditController {
             
             dataManager.setNewMetroLine(metroLine);
             dataManager.setState(CREATING_METRO_LINE_START_POINT);
+            
+            reloadWorkspace();
         }
     }
     
@@ -160,10 +196,20 @@ public class MMMEditController {
             
             dataManager.setMetroLineSettings(selectedMetroLine, 
                     singleton.getColor(), name);
+            
+            workspace.reloadWorkspace(dataManager);
         }
     }
   
-    public void processDeleteMetroLine() {}
+    public void processDeleteMetroLine() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        MetroLine metroLine = workspace.getMetroLineComboBox()
+                .getSelectionModel().getSelectedItem();
+        
+        dataManager.deleteMetroLine(metroLine);
+        workspace.getMetroLineComboBox().getSelectionModel().select(null);
+        workspace.reloadWorkspace(dataManager);
+    }
     
     public void processAppendStation() {
         // Change the state and the cursor
@@ -196,9 +242,33 @@ public class MMMEditController {
         
     }
     
-    public void processChangeMetroLineColor() {}
+    public void processChangeMetroLineColor() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        MetroLine metroLine = workspace.getMetroLineComboBox()
+                .getSelectionModel().getSelectedItem();
+        
+        if (metroLine == null)
+            return;
+        
+        Color color = workspace.getMetroLineColorPicker().getValue();
+        
+        dataManager.setMetroLineSettings(metroLine, color, metroLine.getName());
+        workspace.reloadWorkspace(dataManager);
+    }
     
-    public void processChangeMetroLineThickness() {}
+    public void processChangeMetroLineThickness() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        MetroLine metroLine = workspace.getMetroLineComboBox()
+                .getSelectionModel().getSelectedItem();
+        
+        if (metroLine == null)
+            return;
+        
+        double thickness = workspace.getMetroLineThicknessSlider().getValue();
+        
+        dataManager.SetLineThickness(metroLine, thickness);
+        workspace.reloadWorkspace(dataManager);
+    }
     
     public void processSelectMetroStation() {
         MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
@@ -211,6 +281,8 @@ public class MMMEditController {
 
             dataManager.setState(SELECTED_METRO_STATION);
         }
+        
+        workspace.reloadWorkspace(dataManager);
     }
     
     /**
@@ -245,6 +317,7 @@ public class MMMEditController {
             
             // Set newshape and then this should be it...
             dataManager.setNewShape(stationCirlce);
+            reloadWorkspace();
         }
     }
     
@@ -253,6 +326,9 @@ public class MMMEditController {
         MetroStation selectedMetroStation = workspace.getMetroStationComboBox().getSelectionModel().getSelectedItem();
         
         dataManager.deleteMetroStation(selectedMetroStation);
+        workspace.getMetroStationComboBox().getSelectionModel()
+                .select(null);
+        workspace.reloadWorkspace(dataManager);
     }
     
     /**
@@ -263,6 +339,7 @@ public class MMMEditController {
         MetroStation metroStation = workspace.getMetroStationComboBox().getSelectionModel().getSelectedItem();
         
         dataManager.moveStationLabel(metroStation);
+        workspace.reloadWorkspace(dataManager);
     }
     
     public void processRotateStationLabel() {
@@ -270,6 +347,7 @@ public class MMMEditController {
         MetroStation metroStation = workspace.getMetroStationComboBox().getSelectionModel().getSelectedItem();
         
         dataManager.rotateStationLabel(metroStation);
+        workspace.reloadWorkspace(dataManager);
     }
     
     public void processChangeStationColor() {
@@ -280,6 +358,7 @@ public class MMMEditController {
         Color selectedColor = workspace.getMetroStationColorPicker().getValue();
         
         dataManager.setFill(selectedStation, selectedColor);
+        workspace.reloadWorkspace(dataManager);
     }
     
     public void processChangeStationRadius() {
@@ -290,6 +369,7 @@ public class MMMEditController {
                 .getSelectionModel().getSelectedItem().getStationCircle();
         
         dataManager.changeRadius(selectedCircle, newRadius);
+        workspace.reloadWorkspace(dataManager);
     }
     
     public void processFindRoute() {}
@@ -310,7 +390,7 @@ public class MMMEditController {
         Color newColor = workspace.getDecorToolbarColorPicker().getValue();
         dataManager.changeBackgroundColor(newColor);
         
-        reloadWorkspace();
+        workspace.reloadWorkspace(dataManager);
     }
     
     public void processToggleShowGrid() {}

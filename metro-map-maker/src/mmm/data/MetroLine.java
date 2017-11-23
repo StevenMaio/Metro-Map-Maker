@@ -26,7 +26,7 @@ public class MetroLine extends ArrayList<MetroStation> {
     private DraggableLabel startLabel;
     private DraggableLabel endLabel;
     
-    
+        
     /**
      * This is the constructor method for the MetroLine class.
      */
@@ -94,19 +94,12 @@ public class MetroLine extends ArrayList<MetroStation> {
                 add(minIndex, metroStation);
             else
                 add(minIndex + 1, metroStation);
+            
+            // THIS WAS THE PROBLEM
+            if (metroStation.getMetroLines().contains(this));
+            else
+                metroStation.getMetroLines().add(this);
         }
-    }
-    
-    /**
-     * This method will handle removing a Metro Station from the Metro Line 
-     * instance
-     * 
-     * @param metroStation 
-     *      The Metro Station that is being removed from the Metro Line
-     */
-    public void removeMetroStation(MetroStation metroStation) {
-        if (contains(metroStation))
-            remove(metroStation);
     }
     
     /**
@@ -126,14 +119,9 @@ public class MetroLine extends ArrayList<MetroStation> {
     }
     
     /**
-     * This method will initialize the firstLine variable
-     */
-    public void initLine() {
-    }
-    
-    /**
      * This method will refresh the initLine, that is set what it's connected
      * to and maybe refresh the style... I'm not sure
+     * @param data
      */
     public void resetLine(MMMData data) {
         // Clear lines
