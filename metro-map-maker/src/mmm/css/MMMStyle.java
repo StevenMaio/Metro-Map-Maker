@@ -24,4 +24,18 @@ public class MMMStyle {
     public static final String CLASS_COLOR_CHOOSER_CONTROL = "color_chooser_control";
     public static final String CLASS_BORDERED_PANE = "bordered_pane";
     public static final String CLASS_COLOR_PICKER = "color_picker";
+    
+    // Font Sizes available
+    public static final int[] FONT_SIZES = {
+        6, 8, 9, 10, 12, 
+        14, 16, 18, 20, 24,
+        28, 32, 40, 48, 56,
+        64, 72
+    };
+    
+    // Font families available
+    public static final String[] FONT_FAMILIES = {
+        "Calibri", "Cambria", "Chiller", "Times New Roman", "Arial",
+        "Algerian", "Century Gothic", "Papyrus", "System", "Serif",
+    };
 }

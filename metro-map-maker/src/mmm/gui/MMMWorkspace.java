@@ -10,6 +10,7 @@ import djf.components.AppDataComponent;
 import djf.components.AppWorkspaceComponent;
 import djf.ui.AppGUI;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Button;
@@ -18,6 +19,7 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -111,8 +113,8 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     private VBox fontEditorToolbar;
     private HBox fontEditorToolbarRow1;
     private HBox fontEditorToolbarRow2;
-    private Button boldFontButton;
-    private Button italicFontButton;
+    private ToggleButton boldFontButton;
+    private ToggleButton italicFontButton;
     private ComboBox<String> fontFamilyComboBox;
     private ComboBox<Integer> fontSizeComboBox;
     private ColorPicker fontFillColorPicker;
@@ -141,8 +143,8 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         
         // Init all the crap
         initLayout();
-        initControllers();
         initStyle();
+        initControllers();
     }
     
     private void initLayout() {
@@ -266,13 +268,13 @@ public class MMMWorkspace extends AppWorkspaceComponent {
                 props.getProperty(FONT_TOOLBAR_TITLE));
         fontFillColorPicker = new ColorPicker();
         // TODO: PICTURES
-        boldFontButton = gui.initChildButton(fontEditorToolbarRow2, BOLD_ICON.toString(),
-                BOLD_TOOLTIP.toString(), false);
-        italicFontButton = gui.initChildButton(fontEditorToolbarRow2, ITALICS_ICON.toString(),
-                ITALIC_TOOLTIP.toString(), false);
         fontSizeComboBox = new ComboBox<>();
         fontFamilyComboBox = new ComboBox<>();
         fontEditorToolbarRow1.getChildren().addAll(fontLabel, fontFillColorPicker);
+        boldFontButton = gui.initChildToggleButton(fontEditorToolbarRow1, BOLD_ICON.toString(),
+                BOLD_TOOLTIP.toString(), false);
+        italicFontButton = gui.initChildToggleButton(fontEditorToolbarRow1, ITALICS_ICON.toString(),
+                ITALIC_TOOLTIP.toString(), false);
         fontEditorToolbarRow2.getChildren().addAll(fontSizeComboBox, 
                 fontFamilyComboBox);
         fontEditorToolbar.getChildren().addAll(fontEditorToolbarRow1, 
@@ -431,8 +433,29 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         decorToolbarColorPicker.setOnAction(e -> {
             editController.processChangeBackgroundColor();
         });
+        addLabelButton.setOnAction(e -> {
+            editController.processAddLabel();
+        });
+        removeElementButton.setOnAction(e -> {
+            editController.processDeleteMapElement();
+        });
         
         // Font Toolbar
+        fontFillColorPicker.setOnAction(e -> {
+            editController.processChangeFontFill();
+        });
+        fontFamilyComboBox.setOnAction(e -> {
+            editController.processChangeFontFamily();
+        });
+        fontSizeComboBox.setOnAction(e -> {
+            editController.processChangeFontSize();
+        });
+        boldFontButton.setOnAction(e -> {
+            editController.processBoldFont();
+        });
+        italicFontButton.setOnAction(e -> {
+            editController.processItalicFont();
+        });
         
         // Navigation Toolbar
         zoomInButton.setOnAction(e -> {
@@ -444,6 +467,15 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     }
     
     private void initStyle() {
+        // add font families to fontFamilyComboBox and font sizes to fontSizeComboBox
+        for (String e: FONT_FAMILIES) {
+            fontFamilyComboBox.getItems().add(e);
+        }
+        
+        for (int e: FONT_SIZES) {
+            fontSizeComboBox.getItems().add(new Integer(e));
+        }
+        
     /* This method initializes the style for the application */
         editToolbar.getStyleClass().add(CLASS_EDIT_TOOLBAR);
         
@@ -546,12 +578,14 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     }
     
     // THis method loads the style settings of some kind of text object
-    private void loadTextSettings(DraggableLabel text) {
+    public void loadTextSettings(DraggableLabel text) {
         // Load Text Settings
         fontSizeComboBox.getSelectionModel().select(new Integer(text.getFontSize()));
         fontFamilyComboBox.getSelectionModel().select(text.getFontFamily());
         
         // TODO: Bold and Italic
+        boldFontButton.setSelected(text.isBold());
+        italicFontButton.setSelected(text.isItalicized());
     }
     
     /**
@@ -646,5 +680,17 @@ public class MMMWorkspace extends AppWorkspaceComponent {
 
     public ColorPicker getMetroLineColorPicker() {
         return metroLineColorPicker;
+    }
+
+    public ColorPicker getFontFillColorPicker() {
+        return fontFillColorPicker;
+    }
+
+    public ToggleButton getBoldFontButton() {
+        return boldFontButton;
+    }
+
+    public ToggleButton getItalicFontButton() {
+        return italicFontButton;
     }
 }

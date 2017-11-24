@@ -85,14 +85,6 @@ public class MMMData implements AppDataComponent {
     public void addShape(Shape shape) {}
 
     /**
-     * This method handles removing a shape from the canvas
-     *
-     * @param shape
-     *      The shape being removed
-     */
-    public void removeShape(Shape shape) {}
-
-    /**
      * Gets the first shape containing the point (x, y)
      * @param x
      *      X-Coordinate we are trying to find an shape in
@@ -197,7 +189,12 @@ public class MMMData implements AppDataComponent {
      * @param label
      *      The DraggableLabel instance being added to the canvas
      */
-    public void addLabel(DraggableLabel label) {}
+    public void addLabel(DraggableLabel label) {
+        AddLabel_Transaction transaction = 
+                new AddLabel_Transaction(this, label);
+        
+        transactionHistory.addTransaction(transaction);
+    }
 
     /**
      * Adds an instance of DraggableImage to the canvas
@@ -206,11 +203,45 @@ public class MMMData implements AppDataComponent {
      */
     public void addImage(DraggableImage image) {}
 
-    /*
-
-    TODO: FONT PROPERTIES NEED TO BE ESTABLISHED I GUESS
-
-    */
+    public void setBoldFont(boolean bold, DraggableLabel... labels) {
+        SetBoldFont_Transaction transaction = new SetBoldFont_Transaction(this, bold, labels);
+        
+        transactionHistory.addTransaction(transaction);
+    }
+    
+    public void setItalicFont(boolean italic, DraggableLabel... labels) {
+        SetItalicFont_Transaction transaction = new
+            SetItalicFont_Transaction(this, italic, labels);
+        
+        transactionHistory.addTransaction(transaction);
+    }
+    
+    public void setFontSize(int fontSize, DraggableLabel... labels) {
+        SetFontSize_Transaction transaction = new
+            SetFontSize_Transaction(this, fontSize, labels);
+        
+        transactionHistory.addTransaction(transaction);
+    }
+    
+    public void removeShape(Shape shape) {
+        RemoveItem_Trasnaction trasnaction = new RemoveItem_Trasnaction(this, shape);
+        
+        transactionHistory.addTransaction(trasnaction);
+    }
+    
+    public void setFontFamily(String fontFamily, DraggableLabel... labels) {
+        SetFontFamily_Transaction transaction = new
+            SetFontFamily_Transaction(this, fontFamily, labels);
+        
+        transactionHistory.addTransaction(transaction);
+    }
+    
+    public void setFontFill(Color color, DraggableLabel... labels) {
+        SetFontFill_Transaction transaction =
+                new SetFontFill_Transaction(this, color, labels);
+        
+        transactionHistory.addTransaction(transaction);
+    }
 
     /**
      * This method changes the background color

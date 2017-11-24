@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.shape.Shape;
 import mmm.data.Draggable;
 import mmm.data.DraggableCircle;
+import mmm.data.DraggableLabel;
 import mmm.data.MMMData;
 import mmm.data.MMMState;
 import static mmm.data.MMMState.*;
@@ -68,6 +69,13 @@ public class MMMCanvasController {
                     if (selectedShape instanceof DraggableCircle) {
                         workspace.loadMetroStationSettings(
                                 ((DraggableCircle) selectedShape).getMetroStation());
+                    } else if (selectedShape instanceof DraggableLabel) {
+                        DraggableLabel label = (DraggableLabel) selectedShape;
+                        
+                        if (label.isIndependent()) {
+                            dataManager.setState(SELECTED_LABEL);
+                            workspace.loadTextSettings(label);
+                        }
                     }
                     Point2D startingPoint = new Point2D(selectedShape.getX(), selectedShape.getY());
                     
@@ -110,6 +118,15 @@ public class MMMCanvasController {
                 metroLine.getStartLabel().setY(y);
                 
                 dataManager.setState(CREATING_METRO_LINE_END_POINT);
+                break;
+            
+            case CREATING_LABEL:
+                DraggableLabel label = (DraggableLabel) dataManager.getSelectedShape();
+                label.setX(x);
+                label.setY(y);
+                
+                dataManager.addLabel(label);
+                dataManager.setState(SELECTING_SHAPE);
                 break;
                 
             case ADD_STATIONS_MODE:
@@ -214,6 +231,8 @@ public class MMMCanvasController {
             case DRAGGING_SHAPE:
                 if (selectedShape instanceof DraggableCircle)
                     dataManager.setState(SELECTED_METRO_STATION);
+                else if (selectedShape instanceof DraggableLabel)
+                    dataManager.setState(SELECTED_LABEL);
                 else
                     dataManager.setState(SELECTING_SHAPE);
                 scene.setCursor(Cursor.DEFAULT);

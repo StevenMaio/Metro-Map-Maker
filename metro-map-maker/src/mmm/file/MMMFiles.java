@@ -46,8 +46,10 @@ import mmm.data.MetroStation;
 import properties_manager.PropertiesManager;
 import static djf.settings.AppStartupConstants.PATH_WORK;
 import djf.ui.AppGUI;
+import java.math.BigDecimal;
 import java.util.Hashtable;
 import java.util.Scanner;
+import javafx.scene.shape.Shape;
 import mmm.data.DraggableCircle;
 import mmm.data.MMMState;
 
@@ -59,6 +61,8 @@ public class MMMFiles implements AppFileComponent {
     // constants and other crap
     private static final String JSON_BACKGROUND = "background";
     private static final String JSON_BACKGROUND_IMAGE = "background_inage";
+    private static final String JSON_IMAGE = "image";
+    private static final String JSON_SHAPES = "shapes";
     private static final String JSON_RED = "red";
     private static final String JSON_GREEN = "green";
     private static final String JSON_BLUE = "blue";
@@ -70,6 +74,7 @@ public class MMMFiles implements AppFileComponent {
     private static final String JSON_STOPS = "stops";
     private static final String JSON_RADIUS = "radius";
     private static final String JSON_COLOR = "fill_color";
+    private static final String JSON_COLOR_2 = "color";
     private static final String JSON_FONT_FAMILY = "font_family";
     private static final String JSON_TEXT = "text";
     private static final String JSON_FONT_SIZE = "font_size";
@@ -92,6 +97,7 @@ public class MMMFiles implements AppFileComponent {
     private static final String JSON_CIRCULAR = "circular";
     private static final String JSON_STATION_NAMES = "station_names";
     public static final String FILE_EXTENSION = ".mmm";
+    public static final String METRO_EXTENSION = " Metro";
     
     /**
      * This method saves the users work.
@@ -134,6 +140,17 @@ public class MMMFiles implements AppFileComponent {
         
         JsonArray metroStationsJson = arrayBuilder.build();
         
+        arrayBuilder = Json.createArrayBuilder(); // clear array builder
+        
+        // now we iterate through shapes to save labels and text
+        for (Node e: shapes) {
+            if (e instanceof DraggableLabel)
+                if (((DraggableLabel) e).isIndependent())
+                    arrayBuilder.add(saveDraggableLabel((DraggableLabel) e));
+        }
+        
+        JsonArray shapesJson = arrayBuilder.build();
+        
         JsonObject dataManagerJSO = Json.createObjectBuilder()
                 .add(JSON_BACKGROUND, backgroundJson)
                 .add(JSON_NAME, name)
@@ -141,6 +158,7 @@ public class MMMFiles implements AppFileComponent {
 //                .add(JSON_WIDTH, width)
                 .add(JSON_METRO_STATIONS, metroStationsJson)
                 .add(JSON_METRO_LINES, metroLinesJson)
+                .add(JSON_SHAPES, shapesJson)
                 .build();
         
         
@@ -211,6 +229,22 @@ public class MMMFiles implements AppFileComponent {
             shapes.addAll(metroLine.getLines());
         }
         
+        JsonArray jsonShapesArray = json.getJsonArray(JSON_SHAPES);
+        if (jsonShapesArray == null);   // THIS LETS US LOAD OLD FILES
+        else 
+            for (int i = 0; i < jsonShapesArray.size(); i++) {
+                JsonObject shapeJson = jsonShapesArray.getJsonObject(i);
+
+                String type = shapeJson.getString(JSON_TYPE);
+                Shape shape = null;
+
+                if (type.equals(JSON_LABEL)) {
+                    shape = loadDraggableLabel(shapeJson);
+                }
+
+                shapes.add(shape);
+        }
+        
         // Put the currentmap in the title
         resetRecentMaps(name);
         dataManager.refreshBackground();
@@ -250,7 +284,7 @@ public class MMMFiles implements AppFileComponent {
             JsonObject metroLineJson = Json.createObjectBuilder()
                     .add(JSON_NAME, metroLineName)
                     .add(JSON_CIRCULAR, false)
-                    .add(JSON_COLOR, color)
+                    .add(JSON_COLOR_2, color)
                     .add(JSON_STATION_NAMES, stopsArrayJson.build())
                     .build();
             
@@ -385,6 +419,7 @@ public class MMMFiles implements AppFileComponent {
         double y = draggableLabel.getY();
         
         JsonObject draggableLabelJson = Json.createObjectBuilder()
+                .add(JSON_TYPE, JSON_LABEL)
                 .add(JSON_TEXT, text)
                 .add(JSON_FONT_FAMILY, fontFamily)
                 .add(JSON_FONT_SIZE, fontSize)
@@ -403,6 +438,7 @@ public class MMMFiles implements AppFileComponent {
         String imageFilePath = draggableImage.getImageFilepath();
         
         JsonObject draggableImageJson = Json.createObjectBuilder()
+                .add(JSON_TYPE, JSON_IMAGE)
                 .add(JSON_X, x)
                 .add(JSON_Y, y)
                 .add(JSON_FILE_PATH, imageFilePath).build();

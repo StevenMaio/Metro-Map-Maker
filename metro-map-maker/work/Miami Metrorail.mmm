@@ -11,10 +11,11 @@
         {
             "name":"Palmetto",
             "label":{
+                "type":"label",
                 "text":"Palmetto",
                 "font_family":"Calibri",
                 "font_size":14,
-                "italic":false,
+                "italic":true,
                 "bold":false,
                 "fill_color":{
                     "red":0.0,
@@ -42,6 +43,7 @@
         {
             "name":"Okeechobee",
             "label":{
+                "type":"label",
                 "text":"Okeechobee",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -73,6 +75,7 @@
         {
             "name":"Hialeah",
             "label":{
+                "type":"label",
                 "text":"Hialeah",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -104,6 +107,7 @@
         {
             "name":"Tri-Rail",
             "label":{
+                "type":"label",
                 "text":"Tri-Rail",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -135,6 +139,7 @@
         {
             "name":"Northside",
             "label":{
+                "type":"label",
                 "text":"Northside",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -166,6 +171,7 @@
         {
             "name":"Dr. Martin Luther King Jr.",
             "label":{
+                "type":"label",
                 "text":"Dr. Martin Luther King Jr.",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -197,6 +203,7 @@
         {
             "name":"Brownsville",
             "label":{
+                "type":"label",
                 "text":"Brownsville",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -208,8 +215,8 @@
                     "blue":0.0,
                     "alpha":1.0
                 },
-                "x":620.0,
-                "y":270.0
+                "x":650.0,
+                "y":300.0
             },
             "circle":{
                 "radius":7.633587786259541,
@@ -222,12 +229,13 @@
                 "x":620.0,
                 "y":300.0
             },
-            "label_location":0,
+            "label_location":-1,
             "label_rotation":0
         },
         {
             "name":"Miami International Airport",
             "label":{
+                "type":"label",
                 "text":"Miami International Airport",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -259,6 +267,7 @@
         {
             "name":"Earlington Heights",
             "label":{
+                "type":"label",
                 "text":"Earlington Heights",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -271,7 +280,7 @@
                     "alpha":1.0
                 },
                 "x":620.0,
-                "y":330.0
+                "y":331.0
             },
             "circle":{
                 "radius":8.473282442748092,
@@ -282,7 +291,7 @@
                     "alpha":1.0
                 },
                 "x":620.0,
-                "y":360.0
+                "y":361.0
             },
             "label_location":0,
             "label_rotation":0
@@ -290,6 +299,7 @@
         {
             "name":"Allapattah",
             "label":{
+                "type":"label",
                 "text":"Allapattah",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -321,6 +331,7 @@
         {
             "name":"Santa Clara",
             "label":{
+                "type":"label",
                 "text":"Santa Clara",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -352,6 +363,7 @@
         {
             "name":"Civic Center",
             "label":{
+                "type":"label",
                 "text":"Civic Center",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -383,6 +395,7 @@
         {
             "name":"Culmer",
             "label":{
+                "type":"label",
                 "text":"Culmer",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -414,6 +427,7 @@
         {
             "name":"Historic Overtown/Lyric Theatre",
             "label":{
+                "type":"label",
                 "text":"Historic Overtown/Lyric Theatre",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -445,6 +459,7 @@
         {
             "name":"Government Center",
             "label":{
+                "type":"label",
                 "text":"Government Center",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -476,6 +491,7 @@
         {
             "name":"Brickell",
             "label":{
+                "type":"label",
                 "text":"Brickell",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -507,6 +523,7 @@
         {
             "name":"Vizcaya",
             "label":{
+                "type":"label",
                 "text":"Vizcaya",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -538,6 +555,7 @@
         {
             "name":"Coconut Grove",
             "label":{
+                "type":"label",
                 "text":"Coconut Grove",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -569,6 +587,7 @@
         {
             "name":"Univerity",
             "label":{
+                "type":"label",
                 "text":"Univerity",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -600,6 +619,7 @@
         {
             "name":"South Miami",
             "label":{
+                "type":"label",
                 "text":"South Miami",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -631,6 +651,7 @@
         {
             "name":"Dadeland North",
             "label":{
+                "type":"label",
                 "text":"Dadeland North",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -662,6 +683,7 @@
         {
             "name":"Dadeland South",
             "label":{
+                "type":"label",
                 "text":"Dadeland South",
                 "font_family":"Calibri",
                 "font_size":14,
@@ -693,6 +715,49 @@
     ],
     "lines":[
         {
+            "name":"Green Line",
+            "fill_color":{
+                "red":0.4000000059604645,
+                "green":0.6000000238418579,
+                "blue":0.4000000059604645,
+                "alpha":1.0
+            },
+            "thickness":7.175572519083969,
+            "stops":"Palmetto\nOkeechobee\nHialeah\nTri-Rail\nNorthside\nDr. Martin Luther King Jr.\nBrownsville\nEarlington Heights\nAllapattah\nSanta Clara\nCivic Center\nCulmer\nHistoric Overtown/Lyric Theatre\nGovernment Center\nBrickell\nVizcaya\nCoconut Grove\nUniverity\nSouth Miami\nDadeland North\nDadeland South\n",
+            "start_label":{
+                "type":"label",
+                "text":"Green Line",
+                "font_family":"Cambria",
+                "font_size":24,
+                "italic":true,
+                "bold":true,
+                "fill_color":{
+                    "red":0.0,
+                    "green":0.0,
+                    "blue":0.0,
+                    "alpha":1.0
+                },
+                "x":105.0,
+                "y":109.0
+            },
+            "end-label":{
+                "type":"label",
+                "text":"Green Line",
+                "font_family":"Cambria",
+                "font_size":24,
+                "italic":true,
+                "bold":true,
+                "fill_color":{
+                    "red":0.0,
+                    "green":0.0,
+                    "blue":0.0,
+                    "alpha":1.0
+                },
+                "x":100.0,
+                "y":667.0
+            }
+        },
+        {
             "name":"Orange Line",
             "fill_color":{
                 "red":1.0,
@@ -703,9 +768,10 @@
             "thickness":2.8015267175572514,
             "stops":"Miami International Airport\nEarlington Heights\nAllapattah\nSanta Clara\nCivic Center\nCulmer\nHistoric Overtown/Lyric Theatre\nGovernment Center\nBrickell\nVizcaya\nCoconut Grove\nUniverity\nSouth Miami\nDadeland North\nDadeland South\n",
             "start_label":{
+                "type":"label",
                 "text":"Orange Line",
-                "font_family":"Calibri",
-                "font_size":14,
+                "font_family":"Century Gothic",
+                "font_size":20,
                 "italic":false,
                 "bold":false,
                 "fill_color":{
@@ -718,9 +784,10 @@
                 "y":361.0
             },
             "end-label":{
+                "type":"label",
                 "text":"Orange Line",
-                "font_family":"Calibri",
-                "font_size":14,
+                "font_family":"Century Gothic",
+                "font_size":20,
                 "italic":false,
                 "bold":false,
                 "fill_color":{
@@ -729,50 +796,11 @@
                     "blue":0.0,
                     "alpha":1.0
                 },
-                "x":302.0,
-                "y":689.0
-            }
-        },
-        {
-            "name":"Green Line",
-            "fill_color":{
-                "red":0.4000000059604645,
-                "green":0.6000000238418579,
-                "blue":0.4000000059604645,
-                "alpha":1.0
-            },
-            "thickness":7.175572519083969,
-            "stops":"Palmetto\nOkeechobee\nHialeah\nTri-Rail\nNorthside\nDr. Martin Luther King Jr.\nBrownsville\nEarlington Heights\nAllapattah\nSanta Clara\nCivic Center\nCulmer\nHistoric Overtown/Lyric Theatre\nGovernment Center\nBrickell\nVizcaya\nCoconut Grove\nUniverity\nSouth Miami\nDadeland North\nDadeland South\n",
-            "start_label":{
-                "text":"Green Line",
-                "font_family":"Calibri",
-                "font_size":14,
-                "italic":false,
-                "bold":false,
-                "fill_color":{
-                    "red":0.0,
-                    "green":0.0,
-                    "blue":0.0,
-                    "alpha":1.0
-                },
-                "x":102.0,
-                "y":198.0
-            },
-            "end-label":{
-                "text":"Green Line",
-                "font_family":"Calibri",
-                "font_size":14,
-                "italic":false,
-                "bold":false,
-                "fill_color":{
-                    "red":0.0,
-                    "green":0.0,
-                    "blue":0.0,
-                    "alpha":1.0
-                },
-                "x":217.0,
-                "y":704.0
+                "x":351.0,
+                "y":601.0
             }
         }
+    ],
+    "shapes":[
     ]
 }

@@ -120,6 +120,8 @@
 	<property name="EXPORT_SUCCESS_TITLE" value="Export Success"/>
 	<property name="EXPORT_FAILURE_TITLE" value="Export Failure"/>
         
+        <property name="INIT_LABEL_WINDOW" value="Create Label"/>
+        <property name="INIT_LABEL_MESSAGE" value="Enter text"/>
         <property name="EXPORT_SUCCESS_MESSAGE" value="Metro Map successfuly exported"/>
         <property name="EXPORT_FAILURE_MESSAGE" value="Metro Map failed to export"/>
         <property name="NEW_CREATED_MESSAGE" value="New Work Created but not yet Saved"/>

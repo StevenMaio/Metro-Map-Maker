@@ -1,0 +1,178 @@
+
+{
+    "name":"Miami Metrorail",
+    "lines":[
+        {
+            "name":"Orange Line",
+            "circular":false,
+            "color":{
+                "red":1.0,
+                "green":0.6470588445663452,
+                "blue":0.0,
+                "alpha":1.0
+            },
+            "station_names":[
+                "Miami International Airport",
+                "Earlington Heights",
+                "Allapattah",
+                "Santa Clara",
+                "Civic Center",
+                "Culmer",
+                "Historic Overtown/Lyric Theatre",
+                "Government Center",
+                "Brickell",
+                "Vizcaya",
+                "Coconut Grove",
+                "Univerity",
+                "South Miami",
+                "Dadeland North",
+                "Dadeland South"
+            ]
+        },
+        {
+            "name":"Green Line",
+            "circular":false,
+            "color":{
+                "red":0.4000000059604645,
+                "green":0.6000000238418579,
+                "blue":0.4000000059604645,
+                "alpha":1.0
+            },
+            "station_names":[
+                "Palmetto",
+                "Okeechobee",
+                "Hialeah",
+                "Tri-Rail",
+                "Northside",
+                "Dr. Martin Luther King Jr.",
+                "Brownsville",
+                "Earlington Heights",
+                "Allapattah",
+                "Santa Clara",
+                "Civic Center",
+                "Culmer",
+                "Historic Overtown/Lyric Theatre",
+                "Government Center",
+                "Brickell",
+                "Vizcaya",
+                "Coconut Grove",
+                "Univerity",
+                "South Miami",
+                "Dadeland North",
+                "Dadeland South"
+            ]
+        }
+    ],
+    "stations":[
+        {
+            "name":"Palmetto",
+            "x":220,
+            "y":200
+        },
+        {
+            "name":"Okeechobee",
+            "x":320,
+            "y":220
+        },
+        {
+            "name":"Hialeah",
+            "x":420,
+            "y":220
+        },
+        {
+            "name":"Tri-Rail",
+            "x":506,
+            "y":200
+        },
+        {
+            "name":"Northside",
+            "x":580,
+            "y":200
+        },
+        {
+            "name":"Dr. Martin Luther King Jr.",
+            "x":620,
+            "y":240
+        },
+        {
+            "name":"Brownsville",
+            "x":620,
+            "y":300
+        },
+        {
+            "name":"Miami International Airport",
+            "x":380,
+            "y":380
+        },
+        {
+            "name":"Earlington Heights",
+            "x":620,
+            "y":360
+        },
+        {
+            "name":"Allapattah",
+            "x":660,
+            "y":360
+        },
+        {
+            "name":"Santa Clara",
+            "x":680,
+            "y":400
+        },
+        {
+            "name":"Civic Center",
+            "x":680,
+            "y":440
+        },
+        {
+            "name":"Culmer",
+            "x":700,
+            "y":480
+        },
+        {
+            "name":"Historic Overtown/Lyric Theatre",
+            "x":740,
+            "y":500
+        },
+        {
+            "name":"Government Center",
+            "x":740,
+            "y":540
+        },
+        {
+            "name":"Brickell",
+            "x":740,
+            "y":580
+        },
+        {
+            "name":"Vizcaya",
+            "x":700,
+            "y":620
+        },
+        {
+            "name":"Coconut Grove",
+            "x":640,
+            "y":660
+        },
+        {
+            "name":"Univerity",
+            "x":560,
+            "y":680
+        },
+        {
+            "name":"South Miami",
+            "x":520,
+            "y":720
+        },
+        {
+            "name":"Dadeland North",
+            "x":480,
+            "y":760
+        },
+        {
+            "name":"Dadeland South",
+            "x":443,
+            "y":785
+        }
+    ]
+}

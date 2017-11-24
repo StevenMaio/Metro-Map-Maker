@@ -18,14 +18,17 @@ import java.io.IOException;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
 import javax.imageio.ImageIO;
 import mmm.data.MMMData;
 import static mmm.data.MMMState.*;
 import properties_manager.PropertiesManager;
 import static mmm.gui.BorderedMessageDialogSingleton.DESTINATIONS;
 import static mmm.MMMLanguageProperty.*;
+import static mmm.file.MMMFiles.METRO_EXTENSION;
 import mmm.data.DraggableCircle;
 import mmm.data.DraggableLabel;
+import mmm.data.MMMState;
 import mmm.data.MetroLine;
 import mmm.data.MetroStation;
 import mmm.file.MMMFiles;
@@ -109,11 +112,14 @@ public class MMMEditController {
         AppMessageDialogSingleton singleton = AppMessageDialogSingleton.getSingleton();
         MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
         Pane canvas = workspace.getCanvas();
+        
+        String name = dataManager.getName();
+        
         WritableImage image = canvas.snapshot(new SnapshotParameters(), null);
-        File imageFile = new File(PATH_EXPORTS + dataManager.getName() + PNG);
+        File imageFile = new File(PATH_EXPORTS + name + METRO_EXTENSION + PNG);
         try {
 	    ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", imageFile);
-            String jsonFilePath = PATH_EXPORTS + dataManager.getName() + JSON;
+            String jsonFilePath = PATH_EXPORTS + name + METRO_EXTENSION + JSON;
             
             // try exporting as well
             app.getFileComponent().exportData(dataManager, jsonFilePath);
@@ -208,6 +214,7 @@ public class MMMEditController {
         
         dataManager.deleteMetroLine(metroLine);
         workspace.getMetroLineComboBox().getSelectionModel().select(null);
+        dataManager.setState(SELECTING_SHAPE);
         workspace.reloadWorkspace(dataManager);
     }
     
@@ -374,15 +381,178 @@ public class MMMEditController {
     
     public void processFindRoute() {}
     
-    public void processBoldFont() {}
+    public void processBoldFont() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        boolean bold = workspace.getBoldFontButton().isSelected();
+        MMMState state = dataManager.getState();
+        
+        switch (state) {
+            case SELECTED_LABEL:
+                DraggableLabel label = (DraggableLabel) dataManager.getSelectedShape();
+                
+                dataManager.setBoldFont(bold, label);
+                break;
+                
+            case SELECTED_METRO_LINE:
+                MetroLine metroLine = workspace.getMetroLineComboBox()
+                        .getSelectionModel().getSelectedItem();
+                
+                dataManager.setBoldFont(bold, metroLine.getStartLabel(),
+                        metroLine.getEndLabel());
+                break;
+                
+            case SELECTED_METRO_STATION:
+                MetroStation metroStation = workspace.getMetroStationComboBox()
+                        .getSelectionModel().getSelectedItem();
+                
+                dataManager.setBoldFont(bold, metroStation.getStationLabel());
+                break;
+                
+            default:
+                break;
+        }
+        
+        workspace.reloadWorkspace(dataManager);
+    }
     
-    public void processItalicFont() {}
+    public void processItalicFont() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        boolean italic = workspace.getItalicFontButton().isSelected();
+        MMMState state = dataManager.getState();
+        
+        switch (state) {
+            case SELECTED_LABEL:
+                DraggableLabel label = (DraggableLabel) dataManager.getSelectedShape();
+                
+                dataManager.setItalicFont(italic, label);
+                break;
+                
+            case SELECTED_METRO_LINE:
+                MetroLine metroLine = workspace.getMetroLineComboBox()
+                        .getSelectionModel().getSelectedItem();
+                
+                dataManager.setItalicFont(italic, metroLine.getEndLabel(),
+                        metroLine.getStartLabel());
+                break;
+                
+            case SELECTED_METRO_STATION:
+                MetroStation metroStation = workspace.getMetroStationComboBox()
+                        .getSelectionModel().getSelectedItem();
+                
+                dataManager.setItalicFont(italic, metroStation.getStationLabel());
+                break;
+                
+            default:
+                break;
+        }
+        
+        workspace.reloadWorkspace(dataManager);
+    }
     
-    public void processChangeFontSize() {}
+    public void processChangeFontSize() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        int fontSize = workspace.getFontSizeComboBox().getValue();
+        
+        MMMState state = dataManager.getState();
+        
+        switch (state) {
+            case SELECTED_LABEL:
+                DraggableLabel label = (DraggableLabel) dataManager.getSelectedShape();
+                
+                dataManager.setFontSize(fontSize, label);
+                break;
+                
+            case SELECTED_METRO_STATION:
+                MetroStation metroStation = workspace.getMetroStationComboBox()
+                        .getSelectionModel().getSelectedItem();
+                
+                dataManager.setFontSize(fontSize, metroStation.getStationLabel());
+                break;
+                
+            case SELECTED_METRO_LINE:
+                MetroLine metroLine = workspace.getMetroLineComboBox()
+                        .getSelectionModel().getSelectedItem();
+                
+                dataManager.setFontSize(fontSize, metroLine.getStartLabel(),
+                        metroLine.getEndLabel());
+                break;
+                
+            default:
+                break;
+        }
+        
+        workspace.reloadWorkspace(dataManager);
+    }
     
-    public void processChangeFontFamily() {}
+    public void processChangeFontFamily() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        String fontFamily = workspace.getFontFamilyComboBox().getValue();
+        
+        MMMState state = dataManager.getState();
+        
+        switch (state) {
+            case SELECTED_LABEL:
+                DraggableLabel label = (DraggableLabel) dataManager.getSelectedShape();
+                
+                dataManager.setFontFamily(fontFamily, label);
+                break;
+                
+            case SELECTED_METRO_LINE:
+                MetroLine metroLine = workspace.getMetroLineComboBox()
+                        .getValue();
+                
+                dataManager.setFontFamily(fontFamily, metroLine.getStartLabel(),
+                        metroLine.getEndLabel());
+                break;
+                
+            case SELECTED_METRO_STATION:
+                MetroStation metroStation = workspace.getMetroStationComboBox()
+                        .getValue();
+                
+                dataManager.setFontFamily(fontFamily, metroStation.getStationLabel());
+                break;
+                
+            default:
+                break;
+        }
+        
+        workspace.reloadWorkspace(dataManager);
+    }
     
-    public void processChangeFontFill() {}
+    public void processChangeFontFill() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        Color newColor = workspace.getFontFillColorPicker().getValue();
+        
+        MMMState state = dataManager.getState();
+        
+        switch (state) {
+            case SELECTED_METRO_LINE:
+                MetroLine metroLine = workspace.getMetroLineComboBox()
+                        .getSelectionModel().getSelectedItem();
+                
+                dataManager.setFontFill(newColor, metroLine.getStartLabel(),
+                        metroLine.getEndLabel());
+                break;
+                
+            case SELECTED_METRO_STATION:
+                MetroStation metroStation = workspace.getMetroStationComboBox()
+                        .getSelectionModel().getSelectedItem();
+                
+                dataManager.setFontFill(newColor, metroStation.getStationLabel());
+                break;
+                
+            case SELECTED_LABEL:
+                DraggableLabel label = (DraggableLabel) dataManager.getSelectedShape();
+                
+                dataManager.setFontFill(newColor, label);
+                break;
+                
+            default:
+                break;
+        }
+        
+        workspace.reloadWorkspace(dataManager);
+    }
     
     public void processChangeBackgroundColor() {
         MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
@@ -424,6 +594,45 @@ public class MMMEditController {
     public void processIncreaseMapSize() {}
     
     public void processDecreaseMapSize() {}
+    
+    public void processAddLabel() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        EnterTextDialogSingleton singleton = EnterTextDialogSingleton.getSingleton();
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        
+        singleton.show(props.getProperty(INIT_LABEL_TITLE), 
+                props.getProperty(INIT_LABEL_MESSAGE));
+        
+        if (singleton.isReady()) {
+            String text = singleton.getText();
+            
+            if (! "".equals(text)) {
+                DraggableLabel label = new DraggableLabel(text);
+                label.setIndependent(true);
+                dataManager.setSelectedShape(label);
+                dataManager.setState(CREATING_LABEL);
+            }
+        }
+    }
+    
+    public void processDeleteMapElement() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        MMMState state = dataManager.getState();
+        Shape selectedShape = dataManager.getSelectedShape();
+        
+        switch (state) {
+            case SELECTED_LABEL:
+                dataManager.removeShape(selectedShape);
+                dataManager.setState(SELECTING_SHAPE);
+                
+                break;
+            
+            default:
+                break;
+        }
+        
+        workspace.reloadWorkspace(dataManager);
+    }
 
     // This helper method just makes the code easier to read
     private void reloadWorkspace() {

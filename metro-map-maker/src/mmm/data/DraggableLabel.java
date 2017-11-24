@@ -25,6 +25,7 @@ public class DraggableLabel extends Text implements Draggable {
     private int fontSize;
     private boolean italicized;
     private boolean bold;
+    private boolean independent;
     
     // Location properties
     private double startX;
@@ -40,6 +41,7 @@ public class DraggableLabel extends Text implements Draggable {
         fontSize = DEFAULT_FONT_SIZE;
         bold = DEFAULT_BOLD;
         italicized = DEFAULT_ITALIC;
+        independent = false;
         
         resetStyle();
     }
@@ -152,6 +154,14 @@ public class DraggableLabel extends Text implements Draggable {
 
     public void setBold(boolean bold) {
         this.bold = bold;
+    }
+
+    public boolean isIndependent() {
+        return independent;
+    }
+
+    public void setIndependent(boolean independent) {
+        this.independent = independent;
     }
 
     @Override
