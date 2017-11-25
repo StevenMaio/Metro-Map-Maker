@@ -6,6 +6,9 @@
 package mmm.data;
 
 import javafx.scene.shape.Rectangle;
+import static djf.settings.AppStartupConstants.FILE_PROTOCOL;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 
 /**
  * This class implements a draggable image onto the canvas. This is object is
@@ -29,7 +32,8 @@ public class DraggableImage extends Rectangle implements Draggable {
      */
     @Override
     public void start(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        startX = x;
+	startY = y;
     }
 
     /**
@@ -41,7 +45,23 @@ public class DraggableImage extends Rectangle implements Draggable {
      */
     @Override
     public void drag(int x, int y, boolean snapToGrid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        x = (snapToGrid) ? x - x%20 : x;
+        y = (snapToGrid) ? y - y%20: y;
+        
+        if (snapToGrid) {
+            setX(x);
+            setY(y);
+        } else {
+            double diffX = x - (startX);
+            double diffY = y - (startY);
+            double newX = getX() + diffX;
+            double newY = getY() + diffY;
+
+            xProperty().set(newX);
+            yProperty().set(newY);
+            startX = x;
+            startY = y;
+        }
     }
 
     /**
@@ -50,7 +70,6 @@ public class DraggableImage extends Rectangle implements Draggable {
      */
     @Override
     public void highlight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -66,7 +85,11 @@ public class DraggableImage extends Rectangle implements Draggable {
      * This method is called to refresh (or set) the image fill of the instance of
      * DraggableImage
      */
-    public void refreshImage() {}
+    public void refreshImage() {
+        Image im = new Image(FILE_PROTOCOL + imageFilepath);
+        
+        setFill(new ImagePattern(im));
+    }
     
     //////////////////////////////
     // Accessor/mutator methods //

@@ -3,16 +3,22 @@
     "name":"Miami Metrorail",
     "lines":[
         {
-            "name":"Orange Line",
+            "name":"Green Line",
             "circular":false,
             "color":{
-                "red":1.0,
-                "green":0.6470588445663452,
-                "blue":0.0,
+                "red":0.4000000059604645,
+                "green":0.6000000238418579,
+                "blue":0.4000000059604645,
                 "alpha":1.0
             },
             "station_names":[
-                "Miami International Airport",
+                "Palmetto",
+                "Okeechobee",
+                "Hialeah",
+                "Tri-Rail",
+                "Northside",
+                "Dr. Martin Luther King Jr.",
+                "Brownsville",
                 "Earlington Heights",
                 "Allapattah",
                 "Santa Clara",
@@ -30,22 +36,16 @@
             ]
         },
         {
-            "name":"Green Line",
+            "name":"Orange Line",
             "circular":false,
             "color":{
-                "red":0.4000000059604645,
-                "green":0.6000000238418579,
-                "blue":0.4000000059604645,
+                "red":1.0,
+                "green":0.6470588445663452,
+                "blue":0.0,
                 "alpha":1.0
             },
             "station_names":[
-                "Palmetto",
-                "Okeechobee",
-                "Hialeah",
-                "Tri-Rail",
-                "Northside",
-                "Dr. Martin Luther King Jr.",
-                "Brownsville",
+                "Miami International Airport",
                 "Earlington Heights",
                 "Allapattah",
                 "Santa Clara",
@@ -107,7 +107,7 @@
         {
             "name":"Earlington Heights",
             "x":620,
-            "y":360
+            "y":361
         },
         {
             "name":"Allapattah",

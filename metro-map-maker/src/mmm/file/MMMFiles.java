@@ -14,6 +14,8 @@ import static mmm.MMMLanguageProperty.RECENT_FILE_2;
 import static mmm.MMMLanguageProperty.RECENT_FILE_3;
 import static mmm.MMMLanguageProperty.RECENT_FILE_4;
 import static mmm.MMMLanguageProperty.RECENT_FILE_5;
+import static mmm.data.MMMData.DEFAULT_HEIGHT;
+import static mmm.data.MMMData.DEFAULT_WIDTH;
 import djf.ui.AppMessageDialogSingleton;
 import java.io.File;
 import java.io.FileInputStream;
@@ -154,8 +156,8 @@ public class MMMFiles implements AppFileComponent {
         JsonObject dataManagerJSO = Json.createObjectBuilder()
                 .add(JSON_BACKGROUND, backgroundJson)
                 .add(JSON_NAME, name)
-//                .add(JSON_HEIGHT, height)
-//                .add(JSON_WIDTH, width)
+                .add(JSON_HEIGHT, height)
+                .add(JSON_WIDTH, width)
                 .add(JSON_METRO_STATIONS, metroStationsJson)
                 .add(JSON_METRO_LINES, metroLinesJson)
                 .add(JSON_SHAPES, shapesJson)
@@ -196,6 +198,12 @@ public class MMMFiles implements AppFileComponent {
         dataManager.setBackgroundColor(backgroundColor);
         String name = json.getString(JSON_NAME);
         dataManager.setName(name);
+        
+        int height = json.getInt(JSON_HEIGHT);
+        int width = json.getInt(JSON_WIDTH);
+        
+        dataManager.setHeight(height);
+        dataManager.setWidth(width);
         
         // Load the Metro Stations
         JsonArray jsonMetroStationsArray = json.getJsonArray(JSON_METRO_STATIONS);
@@ -240,6 +248,7 @@ public class MMMFiles implements AppFileComponent {
 
                 if (type.equals(JSON_LABEL)) {
                     shape = loadDraggableLabel(shapeJson);
+                    ((DraggableLabel) shape).setIndependent(true);
                 }
 
                 shapes.add(shape);

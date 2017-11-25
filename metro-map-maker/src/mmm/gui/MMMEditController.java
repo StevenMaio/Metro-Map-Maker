@@ -591,9 +591,32 @@ public class MMMEditController {
         canvas.setScaleY(scale);
     }
     
-    public void processIncreaseMapSize() {}
+    public void processIncreaseMapSize() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        int height = dataManager.getHeight();
+        int width = dataManager.getWidth();
+        
+        height += 100;
+        width += 100;
+        
+        dataManager.setHeight(height);
+        dataManager.setWidth(width);
+    }
     
-    public void processDecreaseMapSize() {}
+    public void processDecreaseMapSize() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        int height = dataManager.getHeight();
+        int width = dataManager.getWidth();
+        
+        height -= 100;
+        width -= 100;
+        
+        height = (height < 600) ? 600 : height;
+        width = (width < 800) ? 800 : width;
+        
+        dataManager.setHeight(height);
+        dataManager.setWidth(width);
+    }
     
     public void processAddLabel() {
         MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();

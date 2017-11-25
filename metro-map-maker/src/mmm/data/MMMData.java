@@ -25,7 +25,9 @@ public class MMMData implements AppDataComponent {
     public static final String BLACK_HEX = "#000000";
     public static final Color DEFAULT_BACKGROUND_COLOR
             = Color.WHITE;
-
+    public static final int DEFAULT_WIDTH = 1200;
+    public static final int DEFAULT_HEIGHT = 800;
+    
     // instance variables
     private String name;
     private AppTemplate app;
@@ -418,9 +420,15 @@ public class MMMData implements AppDataComponent {
 
     public void setWidth(int width) {
         this.width = width;
+        
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        workspace.getCanvas().setMaxWidth(width);
     }
 
     public void setHeight(int height) {
         this.height = height;
+        
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        workspace.getCanvas().setMaxHeight(height);
     }
 }

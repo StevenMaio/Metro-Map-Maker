@@ -10,7 +10,8 @@ import djf.components.AppDataComponent;
 import djf.components.AppWorkspaceComponent;
 import djf.ui.AppGUI;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Button;
@@ -20,6 +21,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -335,7 +337,42 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     private void initControllers() {
         /* This private method is used to set all of the controls and action events
        for the controls inside the application */
-    
+
+        app.getGUI().getPrimaryScene().setOnKeyPressed(e -> {
+            KeyCode code = e.getCode();
+            double xTranslate = canvas.getTranslateX();
+            double yTranslate = canvas.getTranslateY();
+            
+            switch (code) {
+                case W:
+                    yTranslate -= 50;
+                    yTranslate = (yTranslate < 0) ? 0: yTranslate;
+                    canvas.setTranslateY(yTranslate);
+                    break;
+                    
+                case S:
+                    yTranslate += 50;
+                    yTranslate = (yTranslate > 500) ? 500 : yTranslate;
+                    canvas.setTranslateY(yTranslate);
+                    break;
+                
+                case A:
+                    xTranslate -= 50;
+                    xTranslate = (xTranslate < 0) ? 0 : xTranslate;
+                    canvas.setTranslateX(xTranslate);
+                    break;
+                    
+                case D:
+                    xTranslate += 50;
+                    xTranslate = (xTranslate > 500) ? 500 : xTranslate;
+                    canvas.setTranslateX(xTranslate);
+                    break;
+                    
+                default:
+                    break;
+            }
+        });
+        
         editController = new MMMEditController(app);
         canvasController = new MMMCanvasController(app);
         
@@ -464,6 +501,12 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         zoomOutButton.setOnAction(e -> {
             editController.processZoomOut();
         });
+        increaseMapSizeButton.setOnAction(e -> {
+            editController.processIncreaseMapSize();
+        });
+        decreaseMapSizeButton.setOnAction(e -> {
+            editController.processDecreaseMapSize();
+        });
     }
     
     private void initStyle() {
@@ -580,8 +623,16 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     // THis method loads the style settings of some kind of text object
     public void loadTextSettings(DraggableLabel text) {
         // Load Text Settings
+        EventHandler<ActionEvent> fontSizeAction = fontSizeComboBox.getOnAction();
+        fontSizeComboBox.setOnAction(null);
         fontSizeComboBox.getSelectionModel().select(new Integer(text.getFontSize()));
+        fontSizeComboBox.setOnAction(fontSizeAction);
+        
+        // Turning off the EventHandler because things are tedious
+        EventHandler<ActionEvent> fontFamilyAactionEvent = fontFamilyComboBox.getOnAction();
+        fontFamilyComboBox.setOnAction(null);
         fontFamilyComboBox.getSelectionModel().select(text.getFontFamily());
+        fontFamilyComboBox.setOnAction(fontFamilyAactionEvent);
         
         // TODO: Bold and Italic
         boldFontButton.setSelected(text.isBold());

@@ -75,15 +75,23 @@ public class DraggableLabel extends Text implements Draggable {
      */
     @Override
     public void drag(int x, int y, boolean snapToGrid) {
-        double diffX = x - (startX);
-	double diffY = y - (startY);
-	double newX = getX() + diffX;
-	double newY = getY() + diffY;
+        x = (snapToGrid) ? x - x%20 : x;
+        y = (snapToGrid) ? y - y%20: y;
         
-        xProperty().set(newX);
-        yProperty().set(newY);
-	startX = x;
-	startY = y;
+        if (snapToGrid) {
+            setX(x);
+            setY(y);
+        } else {
+            double diffX = x - (startX);
+            double diffY = y - (startY);
+            double newX = getX() + diffX;
+            double newY = getY() + diffY;
+
+            xProperty().set(newX);
+            yProperty().set(newY);
+            startX = x;
+            startY = y;
+        }
     }
 
     /**

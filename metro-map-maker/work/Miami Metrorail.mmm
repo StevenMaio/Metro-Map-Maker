@@ -7,6 +7,8 @@
         "alpha":1.0
     },
     "name":"Miami Metrorail",
+    "height":1600,
+    "width":2000,
     "stations":[
         {
             "name":"Palmetto",
@@ -802,5 +804,21 @@
         }
     ],
     "shapes":[
+        {
+            "type":"label",
+            "text":"Miami",
+            "font_family":"Chiller",
+            "font_size":72,
+            "italic":true,
+            "bold":false,
+            "fill_color":{
+                "red":0.0,
+                "green":0.0,
+                "blue":0.0,
+                "alpha":1.0
+            },
+            "x":720.0,
+            "y":800.0
+        }
     ]
 }
