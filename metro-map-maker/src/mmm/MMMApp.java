@@ -21,6 +21,7 @@ import mmm.file.MMMFiles;
 import static mmm.file.MMMFiles.FILE_EXTENSION;
 import mmm.gui.BorderedMessageDialogSingleton;
 import mmm.gui.EnterTextDialogSingleton;
+import mmm.gui.InitImageWindow;
 import mmm.gui.MMMWorkspace;
 import mmm.gui.MetroLineSettingsDialogSingleton;
 import mmm.gui.WelcomeDialogSingleton;
@@ -81,6 +82,12 @@ public class MMMApp extends AppTemplate {
         BorderedMessageDialogSingleton borderedMessageDialog;
         borderedMessageDialog = BorderedMessageDialogSingleton.getSingleton();
         borderedMessageDialog.init(primaryStage);
+        
+        InitImageWindow imageWindow;
+        imageWindow = InitImageWindow.getSingleton();
+        imageWindow.init(primaryStage);
+        
+        imageWindow.showAndWait();
         
 	try {
 	    // LOAD APP PROPERTIES, BOTH THE BASIC UI STUFF FOR THE FRAMEWORK

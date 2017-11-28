@@ -24,6 +24,7 @@ public class MMMStyle {
     public static final String CLASS_COLOR_CHOOSER_CONTROL = "color_chooser_control";
     public static final String CLASS_BORDERED_PANE = "bordered_pane";
     public static final String CLASS_COLOR_PICKER = "color_picker";
+    public static final String CLASS_WINDOW_PANE = "external_pane";
     
     // Font Sizes available
     public static final int[] FONT_SIZES = {
