@@ -8,9 +8,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
+import static djf.settings.AppStartupConstants.PATH_WORK;
+import java.io.File;
 import javafx.stage.Stage;
-import static mmm.css.MMMStyle.CLASS_WINDOW_PANE;
 
 public class InitImageWindow extends Stage {
     // The single instance
@@ -18,6 +20,7 @@ public class InitImageWindow extends Stage {
     private static final String OK = "OK";
     private static final String CANCEL = "Cancel";
     private static final String ELLIPSIS = "...";
+    private static final String CHOOSE_IMAGE = "Choose Image";
     
     // 
     private Label messageLabel;
@@ -43,6 +46,7 @@ public class InitImageWindow extends Stage {
         initOwner(primaryStage);
         
         textField = new TextField();
+        textField.setEditable(false);   // Make teh text uneditable
         ready = false;
         messageLabel = new Label();
         
@@ -85,7 +89,7 @@ public class InitImageWindow extends Stage {
             hide();
         });
         chooseFileButton.setOnAction(e -> {
-            processChooseFile();
+            processChooseFile(primaryStage);
         });
         
         Scene scene = new Scene(mainContainer, 300, 200);
@@ -109,7 +113,17 @@ public class InitImageWindow extends Stage {
         return textField.getText();
     }
     
-    private void processChooseFile() {}
+    private void processChooseFile(Stage primaryStage) {
+        FileChooser fc = new FileChooser();
+        fc.setInitialDirectory(new File(PATH_WORK));
+        fc.setTitle(CHOOSE_IMAGE);
+        File selectedFile = fc.showOpenDialog(primaryStage);
+
+        String filePath = selectedFile.getPath();
+        
+        // Set the Text field in the window
+        InitImageWindow.singleton.textField.setText(filePath);
+    }
     
     //////////////////////////////
     // Accessor/Mutator Methods //

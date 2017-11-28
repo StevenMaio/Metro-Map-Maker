@@ -87,8 +87,6 @@ public class MMMApp extends AppTemplate {
         imageWindow = InitImageWindow.getSingleton();
         imageWindow.init(primaryStage);
         
-        imageWindow.showAndWait();
-        
 	try {
 	    // LOAD APP PROPERTIES, BOTH THE BASIC UI STUFF FOR THE FRAMEWORK
 	    // AND THE CUSTOM UI STUFF FOR THE WORKSPACE

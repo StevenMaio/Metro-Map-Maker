@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mmm.gui;
 
 import djf.AppTemplate;
@@ -12,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.shape.Shape;
 import mmm.data.Draggable;
 import mmm.data.DraggableCircle;
+import mmm.data.DraggableImage;
 import mmm.data.DraggableLabel;
 import mmm.data.MMMData;
 import mmm.data.MMMState;
@@ -129,6 +125,16 @@ public class MMMCanvasController {
                 dataManager.setState(SELECTING_SHAPE);
                 break;
                 
+            case CREATING_IMAGE:
+                DraggableImage image = (DraggableImage) dataManager.getNewShape();
+                image.setX(x);
+                image.setY(y);
+                
+                dataManager.addImage(image);
+                dataManager.setState(SELECTING_SHAPE);
+                dataManager.setNewShape(null);
+                break;
+                
             case ADD_STATIONS_MODE:
                 // Make sure that a metroline is selected.
                 if (workspace.getMetroLineComboBox().getSelectionModel().getSelectedItem() == null){
@@ -233,6 +239,8 @@ public class MMMCanvasController {
                     dataManager.setState(SELECTED_METRO_STATION);
                 else if (selectedShape instanceof DraggableLabel)
                     dataManager.setState(SELECTED_LABEL);
+                else if (selectedShape instanceof DraggableImage)
+                    dataManager.setState(SELECTED_DRAGGABLE_IMAGE);
                 else
                     dataManager.setState(SELECTING_SHAPE);
                 scene.setCursor(Cursor.DEFAULT);

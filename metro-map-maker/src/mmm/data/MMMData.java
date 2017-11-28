@@ -203,7 +203,11 @@ public class MMMData implements AppDataComponent {
      * @param image
      *      The DraggableImage instance being added to the canvas
      */
-    public void addImage(DraggableImage image) {}
+    public void addImage(DraggableImage image) {
+        AddImage_Transaction transaction = new AddImage_Transaction(this, image);
+        
+        transactionHistory.addTransaction(transaction);
+    }
 
     public void setBoldFont(boolean bold, DraggableLabel... labels) {
         SetBoldFont_Transaction transaction = new SetBoldFont_Transaction(this, bold, labels);

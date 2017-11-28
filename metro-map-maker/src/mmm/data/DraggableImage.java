@@ -78,7 +78,6 @@ public class DraggableImage extends Rectangle implements Draggable {
      */
     @Override
     public void unhighlight() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     /**
@@ -87,6 +86,9 @@ public class DraggableImage extends Rectangle implements Draggable {
      */
     public void refreshImage() {
         Image im = new Image(FILE_PROTOCOL + imageFilepath);
+        
+        setHeight(im.getHeight());
+        setWidth(im.getWidth());
         
         setFill(new ImagePattern(im));
     }

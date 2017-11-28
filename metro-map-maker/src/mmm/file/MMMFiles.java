@@ -14,8 +14,6 @@ import static mmm.MMMLanguageProperty.RECENT_FILE_2;
 import static mmm.MMMLanguageProperty.RECENT_FILE_3;
 import static mmm.MMMLanguageProperty.RECENT_FILE_4;
 import static mmm.MMMLanguageProperty.RECENT_FILE_5;
-import static mmm.data.MMMData.DEFAULT_HEIGHT;
-import static mmm.data.MMMData.DEFAULT_WIDTH;
 import djf.ui.AppMessageDialogSingleton;
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,8 +45,6 @@ import mmm.data.MetroLine;
 import mmm.data.MetroStation;
 import properties_manager.PropertiesManager;
 import static djf.settings.AppStartupConstants.PATH_WORK;
-import djf.ui.AppGUI;
-import java.math.BigDecimal;
 import java.util.Hashtable;
 import java.util.Scanner;
 import javafx.scene.shape.Shape;
@@ -146,9 +142,11 @@ public class MMMFiles implements AppFileComponent {
         
         // now we iterate through shapes to save labels and text
         for (Node e: shapes) {
-            if (e instanceof DraggableLabel)
+            if (e instanceof DraggableLabel) {
                 if (((DraggableLabel) e).isIndependent())
                     arrayBuilder.add(saveDraggableLabel((DraggableLabel) e));
+            } else if (e instanceof DraggableImage)
+                arrayBuilder.add(saveDraggableImage((DraggableImage) e));
         }
         
         JsonArray shapesJson = arrayBuilder.build();
@@ -249,6 +247,8 @@ public class MMMFiles implements AppFileComponent {
                 if (type.equals(JSON_LABEL)) {
                     shape = loadDraggableLabel(shapeJson);
                     ((DraggableLabel) shape).setIndependent(true);
+                } else if (type.equals(JSON_IMAGE)) {
+                    shape = loadDraggableImage(shapeJson);
                 }
 
                 shapes.add(shape);
@@ -523,7 +523,17 @@ public class MMMFiles implements AppFileComponent {
     
     // Creates an instace of DraggableImage from a JsonObject
     private DraggableImage loadDraggableImage(JsonObject jsonDraggableImage) {
-        return null;
+        DraggableImage image = new DraggableImage();
+        int x = jsonDraggableImage.getInt(JSON_X);
+        int y = jsonDraggableImage.getInt(JSON_Y);
+        String filePath = jsonDraggableImage.getString(JSON_FILE_PATH);
+        
+        image.setX(x);
+        image.setY(y);
+        image.setImageFilepath(filePath);
+        image.refreshImage();
+        
+        return image;
     }
     
     private DraggableCircle loadDraggableCircle(JsonObject jsonCircle) {

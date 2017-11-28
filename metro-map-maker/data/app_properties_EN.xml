@@ -120,6 +120,10 @@
 	<property name="EXPORT_SUCCESS_TITLE" value="Export Success"/>
 	<property name="EXPORT_FAILURE_TITLE" value="Export Failure"/>
         
+        <property name="INVALID_FILE_TITLE" value="Invalid File"/>
+        <property name="INVALID_FILE_MESSAGE" value="Not a valid image file"/>
+        <property name="INIT_IMAGE_TITLE" value="Add Image"/>
+        <property name="INIT_IMAGE_MESSAGE" value="Select an image"/>
         <property name="INIT_LABEL_WINDOW" value="Create Label"/>
         <property name="INIT_LABEL_MESSAGE" value="Enter text"/>
         <property name="EXPORT_SUCCESS_MESSAGE" value="Metro Map successfuly exported"/>

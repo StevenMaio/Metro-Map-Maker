@@ -27,6 +27,7 @@ import static mmm.gui.BorderedMessageDialogSingleton.DESTINATIONS;
 import static mmm.MMMLanguageProperty.*;
 import static mmm.file.MMMFiles.METRO_EXTENSION;
 import mmm.data.DraggableCircle;
+import mmm.data.DraggableImage;
 import mmm.data.DraggableLabel;
 import mmm.data.MMMState;
 import mmm.data.MetroLine;
@@ -150,6 +151,43 @@ public class MMMEditController {
         }
         
         workspace.reloadWorkspace(dataManager);
+    }
+    
+    public void processAddImage() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        InitImageWindow initImageWindow = InitImageWindow.getSingleton();
+        
+        initImageWindow.show(props.getProperty(INIT_IMAGE_TITLE),
+                props.getProperty(INIT_IMAGE_TITLE));
+        
+        if (initImageWindow.isReady()) {
+            String filePath = initImageWindow.getText();
+            
+            String fileExtension = filePath.substring(filePath.length() - 4);
+                
+                // if a valid fileExtension
+                if (fileExtension.equals(".bmp")        ||
+                        fileExtension.equals(".jpg")     ||
+                        fileExtension.equals(".png")    ||
+                        fileExtension.equals(".gif")) {
+
+                    DraggableImage image = new DraggableImage();
+                    image.setImageFilepath(filePath);
+                    image.refreshImage();
+
+                    // change the state of the application and set the new shape
+                    dataManager.setState(CREATING_IMAGE);
+                    dataManager.setNewShape(image);
+                } else {
+                AppMessageDialogSingleton singleton =
+                        AppMessageDialogSingleton.getSingleton();
+
+                singleton.show(props.getProperty(INVALID_FILE_TITLE), 
+                        props.getProperty(INVALID_FILE_MESSAGE));
+                }
+                
+        }
     }
     
     public void processAddMetroLine() {
@@ -649,7 +687,13 @@ public class MMMEditController {
                 dataManager.setState(SELECTING_SHAPE);
                 
                 break;
-            
+                
+            case SELECTED_DRAGGABLE_IMAGE:
+                dataManager.removeShape(selectedShape);
+                dataManager.setState(SELECTING_SHAPE);
+                
+                break;
+                
             default:
                 break;
         }

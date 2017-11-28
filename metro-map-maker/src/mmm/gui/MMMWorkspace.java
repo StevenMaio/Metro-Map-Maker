@@ -476,6 +476,12 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         removeElementButton.setOnAction(e -> {
             editController.processDeleteMapElement();
         });
+        addImageButton.setOnAction(e -> {
+            editController.processAddImage();
+        });
+        removeElementButton.setOnAction(e -> {
+            editController.processDeleteMapElement();
+        });
         
         // Font Toolbar
         fontFillColorPicker.setOnAction(e -> {
