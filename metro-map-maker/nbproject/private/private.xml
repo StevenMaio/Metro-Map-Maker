@@ -66,5 +66,14 @@
             <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/data/DraggableCircle.java</file>
             <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/data/MMMData.java</file>
         </group>
+        <group>
+            <file>file:/D:/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/gui/EnterTextDialogSingleton.java</file>
+            <file>file:/D:/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/gui/MMMWorkspace.java</file>
+            <file>file:/D:/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/MMMApp.java</file>
+            <file>file:/D:/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/gui/InitImageWindow.java</file>
+            <file>file:/D:/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/css/MMMStyle.java</file>
+            <file>file:/D:/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/css/mmm_style.css</file>
+            <file>file:/D:/Documents/Projects/metro-map-maker/metro-map-maker/data/app_properties_EN.xml</file>
+        </group>
     </open-files>
 </project-private>

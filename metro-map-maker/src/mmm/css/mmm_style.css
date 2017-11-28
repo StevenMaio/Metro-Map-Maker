@@ -51,3 +51,9 @@
     -fx-border-width: 2px;
     -fx-border-color: whitesmoke;
 }
+
+.external_pane {
+    -fx-spacing: 10;
+    -fx-padding: 15;
+    -fx-alignment: center;
+}
