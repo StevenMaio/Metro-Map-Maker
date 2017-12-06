@@ -53,13 +53,14 @@ public class MMMCanvasController {
         
         // Determine what to do
         switch (dataManager.getState()) {
-            case SELECTING_SHAPE:
+            default:
                 selectedShape = (Draggable) dataManager.getTopShape(x, y);
                 
                 
                 if (selectedShape == null) {
                     scene.setCursor(Cursor.DEFAULT);
                     app.getWorkspaceComponent().reloadWorkspace(dataManager);
+                    dataManager.setState(SELECTING_SHAPE);
                 }
                 else {
                     if (selectedShape instanceof DraggableCircle) {
@@ -180,11 +181,12 @@ public class MMMCanvasController {
                 }
                 break;
                 
-            default:
-                // Set State to normal and change the cursor
-                dataManager.setState(SELECTING_SHAPE);
-                app.getGUI().getPrimaryScene().setCursor(Cursor.DEFAULT);
-                break;
+                // This is in case this causes problems down the line
+//            default:
+//                // Set State to normal and change the cursor
+//                dataManager.setState(SELECTING_SHAPE);
+//                app.getGUI().getPrimaryScene().setCursor(Cursor.DEFAULT);
+//                break;
         }
         
         // Reload the workspace

@@ -44,6 +44,8 @@ public enum MMMLanguageProperty {
     EDIT_METRO_LINE_TITLE,
     METRO_LINE_INFO,
     
+    SELECT_IMAGE_TITLE,
+    
     // Toolbar Items
     METRO_LINES_TOOLBAR_TITLE,
     METRO_STATIONS_TOOLBAR_TITLE,
@@ -104,6 +106,10 @@ public enum MMMLanguageProperty {
     ZOOM_OUT_ICON,
     UNDO_ICON,
     REDO_ICON,
+    
+    // Route Stuff
+    ROUTE_ERROR_TITLE,
+    ROUTE_ERROR_MESSAGE,
     
     // Recent File Stuff
     RECENT_FILE_1,

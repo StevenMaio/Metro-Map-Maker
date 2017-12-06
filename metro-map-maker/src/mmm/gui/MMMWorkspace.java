@@ -19,6 +19,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
@@ -130,6 +131,7 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     private Button zoomOutButton;
     private Button increaseMapSizeButton;
     private Button decreaseMapSizeButton;
+    private ScrollPane canvasContainer;
     
     /**
      * The constructor for this class. This method will call all of the init 
@@ -319,6 +321,10 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         
         // This goes at the end
         canvas = new Pane();
+        canvasContainer = new ScrollPane(canvas);
+        canvasContainer.autosize();
+        canvasContainer.fitToHeightProperty();
+        canvasContainer.fitToWidthProperty();
         
         // Link data with the ObservableLists here/
         MMMData data = (MMMData) app.getDataComponent();
@@ -331,7 +337,7 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         // Set up the workspaces
         workspace = new BorderPane();
         ((BorderPane)workspace).setLeft(editToolbar);
-	((BorderPane)workspace).setCenter(canvas);
+	((BorderPane)workspace).setCenter(canvasContainer);
     }
     
     private void initControllers() {
@@ -346,25 +352,25 @@ public class MMMWorkspace extends AppWorkspaceComponent {
             switch (code) {
                 case W:
                     yTranslate -= 50;
-                    yTranslate = (yTranslate < 0) ? 0: yTranslate;
+//                    yTranslate = (yTranslate < 0) ? 0: yTranslate;
                     canvas.setTranslateY(yTranslate);
                     break;
                     
                 case S:
                     yTranslate += 50;
-                    yTranslate = (yTranslate > 500) ? 500 : yTranslate;
+//                    yTranslate = (yTranslate > 500) ? 500 : yTranslate;
                     canvas.setTranslateY(yTranslate);
                     break;
                 
                 case A:
                     xTranslate -= 50;
-                    xTranslate = (xTranslate < 0) ? 0 : xTranslate;
+//                    xTranslate = (xTranslate < 0) ? 0 : xTranslate;
                     canvas.setTranslateX(xTranslate);
                     break;
                     
                 case D:
                     xTranslate += 50;
-                    xTranslate = (xTranslate > 500) ? 500 : xTranslate;
+//                    xTranslate = (xTranslate > 500) ? 500 : xTranslate;
                     canvas.setTranslateX(xTranslate);
                     break;
                     
@@ -465,10 +471,16 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         });
         
         // Route Finder
+        findRouteButton.setOnAction(e -> {
+            editController.processFindRoute();
+        });
         
         // Decor TOolbar
         decorToolbarColorPicker.setOnAction(e -> {
             editController.processChangeBackgroundColor();
+        });
+        setBackgroundImageButton.setOnAction(e -> {
+            editController.processSetImageBackground();
         });
         addLabelButton.setOnAction(e -> {
             editController.processAddLabel();
@@ -566,10 +578,16 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     }
     
     /**
-     * This method may or may noth ave a place so far.
+     * This method may or may not have a place so far.
      */
     @Override
-    public void resetWorkspace() {}
+    public void resetWorkspace() {
+        // Return the canvas to it's original positoin and zoom
+        canvas.setTranslateX(0);
+        canvas.setTranslateY(0);
+        canvas.setScaleX(1);
+        canvas.setScaleY(1);
+    }
 
     /**
      * This method adjusts the toolbars to reflect whether or whether not a 

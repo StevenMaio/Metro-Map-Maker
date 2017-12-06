@@ -13,6 +13,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import mmm.data.Path;
 
 /**
  *
@@ -22,6 +23,12 @@ public class BorderedMessageDialogSingleton extends Stage {
     // Singleton
     private static BorderedMessageDialogSingleton singleton;
     public static final String DESTINATIONS = "destinations";
+    private static final String ORIGIN = "Origin: ";
+    private static final String DESTINATION = "Destination: ";
+    private static final String ROUTE_FROM = "Route from ";
+    private static final String TO = "to ";
+    private static final String ROUTE = "Route:\n";
+    private static final String PATH_FIND_TITLE = "Route Finder";
     
     // instance variables
     private Label messageTitleLabel;
@@ -89,6 +96,26 @@ public class BorderedMessageDialogSingleton extends Stage {
         setTitle(messageTitle);
         messageTitleLabel.setText(messageLabel);
         messageBodyTextArea.setText(messageBody);
+        
+        showAndWait();
+    }
+    
+    public void show(Path path){
+        String startStation = path.getStartStation().getName();
+        String endStation = path.getEndStation().getName();
+        
+        String label = ROUTE_FROM + startStation + TO + endStation;
+        
+        messageTitleLabel.setText(label);
+        
+        String bodyMessage = "";
+        
+        bodyMessage += String.format("%s%s\n",ORIGIN, startStation);
+        bodyMessage += String.format("%s%s\n", DESTINATION, endStation);
+        bodyMessage += "\n" + ROUTE + path.getPaths();
+        
+        messageBodyTextArea.setText(bodyMessage);
+        setTitle(PATH_FIND_TITLE);
         
         showAndWait();
     }

@@ -3,6 +3,7 @@ package mmm.file;
 import djf.AppTemplate;
 import djf.components.AppDataComponent;
 import djf.components.AppFileComponent;
+import static djf.settings.AppStartupConstants.FILE_PROTOCOL;
 import static djf.settings.AppPropertyType.NEW_ERROR_MESSAGE;
 import static djf.settings.AppPropertyType.NEW_ERROR_TITLE;
 import static djf.settings.AppPropertyType.NEW_COMPLETED_MESSAGE;
@@ -47,9 +48,18 @@ import properties_manager.PropertiesManager;
 import static djf.settings.AppStartupConstants.PATH_WORK;
 import java.util.Hashtable;
 import java.util.Scanner;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Shape;
 import mmm.data.DraggableCircle;
 import mmm.data.MMMState;
+import mmm.gui.MMMWorkspace;
 
 /**
  * Handles saving and loading projects in the Metro Map Maker.
@@ -115,12 +125,11 @@ public class MMMFiles implements AppFileComponent {
         JsonObject backgroundJson;
         
         // Background color
-        if (imageFilePath == null) {
-            Color bgColor = dataManager.getBackgroundColor();
-            backgroundJson = makeJsonColorObject(bgColor);
-        } else
-            backgroundJson = Json.createObjectBuilder()
-                    .add(JSON_FILE_PATH, imageFilePath).build();
+        backgroundJson = Json.createObjectBuilder()
+                .add(JSON_FILE_PATH, (imageFilePath == null) ? "" : imageFilePath)
+                .add(JSON_COLOR, makeJsonColorObject(dataManager.getBackgroundColor()))
+                .build();   
+        
         
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
         ObservableList<Node> shapes = dataManager.getShapes();
@@ -192,8 +201,36 @@ public class MMMFiles implements AppFileComponent {
         // Load the JSON file
         JsonObject json = loadJSONFile(filePath);
         
-        Color backgroundColor = loadColor(json.getJsonObject(JSON_BACKGROUND));
-        dataManager.setBackgroundColor(backgroundColor);
+        
+        // TODO: THIS ISN'T WORKING
+        JsonObject jsonBackground = json.getJsonObject(JSON_BACKGROUND);
+        if (jsonBackground != null) {
+            String imageFilepath = jsonBackground.getString(JSON_FILE_PATH);
+            Pane canvas = ((MMMWorkspace) dataManager.getApp().getWorkspaceComponent()).getCanvas();
+            Background background;
+            
+                if ("".equals(imageFilepath)) {
+                    Color fillColor = loadColor(jsonBackground.getJsonObject(JSON_COLOR));
+                    
+                    
+                    BackgroundFill fill = new BackgroundFill(fillColor, null, null);
+                    background = new Background(fill);
+                    
+                    canvas.setBackground(background);
+                }
+                else {
+                    Image image = new Image(FILE_PROTOCOL + imageFilepath);
+                    
+                    BackgroundImage backgroundImage = new BackgroundImage(image, 
+                            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, 
+                            BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+                    
+                    background = new Background(backgroundImage);
+                    
+                    canvas.setBackground(background);
+                }
+        }        
+
         String name = json.getString(JSON_NAME);
         dataManager.setName(name);
         
@@ -256,7 +293,6 @@ public class MMMFiles implements AppFileComponent {
         
         // Put the currentmap in the title
         resetRecentMaps(name);
-        dataManager.refreshBackground();
         dataManager.setState(MMMState.SELECTING_SHAPE);
     }
 

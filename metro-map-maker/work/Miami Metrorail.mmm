@@ -1,10 +1,13 @@
 
 {
     "background":{
-        "red":1.0,
-        "green":1.0,
-        "blue":1.0,
-        "alpha":1.0
+        "file_path":"",
+        "fill_color":{
+            "red":1.0,
+            "green":1.0,
+            "blue":1.0,
+            "alpha":1.0
+        }
     },
     "name":"Miami Metrorail",
     "height":1600,
@@ -49,8 +52,8 @@
                 "text":"Okeechobee",
                 "font_family":"Calibri",
                 "font_size":14,
-                "italic":false,
-                "bold":false,
+                "italic":true,
+                "bold":true,
                 "fill_color":{
                     "red":0.0,
                     "green":0.0,
@@ -239,10 +242,10 @@
             "label":{
                 "type":"label",
                 "text":"Miami International Airport",
-                "font_family":"Calibri",
-                "font_size":14,
-                "italic":false,
-                "bold":false,
+                "font_family":"Times New Roman",
+                "font_size":16,
+                "italic":true,
+                "bold":true,
                 "fill_color":{
                     "red":0.0,
                     "green":0.0,
@@ -739,8 +742,8 @@
                     "blue":0.0,
                     "alpha":1.0
                 },
-                "x":105.0,
-                "y":109.0
+                "x":96.0,
+                "y":112.0
             },
             "end-label":{
                 "type":"label",
@@ -817,8 +820,8 @@
                 "blue":0.0,
                 "alpha":1.0
             },
-            "x":720.0,
-            "y":800.0
+            "x":800.0,
+            "y":820.0
         }
     ]
 }

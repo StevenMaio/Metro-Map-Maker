@@ -125,6 +125,18 @@ public class MetroStation {
         return Math.hypot(xDisplacement, yDisplacement);
     }
     
+    public MetroStation softClone() {
+        MetroStation clone = new MetroStation();
+        
+        clone.name = this.name;
+        
+        for (int i = 0; i < neighbors.size(); i++) {
+            clone.getNeighbors().add(neighbors.get(i));
+        }
+        
+        return clone;
+    }
+    
     //////////////////////////////
     // ACCESSOR/MUTATOR METHODS //
     //////////////////////////////
@@ -171,5 +183,9 @@ public class MetroStation {
 
     public ArrayList<MetroLine> getMetroLines() {
         return metroLines;
+    }
+
+    public ArrayList<MetroStation> getNeighbors() {
+        return neighbors;
     }
 }

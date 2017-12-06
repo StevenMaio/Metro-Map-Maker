@@ -10,24 +10,6 @@
             </bookmark>
         </file>
         <file>
-            <url>src/mmm/gui/EnterTextDialogSingleton.java</url>
-            <bookmark id="5">
-                <name/>
-                <line>80</line>
-                <key/>
-            </bookmark>
-            <bookmark id="6">
-                <name/>
-                <line>81</line>
-                <key/>
-            </bookmark>
-            <bookmark id="7">
-                <name/>
-                <line>99</line>
-                <key/>
-            </bookmark>
-        </file>
-        <file>
             <url>src/mmm/gui/WelcomeDialog.java</url>
             <bookmark id="2">
                 <name/>
@@ -42,6 +24,24 @@
             <bookmark id="4">
                 <name/>
                 <line>100</line>
+                <key/>
+            </bookmark>
+        </file>
+        <file>
+            <url>src/mmm/gui/EnterTextDialogSingleton.java</url>
+            <bookmark id="5">
+                <name/>
+                <line>80</line>
+                <key/>
+            </bookmark>
+            <bookmark id="6">
+                <name/>
+                <line>81</line>
+                <key/>
+            </bookmark>
+            <bookmark id="7">
+                <name/>
+                <line>99</line>
                 <key/>
             </bookmark>
         </file>
@@ -66,9 +66,9 @@
         </group>
         <group name="Group 20170929-11:05:38">
             <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/transactions/AddLabel_Transaction.java</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/transactions/DeleteShape_Transaction.java</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/gui/MMMEditController.java</file>
+            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/transactions/ChangeBackground_Transaction.java</file>
             <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/gui/MMMCanvasController.java</file>
+            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/gui/MMMEditController.java</file>
             <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/gui/MMMWorkspace.java</file>
             <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/transactions/AddImage_Transaction.java</file>
             <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/gui/InitImageWindow.java</file>

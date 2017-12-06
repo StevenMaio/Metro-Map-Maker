@@ -12,6 +12,7 @@ import javafx.scene.Cursor;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.WritableImage;
 import static djf.settings.AppStartupConstants.PATH_EXPORTS;
+import static djf.settings.AppStartupConstants.PATH_WORK;
 import static djf.settings.AppStartupConstants.PNG;
 import static djf.settings.AppStartupConstants.JSON;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
+import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
 import mmm.data.MMMData;
 import static mmm.data.MMMState.*;
@@ -32,6 +34,7 @@ import mmm.data.DraggableLabel;
 import mmm.data.MMMState;
 import mmm.data.MetroLine;
 import mmm.data.MetroStation;
+import mmm.data.Path;
 import mmm.file.MMMFiles;
 
 /**
@@ -417,7 +420,46 @@ public class MMMEditController {
         workspace.reloadWorkspace(dataManager);
     }
     
-    public void processFindRoute() {}
+    public void processFindRoute() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        
+        MetroStation startStation = workspace.getStartingStationComboBox().getValue();
+        MetroStation endStation = workspace.getDestinationStationComboBox().getValue();
+        
+        // If the user hasn't selected two stations
+        if (startStation == null || endStation == null) {
+            AppMessageDialogSingleton messageSingleton = 
+                    AppMessageDialogSingleton.getSingleton();
+            
+            messageSingleton.show(props.getProperty(ROUTE_ERROR_TITLE), 
+                    props.getProperty(ROUTE_ERROR_MESSAGE));
+            
+            return;
+        }
+        
+        // Clear all the neighbors and proceed with trying to find a route
+        for (MetroStation metroStation: dataManager.getMetroStations())
+            metroStation.getNeighbors().clear();
+        
+        for (MetroLine metroLine : dataManager.getMetroLines())
+            metroLine.resetNeighbors();
+        
+        Path path = new Path(startStation, endStation);
+        if (path.findPath()) {
+            BorderedMessageDialogSingleton messageSingleton =
+                    BorderedMessageDialogSingleton.getSingleton();
+            
+            messageSingleton.show(path);
+        }
+        else {
+            AppMessageDialogSingleton messageSingleton = 
+                    AppMessageDialogSingleton.getSingleton();
+            
+            messageSingleton.show(props.getProperty(ROUTE_ERROR_TITLE),
+                    props.getProperty(ROUTE_ERROR_MESSAGE));
+        }
+    }
     
     public void processBoldFont() {
         MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
@@ -596,7 +638,7 @@ public class MMMEditController {
         MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
             
         Color newColor = workspace.getDecorToolbarColorPicker().getValue();
-        dataManager.changeBackgroundColor(newColor);
+        dataManager.setBackgroundColor(newColor);
         
         workspace.reloadWorkspace(dataManager);
     }
@@ -701,6 +743,27 @@ public class MMMEditController {
         workspace.reloadWorkspace(dataManager);
     }
 
+    /**
+     * This method processes setting an image as the background of the metromap
+     */
+    public void processSetImageBackground() {
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        FileChooser fc = new FileChooser();
+        fc.setTitle(props.getProperty(SELECT_IMAGE_TITLE));
+        fc.setInitialDirectory(new File(PATH_WORK));
+        
+        File selectedFile = fc.showOpenDialog(app.getGUI().getWindow());
+        
+        // Do something if the user chose a file, otherwise do nothing
+        if (selectedFile == null);
+        else {
+            String filePath = selectedFile.getPath();
+
+            dataManager.setImageBackground(filePath);
+            reloadWorkspace();
+        }
+    }
+    
     // This helper method just makes the code easier to read
     private void reloadWorkspace() {
         MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();

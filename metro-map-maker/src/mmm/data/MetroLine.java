@@ -193,6 +193,24 @@ public class MetroLine extends ArrayList<MetroStation> {
         return label;
     }
     
+    public void resetNeighbors() {
+        for (int i = 0; i < size() - 1; i++) {
+            MetroStation currentStation = get(i);
+            
+            MetroStation nextStation = get(i + 1);
+            
+            // Check to see if nextStation is already a neighbor of currentStation
+            if (currentStation.getNeighbors().contains(nextStation));
+            else
+                currentStation.addNeighbor(nextStation);
+                
+            // Do the same for nextStation
+            if (nextStation.getNeighbors().contains(currentStation));
+            else
+                nextStation.addNeighbor(currentStation);
+        }
+    }
+    
     //////////////////////////////
     // ACCESSOR/MUTATOR METHODS //
     //////////////////////////////

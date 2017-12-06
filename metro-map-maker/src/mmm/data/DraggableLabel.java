@@ -34,6 +34,7 @@ public class DraggableLabel extends Text implements Draggable {
     /**
      * Default constructor for an instance of DraggableLabel. Sets the values
      * of all the style properties to their default values.
+     * @param text
      */
     public DraggableLabel(String text) {
         setText(text);

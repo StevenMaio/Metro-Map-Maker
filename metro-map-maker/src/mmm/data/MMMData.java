@@ -4,8 +4,13 @@ import djf.components.AppDataComponent;
 import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
@@ -40,6 +45,7 @@ public class MMMData implements AppDataComponent {
     private jTPS transactionHistory;
     private Point2D startingPoint;
     private MetroLine newMetroLine;
+    private boolean imageBackground;
     
     // Style things
     private int width;
@@ -249,16 +255,6 @@ public class MMMData implements AppDataComponent {
         transactionHistory.addTransaction(transaction);
     }
 
-    /**
-     * This method changes the background color
-     * @param color The new value for the background color.
-     */
-    public void changeBackgroundColor(Color color) {
-        ChangeBackgroundColor_Transaction transaction = new ChangeBackgroundColor_Transaction(this, color);
-
-        transactionHistory.addTransaction(transaction);
-    }
-
     @Override
     public void resetData() {
         shapes.clear();
@@ -274,15 +270,24 @@ public class MMMData implements AppDataComponent {
      * is an image or not.
      */
     public void refreshBackground() {
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        Pane canvas = workspace.getCanvas();
+        
         if (imageFilepath == null) {
-            MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
 
-            Pane canvas = workspace.getCanvas();
             BackgroundFill fill = new BackgroundFill(backgroundColor, null, null);
             Background background = new Background(fill);
             canvas.setBackground(background);
             workspace.getDecorToolbarColorPicker().setValue(backgroundColor);
-        } else;
+        } 
+        // Process setting the image background
+        else{
+            BackgroundImage image = new BackgroundImage(new Image("file:" + this.imageFilepath), 
+                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, 
+                    BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+            
+            canvas.setBackground(new Background(image));
+        }
     }
     
     public void processMovedShape() {
@@ -316,18 +321,53 @@ public class MMMData implements AppDataComponent {
         
         transactionHistory.addTransaction(transaction);
     }
+    
+    public void setImageBackground(String filePath) {
+        BackgroundImage image = new BackgroundImage(new Image("file:" + filePath), 
+                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, 
+                    BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        
+        Background background = new Background(image);
+        
+        ChangeBackground_Transaction transaction = new
+                ChangeBackground_Transaction(this, background, true);
+        
+        transactionHistory.addTransaction(transaction);
+        
+        imageFilepath = filePath;
+    }
+    
+    public void fillImage(String filePath) {
+        BackgroundImage image = new BackgroundImage(new Image("file:" + filePath), 
+                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, 
+                    BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
+        
+        Background background = new Background(image);
+        
+        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
+        
+        workspace.getCanvas().setBackground(background);
+        
+        imageFilepath = filePath;
+    }
 
+    public void setBackgroundColor(Color backgroundColor) {
+        BackgroundFill fill = new BackgroundFill(backgroundColor, null, null);
+        Background background = new Background(fill);
+        
+        ChangeBackground_Transaction transaction = new ChangeBackground_Transaction(this, background, false);
+        
+        transactionHistory.addTransaction(transaction);
+        
+        imageFilepath = null;
+    }
+    
     //////////////////////////////
     // Accessor/Mutator Methods //
     //////////////////////////////
 
     public Color getBackgroundColor() {
         return backgroundColor;
-    }
-
-    public void setBackgroundColor(Color backgroundColor) {
-        this.backgroundColor = backgroundColor;
-
     }
 
     public String getImageFilepath() {
@@ -434,5 +474,17 @@ public class MMMData implements AppDataComponent {
         
         MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
         workspace.getCanvas().setMaxHeight(height);
+    }
+
+    public AppTemplate getApp() {
+        return app;
+    }
+
+    public boolean isImageBackground() {
+        return imageBackground;
+    }
+
+    public void setImageBackground(boolean imageBackground) {
+        this.imageBackground = imageBackground;
     }
 }
