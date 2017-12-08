@@ -120,10 +120,13 @@ public class MMMEditController {
         String name = dataManager.getName();
         
         WritableImage image = canvas.snapshot(new SnapshotParameters(), null);
-        File imageFile = new File(PATH_EXPORTS + name + METRO_EXTENSION + PNG);
+        File directory = new File(PATH_EXPORTS + name + "/");
+        File imageFile; 
         try {
+            directory.mkdir();
+            imageFile = new File(PATH_EXPORTS + name + "/" + name + METRO_EXTENSION + PNG);
 	    ImageIO.write(SwingFXUtils.fromFXImage(image, null), "png", imageFile);
-            String jsonFilePath = PATH_EXPORTS + name + METRO_EXTENSION + JSON;
+            String jsonFilePath = PATH_EXPORTS + name + "/" + name + METRO_EXTENSION + JSON;
             
             // try exporting as well
             app.getFileComponent().exportData(dataManager, jsonFilePath);

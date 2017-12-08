@@ -1,4 +1,3 @@
-
 {
     "name":"Test City 1",
     "lines":[
@@ -18,6 +17,7 @@
                 "Orange Green 1",
                 "Red Orange 2",
                 "Red Orange 1",
+                "Purple Orange 1",
                 "Orange 1"
             ]
         },
@@ -71,7 +71,9 @@
                 "Yellow Green 1",
                 "Yellow Blue 1",
                 "Yellow 2",
-                "Yellow 3"
+                "Yellow 3",
+                "Yellow Red 1",
+                "Yellow Purple 1"
             ]
         },
         {
@@ -91,12 +93,28 @@
                 "Red 3",
                 "Yellow Red 1"
             ]
+        },
+        {
+            "name":"Purple Line",
+            "circular":false,
+            "color":{
+                "red":0.4000000059604645,
+                "green":0.20000000298023224,
+                "blue":0.4000000059604645,
+                "alpha":1.0
+            },
+            "station_names":[
+                "Yellow Purple 1",
+                "Purple 2",
+                "Purple 1",
+                "Purple Orange 1"
+            ]
         }
     ],
     "stations":[
         {
             "name":"Orange 1",
-            "x":1060,
+            "x":1160,
             "y":320
         },
         {
@@ -132,7 +150,7 @@
         {
             "name":"Blue 4",
             "x":540,
-            "y":500
+            "y":480
         },
         {
             "name":"Green 1",
@@ -162,7 +180,7 @@
         {
             "name":"Green 4",
             "x":420,
-            "y":640
+            "y":660
         },
         {
             "name":"Yellow 1",
@@ -207,7 +225,7 @@
         {
             "name":"Red 1",
             "x":800,
-            "y":440
+            "y":420
         },
         {
             "name":"Red 2",
@@ -218,6 +236,26 @@
             "name":"Red 3",
             "x":800,
             "y":660
+        },
+        {
+            "name":"Purple Orange 1",
+            "x":1040,
+            "y":320
+        },
+        {
+            "name":"Purple 1",
+            "x":1040,
+            "y":420
+        },
+        {
+            "name":"Purple 2",
+            "x":1040,
+            "y":560
+        },
+        {
+            "name":"Yellow Purple 1",
+            "x":1040,
+            "y":740
         }
     ]
 }
