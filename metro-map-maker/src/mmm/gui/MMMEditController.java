@@ -263,6 +263,8 @@ public class MMMEditController {
         // Change the state and the cursor
         dataManager.setState(ADD_STATIONS_MODE);
         app.getGUI().getPrimaryScene().setCursor(Cursor.HAND);
+        
+        reloadWorkspace();
     }
     
     public void processRemoveStation() {
@@ -638,7 +640,7 @@ public class MMMEditController {
         MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
             
         Color newColor = workspace.getDecorToolbarColorPicker().getValue();
-        dataManager.setBackgroundColor(newColor);
+        dataManager.setBackgroundFill(newColor);
         
         workspace.reloadWorkspace(dataManager);
     }

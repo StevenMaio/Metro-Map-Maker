@@ -330,36 +330,17 @@ public class MMMData implements AppDataComponent {
         Background background = new Background(image);
         
         ChangeBackground_Transaction transaction = new
-                ChangeBackground_Transaction(this, background, true);
+                ChangeBackground_Transaction(this, filePath);
         
         transactionHistory.addTransaction(transaction);
         
         imageFilepath = filePath;
     }
     
-    public void fillImage(String filePath) {
-        BackgroundImage image = new BackgroundImage(new Image("file:" + filePath), 
-                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, 
-                    BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-        
-        Background background = new Background(image);
-        
-        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
-        
-        workspace.getCanvas().setBackground(background);
-        
-        imageFilepath = filePath;
-    }
-
-    public void setBackgroundColor(Color backgroundColor) {
-        BackgroundFill fill = new BackgroundFill(backgroundColor, null, null);
-        Background background = new Background(fill);
-        
-        ChangeBackground_Transaction transaction = new ChangeBackground_Transaction(this, background, false);
+    public void setBackgroundFill(Color backgroundColor) {
+        ChangeBackground_Transaction transaction = new ChangeBackground_Transaction(this, backgroundColor);
         
         transactionHistory.addTransaction(transaction);
-        
-        imageFilepath = null;
     }
     
     //////////////////////////////
@@ -368,6 +349,10 @@ public class MMMData implements AppDataComponent {
 
     public Color getBackgroundColor() {
         return backgroundColor;
+    }
+
+    public void setBackgroundColor(Color backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 
     public String getImageFilepath() {

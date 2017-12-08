@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class MetroStation {
     // These static variables the positions available for the station's label
     // as well as the positions available for the rotation of the label
-    public final static int NUMBER_OF_POSITIONS = 4;
+    public final static int NUMBER_OF_POSITIONS = 8;
     public final static int NUMBER_OF_ROTATIONS = 4;
     private final static double LABEL_DISPLACEMENT = 30;
     

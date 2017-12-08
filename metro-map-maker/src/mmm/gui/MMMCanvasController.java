@@ -190,7 +190,7 @@ public class MMMCanvasController {
         }
         
         // Reload the workspace
-        app.getWorkspaceComponent().reloadWorkspace(dataManager);
+//        app.getWorkspaceComponent().reloadWorkspace(dataManager);
     }
     
     /**

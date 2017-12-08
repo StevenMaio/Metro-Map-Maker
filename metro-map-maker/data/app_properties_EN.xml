@@ -135,7 +135,7 @@
         <property name="SAVE_UNSAVED_WORK_MESSAGE" value="Do you want to save your unsaved work first?"/>
 	<property name="SAVE_WORK_TITLE" value="Save your work"/>
 	<property name="LOAD_WORK_TITLE" value="Select work file to load"/>
-	<property name="WORK_FILE_EXT" value="pm"/>
+	<property name="WORK_FILE_EXT" value="mmm"/>
 	<property name="WORK_FILE_EXT_DESC" value="Metro Map Maker Files"/>
         
         <!--Route Stuff-->
@@ -143,11 +143,11 @@
         <property name="ROUTE_ERROR_MESSAGE" value="No route found"/>
         
         <!--Recent File List This is lazy and I could probably implement this in a better way-->
-        <property name="RECENT_FILE_1" value="Miami Metrorail"/>
-        <property name="RECENT_FILE_2" value="Balls"/>
-        <property name="RECENT_FILE_3" value="F"/>
-        <property name="RECENT_FILE_4" value="Little Dude"/>
-        <property name="RECENT_FILE_5" value="BallsAreTaken"/>
+        <property name="RECENT_FILE_1" value="Test City 1"/>
+        <property name="RECENT_FILE_2" value="Miami Metrorail"/>
+        <property name="RECENT_FILE_3" value="Test City 2"/>
+        <property name="RECENT_FILE_4" value=""/>
+        <property name="RECENT_FILE_5" value=""/>
     </property_list>
     <property_options_list>
     </property_options_list>

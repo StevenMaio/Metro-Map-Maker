@@ -323,8 +323,10 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         canvas = new Pane();
         canvasContainer = new ScrollPane(canvas);
         canvasContainer.autosize();
-        canvasContainer.fitToHeightProperty();
-        canvasContainer.fitToWidthProperty();
+        canvasContainer.setFitToHeight(true);
+        canvasContainer.setFitToWidth(true);
+        canvas.autosize();
+        
         
         // Link data with the ObservableLists here/
         MMMData data = (MMMData) app.getDataComponent();
@@ -431,9 +433,11 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         removeStationButton.setOnAction(e -> {
             editController.processRemoveStation();
         });
+        
         metroLineComboBox.setOnAction(e -> {
             editController.processSelectMetroLine();
         });
+        
         editMetroLineButton.setOnAction(e -> {
             editController.processEditMetroLine();
         });
@@ -603,7 +607,8 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         gui.updateToolbarControls(false);
         MMMState state = dataManager.getState();
         
-        reloadMetroLineToolbar(! (state == SELECTED_METRO_LINE));
+        reloadMetroLineToolbar(! (state == SELECTED_METRO_LINE || state == ADD_STATIONS_MODE
+                || state == REMOVE_STATIONS_MODE));
         reloadMetroStationToolbar(! (state == SELECTED_METRO_STATION));
         
         reloadTransactionsToolbar(dataManager);
@@ -632,6 +637,10 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         editMetroLineButton.setDisable(disable);
         appendStationButton.setDisable(disable);
         removeStationButton.setDisable(disable);
+        
+        if (disable)
+            metroLineComboBox.getSelectionModel().clearSelection();
+        
     }
     
     private void reloadMetroStationToolbar(boolean disable) {
@@ -642,6 +651,9 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         moveStationLabelButton.setDisable(disable);
         metroStationColorPicker.setDisable(disable);
         metroStationRadiusSlider.setDisable(disable);
+        
+        if (disable)
+            metroStationsComboBox.getSelectionModel().clearSelection();
     }
     
     // THis method loads the style settings of some kind of text object

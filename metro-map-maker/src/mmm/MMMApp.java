@@ -37,6 +37,7 @@ public class MMMApp extends AppTemplate {
      * since it is a JavaFX application.
      */
     public static void main(String[] args) {
+        System.setProperty("glass.accessible.force", "false");
         Locale.setDefault(Locale.US);
         launch(args);
     }
