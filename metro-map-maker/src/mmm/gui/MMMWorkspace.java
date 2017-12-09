@@ -161,7 +161,7 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         saveAsButton = gui.initChildButton(otherTopBar, SAVE_AS_ICON.toString(), 
                 SAVE_AS_TOOLTIP.toString(), true);
         exportButton = gui.initChildButton(otherTopBar, EXPORT_ICON.toString(), 
-                EXPORT_TOOLTIP.toString(), false);
+                EXPORT_TOOLTIP.toString(), true);
         undoButton = gui.initChildButton(otherTopBar, UNDO_ICON.toString(), 
                 UNDO_TOOLTIP.toString(), true);
         redoButton = gui.initChildButton(otherTopBar, REDO_ICON.toString(), 
@@ -419,6 +419,9 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         exportButton.setOnAction(e -> {
             editController.processExport();
         });
+        saveAsButton.setOnAction(e -> {
+            editController.processSaveAs();
+        });
         
         // Metro Line Toolbar
         addMetroLineButton.setOnAction(e -> {
@@ -591,6 +594,10 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         canvas.setTranslateY(0);
         canvas.setScaleX(1);
         canvas.setScaleY(1);
+        
+        // activate the Save As Button and export Button
+        saveAsButton.setDisable(false);
+        exportButton.setDisable(false);
     }
 
     /**

@@ -15,6 +15,7 @@ import static djf.settings.AppStartupConstants.PATH_EXPORTS;
 import static djf.settings.AppStartupConstants.PATH_WORK;
 import static djf.settings.AppStartupConstants.PNG;
 import static djf.settings.AppStartupConstants.JSON;
+import static djf.settings.AppStartupConstants.PATH_WORK;
 import java.io.IOException;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.layout.Pane;
@@ -36,6 +37,7 @@ import mmm.data.MetroLine;
 import mmm.data.MetroStation;
 import mmm.data.Path;
 import mmm.file.MMMFiles;
+import static mmm.file.MMMFiles.FILE_EXTENSION;
 
 /**
  *
@@ -766,6 +768,40 @@ public class MMMEditController {
 
             dataManager.setImageBackground(filePath);
             reloadWorkspace();
+        }
+    }
+    
+    public void processSaveAs() {
+        EnterTextDialogSingleton singleton = EnterTextDialogSingleton.getSingleton();
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        AppMessageDialogSingleton messageDialog = AppMessageDialogSingleton.getSingleton();
+        
+        singleton.show(props.getProperty(SAVE_AS_TITLE), 
+                props.getProperty(SAVE_AS_MESSAGE));
+        
+        if (singleton.isReady()) {
+            String mapName = singleton.getText();
+            
+            // Do nothing if the map name is empty
+            if ("".equals(mapName))
+                return;
+            
+            String filePath = PATH_WORK + mapName + FILE_EXTENSION;
+            File selectedFile = new File(filePath);
+            try {
+            // If the app was successful
+            if (selectedFile.createNewFile()) {
+                dataManager.setName(mapName);
+                app.getFileComponent().saveData(dataManager, filePath);
+                
+                messageDialog.show(props.getProperty(SAVE_AS_SUCCESS_TITLE), 
+                        props.getProperty(SAVE_AS_SUCCESS_MESSAGE));
+            }
+            } catch (Exception e) {
+                // Display message
+                messageDialog.show(props.getProperty(SAVE_AS_FAILURE_TITLE), 
+                        props.getProperty(SAVE_AS_FAILURE_MESSAGE));
+            }
         }
     }
     

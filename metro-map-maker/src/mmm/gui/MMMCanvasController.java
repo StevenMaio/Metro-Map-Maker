@@ -260,9 +260,10 @@ public class MMMCanvasController {
     }
     
     /**
-     * This method processes what to do when a mouse click happens
+     * This method processes what to do when a mouse click happens (I guess 
+     * this wasn't needed).
      * @param x The X-Coordinate of the mouse click.
      * @param y The Y-Coordinate of the mouse click.
-     */
+     */ 
     public void processCanvasMouseClick(int x, int y) {}
 }
