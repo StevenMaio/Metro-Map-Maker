@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="metro-map-maker">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/javax.json-1.0.4-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/javax.json-1.0.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/javax.json-1.0.4-javadoc.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

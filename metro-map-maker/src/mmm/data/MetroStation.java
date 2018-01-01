@@ -19,10 +19,10 @@ public class MetroStation {
     private ArrayList<MetroLine> metroLines;
     
     // Graphical Elements
-    private DraggableLabel stationLabel;
-    private int labelLocation;
+    private DraggableLabel label;
+    private int labelPosition;
     private int labelRotation;
-    private DraggableCircle stationCircle;
+    private DraggableCircle circle;
     
     /**
      * This is the constructor for the MetroStation object.
@@ -36,14 +36,14 @@ public class MetroStation {
      * This method adjusts the label location so that it moves clockwise
      */
     public void moveLabelLocationCounterClockwise() {
-        labelLocation = (labelLocation + 1) % NUMBER_OF_POSITIONS;
+        labelPosition = (labelPosition + 1) % NUMBER_OF_POSITIONS;
     }
     
     /**
      * This methods adjust the label location so that it moves clockwise
      */
     public void moveLabelLocationClockwise() {
-        labelLocation = (labelLocation - 1) % NUMBER_OF_POSITIONS;
+        labelPosition = (labelPosition - 1) % NUMBER_OF_POSITIONS;
     }
     
     /**
@@ -64,7 +64,7 @@ public class MetroStation {
         labelRotation = (labelRotation - 1) % NUMBER_OF_ROTATIONS;
 
         double rotation = labelRotation * 360 / NUMBER_OF_ROTATIONS;
-        stationLabel.setRotate(-rotation);
+        label.setRotate(-rotation);
     }
     
     /**
@@ -75,7 +75,7 @@ public class MetroStation {
         labelRotation = (labelRotation + 1) % NUMBER_OF_ROTATIONS;
         
         double rotation = labelRotation * 360 / NUMBER_OF_ROTATIONS;
-        stationLabel.setRotate(rotation);
+        label.setRotate(rotation);
         
     }
     
@@ -85,13 +85,14 @@ public class MetroStation {
      * @return 
      *      The value of name
      */
+    @Override
     public String toString() {
        return name; 
     }
     
     public void refreshRotation() {
         double rotation = labelRotation * 360 / NUMBER_OF_ROTATIONS;
-        stationLabel.setRotate(-rotation);
+        label.setRotate(-rotation);
         
     }
     
@@ -102,15 +103,13 @@ public class MetroStation {
         double xDisplacement;
         double yDisplacement;
         
-        double rotation = labelLocation * Math.PI * 2 / NUMBER_OF_POSITIONS;
+        double rotation = labelPosition * Math.PI * 2 / NUMBER_OF_POSITIONS;
         
         xDisplacement = LABEL_DISPLACEMENT * Math.sin(-rotation);
         yDisplacement = -LABEL_DISPLACEMENT * Math.cos(-rotation);
         
-        stationLabel.yProperty().bind(
-                stationCircle.centerYProperty().add(yDisplacement));
-        stationLabel.xProperty().bind(
-                stationCircle.centerXProperty().add(xDisplacement));
+        label.yProperty().bind(circle.centerYProperty().add(yDisplacement));
+        label.xProperty().bind(circle.centerXProperty().add(xDisplacement));
     }
     
     /**
@@ -119,22 +118,10 @@ public class MetroStation {
      * @return 
      */
     public double distance(MetroStation other) {
-        double xDisplacement = Math.abs(stationCircle.getX() - other.stationCircle.getX());
-        double yDisplacement = Math.abs(stationCircle.getY() - other.stationCircle.getY());
+        double xDisplacement = Math.abs(circle.getX() - other.circle.getX());
+        double yDisplacement = Math.abs(circle.getY() - other.circle.getY());
         
         return Math.hypot(xDisplacement, yDisplacement);
-    }
-    
-    public MetroStation softClone() {
-        MetroStation clone = new MetroStation();
-        
-        clone.name = this.name;
-        
-        for (int i = 0; i < neighbors.size(); i++) {
-            clone.getNeighbors().add(neighbors.get(i));
-        }
-        
-        return clone;
     }
     
     //////////////////////////////
@@ -149,24 +136,24 @@ public class MetroStation {
         this.name = name;
     }
 
-    public int getLabelLocation() {
-        return labelLocation;
+    public int getLabelPosition() {
+        return labelPosition;
     }
 
-    public DraggableLabel getStationLabel() {
-        return stationLabel;
+    public DraggableLabel getLabel() {
+        return label;
     }
 
-    public DraggableCircle getStationCircle() {
-        return stationCircle;
+    public DraggableCircle getCircle() {
+        return circle;
     }
 
-    public void setStationCircle(DraggableCircle stationCircle) {
-        this.stationCircle = stationCircle;
+    public void setCircle(DraggableCircle circle) {
+        this.circle = circle;
     }
 
-    public void setStationLabel(DraggableLabel stationLabel) {
-        this.stationLabel = stationLabel;
+    public void setLabel(DraggableLabel label) {
+        this.label = label;
     }
 
     public int getLabelRotation() {
@@ -177,8 +164,8 @@ public class MetroStation {
         this.labelRotation = labelRotation;
     }
 
-    public void setLabelLocation(int labelLocation) {
-        this.labelLocation = labelLocation;
+    public void setLabelPosition(int position) {
+        this.labelPosition = position;
     }
 
     public ArrayList<MetroLine> getMetroLines() {

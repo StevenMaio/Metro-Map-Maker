@@ -73,14 +73,14 @@ public class MetroLine extends ArrayList<MetroStation> {
             if (minIndex == 0)
                 previousNode = (Draggable) startLabel;
             else
-                previousNode = (Draggable) get(minIndex - 1).getStationCircle();
+                previousNode = (Draggable) get(minIndex - 1).getCircle();
             
             if (minIndex == size() - 1)
                 nextNode = (Draggable) endLabel;
             else
-                nextNode = (Draggable) get(minIndex + 1).getStationCircle();
+                nextNode = (Draggable) get(minIndex + 1).getCircle();
             
-            DraggableCircle stationCircle = metroStation.getStationCircle();
+            DraggableCircle stationCircle = metroStation.getCircle();
 
             // calculate distances between the two
             double prevXDisplacement = Math.abs(stationCircle.getX() - previousNode.getX());
@@ -139,12 +139,12 @@ public class MetroLine extends ArrayList<MetroStation> {
             if (i == -1)
                 firstObject = (Draggable) startLabel;
             else
-                firstObject = (Draggable) get(i).getStationCircle();
+                firstObject = (Draggable) get(i).getCircle();
 
             if (i == size() - 1)
                 secondObject = (Draggable) endLabel;
             else
-                secondObject = (Draggable) get(i + 1).getStationCircle();
+                secondObject = (Draggable) get(i + 1).getCircle();
 
             // bind the properties and add them to line
             line.startXProperty().bind(firstObject.xProperty());

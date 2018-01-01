@@ -24,7 +24,6 @@ public class Path {
         stops = new ArrayList<>();
     }
     
-    // TODO: there's a problem here, and that's that it messes with other paths
     public boolean findPath(MetroStation metroStation) {
         // Base condition
         if (metroStation == endStation) {

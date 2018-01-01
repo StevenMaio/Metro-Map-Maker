@@ -65,23 +65,11 @@
             <file>file:/D:/Documents/Projects/metro-map-maker/metro-map-maker/data/app_properties_EN.xml</file>
         </group>
         <group name="Group 20170929-11:05:38">
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/transactions/AddLabel_Transaction.java</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/transactions/ChangeBackground_Transaction.java</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/gui/MMMCanvasController.java</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/gui/MMMEditController.java</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/gui/MMMWorkspace.java</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/transactions/AddImage_Transaction.java</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/gui/InitImageWindow.java</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/data/MMMState.java</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/css/mmm_style.css</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/file/MMMFiles.java</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/MMMApp.java</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/data/app_properties_EN.xml</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/data/DraggableLabel.java</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/data/DraggableImage.java</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/transactions/SetFontSize_Transaction.java</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/data/MMMData.java</file>
-            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/MMMLanguageProperty.java</file>
+            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/data/MetroLine.java</file>
+            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/data/Path.java</file>
+            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/transactions/DeleteMetroStation_Transaction.java</file>
+            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/steve/Documents/Projects/metro-map-maker/metro-map-maker/src/mmm/data/MetroStation.java</file>
         </group>
     </open-files>
 </project-private>

@@ -687,8 +687,8 @@ public class MMMWorkspace extends AppWorkspaceComponent {
      * @param metroStation The Metro Station we are loading the settings from
      */
     public void loadMetroStationSettings(MetroStation metroStation) {
-        DraggableCircle stationCircle = metroStation.getStationCircle();
-        DraggableLabel stationLabel = metroStation.getStationLabel();
+        DraggableCircle stationCircle = metroStation.getCircle();
+        DraggableLabel stationLabel = metroStation.getLabel();
         
         metroStationsComboBox.getSelectionModel().select(metroStation);
         

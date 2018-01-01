@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="PropertiesManager:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PropertiesManager_jar</output-path>
+    <root id="archive" name="PropertiesManager.jar">
+      <element id="module-output" name="PropertiesManager" />
+    </root>
+  </artifact>
+</component>

@@ -15,7 +15,6 @@ import static djf.settings.AppStartupConstants.PATH_EXPORTS;
 import static djf.settings.AppStartupConstants.PATH_WORK;
 import static djf.settings.AppStartupConstants.PNG;
 import static djf.settings.AppStartupConstants.JSON;
-import static djf.settings.AppStartupConstants.PATH_WORK;
 import java.io.IOException;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.layout.Pane;
@@ -360,11 +359,11 @@ public class MMMEditController {
             metroStation.setName(name);
             
             DraggableCircle stationCirlce = new DraggableCircle();
-            metroStation.setStationCircle(stationCirlce);
+            metroStation.setCircle(stationCirlce);
             stationCirlce.setMetroStation(metroStation);
             
             DraggableLabel stationLabel = new DraggableLabel(name);
-            metroStation.setStationLabel(stationLabel);
+            metroStation.setLabel(stationLabel);
             stationLabel.setDisable(true); // Make sure we can't do anything with the label
             
             // TODO: Bind Label to the Circle
@@ -409,7 +408,7 @@ public class MMMEditController {
         // Get selected Station's Circle and selectedColor
         MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
         DraggableCircle selectedStation = workspace.getMetroStationComboBox()
-                .getSelectionModel().getSelectedItem().getStationCircle();
+                .getSelectionModel().getSelectedItem().getCircle();
         Color selectedColor = workspace.getMetroStationColorPicker().getValue();
         
         dataManager.setFill(selectedStation, selectedColor);
@@ -421,7 +420,7 @@ public class MMMEditController {
         MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
         double newRadius = workspace.getMetroStationRadiusSlider().getValue();
         DraggableCircle selectedCircle = workspace.getMetroStationComboBox()
-                .getSelectionModel().getSelectedItem().getStationCircle();
+                .getSelectionModel().getSelectedItem().getCircle();
         
         dataManager.changeRadius(selectedCircle, newRadius);
         workspace.reloadWorkspace(dataManager);
@@ -492,7 +491,7 @@ public class MMMEditController {
                 MetroStation metroStation = workspace.getMetroStationComboBox()
                         .getSelectionModel().getSelectedItem();
                 
-                dataManager.setBoldFont(bold, metroStation.getStationLabel());
+                dataManager.setBoldFont(bold, metroStation.getLabel());
                 break;
                 
             default:
@@ -526,7 +525,7 @@ public class MMMEditController {
                 MetroStation metroStation = workspace.getMetroStationComboBox()
                         .getSelectionModel().getSelectedItem();
                 
-                dataManager.setItalicFont(italic, metroStation.getStationLabel());
+                dataManager.setItalicFont(italic, metroStation.getLabel());
                 break;
                 
             default:
@@ -553,7 +552,7 @@ public class MMMEditController {
                 MetroStation metroStation = workspace.getMetroStationComboBox()
                         .getSelectionModel().getSelectedItem();
                 
-                dataManager.setFontSize(fontSize, metroStation.getStationLabel());
+                dataManager.setFontSize(fontSize, metroStation.getLabel());
                 break;
                 
             case SELECTED_METRO_LINE:
@@ -596,7 +595,7 @@ public class MMMEditController {
                 MetroStation metroStation = workspace.getMetroStationComboBox()
                         .getValue();
                 
-                dataManager.setFontFamily(fontFamily, metroStation.getStationLabel());
+                dataManager.setFontFamily(fontFamily, metroStation.getLabel());
                 break;
                 
             default:
@@ -625,7 +624,7 @@ public class MMMEditController {
                 MetroStation metroStation = workspace.getMetroStationComboBox()
                         .getSelectionModel().getSelectedItem();
                 
-                dataManager.setFontFill(newColor, metroStation.getStationLabel());
+                dataManager.setFontFill(newColor, metroStation.getLabel());
                 break;
                 
             case SELECTED_LABEL:

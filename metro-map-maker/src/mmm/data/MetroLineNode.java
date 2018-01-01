@@ -43,7 +43,7 @@ public class MetroLineNode {
         line.setStrokeWidth(thickness);
         
         // bind the starting point to the Metro Station
-        Circle stationCircle = value.getStationCircle();
+        Circle stationCircle = value.getCircle();
         line.startXProperty().bind(stationCircle.centerXProperty());
         line.startYProperty().bind(stationCircle.centerYProperty());
         
@@ -54,7 +54,7 @@ public class MetroLineNode {
             line.endXProperty().bind(endLabel.xProperty());
             line.endYProperty().bind(endLabel.yProperty());
         } else {
-            Circle nextCircle = nextNode.value.getStationCircle();
+            Circle nextCircle = nextNode.value.getCircle();
             
             line.endXProperty().bind(nextCircle.centerXProperty());
             line.endYProperty().bind(nextCircle.centerYProperty());

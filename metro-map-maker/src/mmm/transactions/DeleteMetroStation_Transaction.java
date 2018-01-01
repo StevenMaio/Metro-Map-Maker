@@ -10,7 +10,6 @@ import jtps.jTPS_Transaction;
 import mmm.data.MMMData;
 import mmm.data.MetroLine;
 import mmm.data.MetroStation;
-import sun.text.normalizer.Trie;
 
 /**
  *
@@ -30,8 +29,8 @@ public class DeleteMetroStation_Transaction implements jTPS_Transaction {
     @Override
     public void doTransaction() {
         data.getMetroStations().remove(metroStation);
-        data.getShapes().removeAll(metroStation.getStationCircle(), 
-                metroStation.getStationLabel());
+        data.getShapes().removeAll(metroStation.getCircle(), 
+                metroStation.getLabel());
         
         for (MetroLine e: metroLines) {
             e.remove(metroStation);
@@ -43,8 +42,8 @@ public class DeleteMetroStation_Transaction implements jTPS_Transaction {
     @Override
     public void undoTransaction() {
         data.getMetroStations().add(metroStation);
-        data.getShapes().addAll(metroStation.getStationCircle(), 
-                metroStation.getStationLabel());
+        data.getShapes().addAll(metroStation.getCircle(), 
+                metroStation.getLabel());
         
         for (MetroLine e: metroLines) {
             e.addMetroStation(metroStation);

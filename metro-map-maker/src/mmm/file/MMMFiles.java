@@ -246,8 +246,8 @@ public class MMMFiles implements AppFileComponent {
             MetroStation metroStation = loadMetroStation(jsonMetroStationsArray.getJsonObject(i));
             
             metroStationHash.put(metroStation.getName(), metroStation);
-            shapes.add(metroStation.getStationCircle());
-            shapes.add(metroStation.getStationLabel());
+            shapes.add(metroStation.getCircle());
+            shapes.add(metroStation.getLabel());
             dataManager.getMetroStations().add(metroStation);
         }
         
@@ -342,8 +342,8 @@ public class MMMFiles implements AppFileComponent {
         // Now get JsonArray for Metro Stations
         for (MetroStation metroStation: dataManager.getMetroStations()) {
             String metroStationName = metroStation.getName();
-            int x = (int) metroStation.getStationCircle().getX();
-            int y = (int) metroStation.getStationCircle().getY();
+            int x = (int) metroStation.getCircle().getX();
+            int y = (int) metroStation.getCircle().getY();
             
             JsonObject metroStationJson = Json.createObjectBuilder()
                     .add(JSON_NAME, metroStationName)
@@ -421,11 +421,11 @@ public class MMMFiles implements AppFileComponent {
     
     
     private JsonObject saveMetroStation(MetroStation metroStation) {
-        JsonObject circleJson = saveDraggableCircle(metroStation.getStationCircle());
-        JsonObject labelJson = saveDraggableLabel(metroStation.getStationLabel());
+        JsonObject circleJson = saveDraggableCircle(metroStation.getCircle());
+        JsonObject labelJson = saveDraggableLabel(metroStation.getLabel());
         
         String name = metroStation.getName();
-        int labelLocation = metroStation.getLabelLocation();
+        int labelLocation = metroStation.getLabelPosition();
         int labelRotation = metroStation.getLabelRotation();
         
         JsonObject stationJson = Json.createObjectBuilder()
@@ -523,10 +523,10 @@ public class MMMFiles implements AppFileComponent {
         
         label.setDisable(true);
         metroStation.setLabelRotation(labelRotation);
-        metroStation.setLabelLocation(labelLocation);
+        metroStation.setLabelPosition(labelLocation);
         metroStation.setName(name);
-        metroStation.setStationCircle(circle);
-        metroStation.setStationLabel(label);
+        metroStation.setCircle(circle);
+        metroStation.setLabel(label);
         metroStation.refreshRotation();
         metroStation.bindLabelToCircle();
         circle.setMetroStation(metroStation);

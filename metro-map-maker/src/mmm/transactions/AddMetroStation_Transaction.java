@@ -23,8 +23,8 @@ public class AddMetroStation_Transaction implements jTPS_Transaction {
     
     public AddMetroStation_Transaction(MMMData dataManager, MetroStation metroStation) {
         this.metroStation = metroStation;
-        this.stationCircle = metroStation.getStationCircle();
-        this.stationLabel = metroStation.getStationLabel();
+        this.stationCircle = metroStation.getCircle();
+        this.stationLabel = metroStation.getLabel();
         this.dataManager = dataManager;
     }
 
