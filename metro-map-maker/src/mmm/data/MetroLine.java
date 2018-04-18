@@ -18,8 +18,8 @@ public class MetroLine extends ArrayList<MetroStation> {
     
     // instance variables
     private String name;
-    private Color color;
-    private double lineThickness;
+    private Color fill;
+    private double thickness;
     private ArrayList<Line> lines;
     
     // Metro Line labels
@@ -31,8 +31,8 @@ public class MetroLine extends ArrayList<MetroStation> {
      * This is the constructor method for the MetroLine class.
      */
     public MetroLine() {
-        color = DEFAULT_METRO_LINE_COLOR;
-        lineThickness = MIN_THICKNESS;
+        fill = DEFAULT_METRO_LINE_COLOR;
+        thickness = MIN_THICKNESS;
         lines = new ArrayList<>();
     }
     
@@ -65,7 +65,7 @@ public class MetroLine extends ArrayList<MetroStation> {
                 }
             }
             
-            // FUCK -- Okay. First, let's figure out what is the 'previous' thing
+            // Okay. First, let's figure out what is the 'previous' thing
             Draggable previousNode;
             Draggable nextNode;
             
@@ -109,7 +109,7 @@ public class MetroLine extends ArrayList<MetroStation> {
      * @return 
      *      The string listing off all of the Metro Stations visited by this
      */
-    public String getLineDestinations() {
+    public String getDestinations() {
         String destinations = "";
         for (MetroStation e: this) {
             destinations += String.format("%s\n", e.getName());
@@ -133,8 +133,8 @@ public class MetroLine extends ArrayList<MetroStation> {
             Draggable firstObject;
             Draggable secondObject;
             
-            line.setStroke(color);
-            line.setStrokeWidth(lineThickness);
+            line.setStroke(fill);
+            line.setStrokeWidth(thickness);
 
             if (i == -1)
                 firstObject = (Draggable) startLabel;
@@ -168,8 +168,8 @@ public class MetroLine extends ArrayList<MetroStation> {
      */
     public void refreshLineStyle() {
         for (Line e: lines) {
-            e.setStroke(color);
-            e.setStrokeWidth(lineThickness);
+            e.setStroke(fill);
+            e.setStrokeWidth(thickness);
         }
     }
 
@@ -179,18 +179,9 @@ public class MetroLine extends ArrayList<MetroStation> {
      * @return 
      *      The value of this.name
      */
+    @Override
     public String toString() {
         return name;
-    }
-    
-    public DraggableLabel initLabel() {
-        DraggableLabel label = new DraggableLabel(name);
-        label.setBold(DEFAULT_BOLD);
-        label.setItalicized(DEFAULT_ITALIC);
-        label.setFontFamily(DEFAULT_FONT_FAMILY);
-        label.setFontSize(DEFAULT_FONT_SIZE);
-        
-        return label;
     }
     
     public void resetNeighbors() {
@@ -219,24 +210,24 @@ public class MetroLine extends ArrayList<MetroStation> {
         return name;
     }
 
-    public Color getColor() {
-        return color;
+    public Color getFill() {
+        return fill;
     }
 
-    public double getLineThickness() {
-        return lineThickness;
+    public double getThickness() {
+        return thickness;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setColor(Color color) {
-        this.color = color;
+    public void setFill(Color fill) {
+        this.fill = fill;
     }
 
-    public void setLineThickness(double lineThickness) {
-        this.lineThickness = lineThickness;
+    public void setThickness(double thickness) {
+        this.thickness = thickness;
     }
 
     public void setStartLabel(DraggableLabel startLabel) {

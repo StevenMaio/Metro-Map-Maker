@@ -7,7 +7,7 @@ package mmm.data;
 
 /**
  * This enum contains all the different states that the application may be in.
- * 
+ *
  * @author Steven Maio
  */
 public enum MMMState {

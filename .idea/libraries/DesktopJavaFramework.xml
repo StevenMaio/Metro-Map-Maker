@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="DesktopJavaFramework">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/DesktopJavaFramework/dist/DesktopJavaFramework.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

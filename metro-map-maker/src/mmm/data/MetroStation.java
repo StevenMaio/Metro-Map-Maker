@@ -9,8 +9,8 @@ import java.util.ArrayList;
 public class MetroStation {
     // These static variables the positions available for the station's label
     // as well as the positions available for the rotation of the label
-    public final static int NUMBER_OF_POSITIONS = 8;
-    public final static int NUMBER_OF_ROTATIONS = 4;
+    private final static int NUMBER_OF_POSITIONS = 8;
+    private final static int NUMBER_OF_ROTATIONS = 4;
     private final static double LABEL_DISPLACEMENT = 30;
     
     // instance variables
@@ -18,7 +18,7 @@ public class MetroStation {
     private ArrayList<MetroStation> neighbors;
     private ArrayList<MetroLine> metroLines;
     
-    // Graphical Elements
+    // Graphic properties
     private DraggableLabel label;
     private int labelPosition;
     private int labelRotation;

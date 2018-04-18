@@ -44,7 +44,9 @@ public class DraggableLabel extends Text implements Draggable {
         italicized = DEFAULT_ITALIC;
         independent = false;
         
-        resetStyle();
+        // Set the style of the Label's text
+        String styleString = getStyleString();
+        setStyle(styleString);
     }
     
     /**
@@ -72,7 +74,8 @@ public class DraggableLabel extends Text implements Draggable {
      *      The X-Coordinate of the mouse drag event.
      * 
      * @param y 
-     *      The Y-Coordinaate of the mosue drag event.
+     *      The Y-Coordinate of the mouse drag event.
+     * @param snapToGrid
      */
     @Override
     public void drag(int x, int y, boolean snapToGrid) {
@@ -94,15 +97,6 @@ public class DraggableLabel extends Text implements Draggable {
             startY = y;
         }
     }
-
-    /**
-     * This method will be called to indicate when an instance of 
-     * DraggableLabel is selected.
-     */
-    @Override
-    public void highlight() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     /**
      * This method will refresh the style of the current instance of 
@@ -110,16 +104,10 @@ public class DraggableLabel extends Text implements Draggable {
      */
     public void resetStyle() {
        String style = getStyleString();
-        setStyle(style);
+       setStyle(style);
     }
     
-    /**
-     * Returns a string with the style of the label
-     * 
-     * @return 
-     *      The current style of the instance of DraggableLabel
-     */
-    public String getStyleString() {
+    private String getStyleString() {
         String style = String.format("%s; %s; %s%d; %s%s;",
                (italicized) ? STYLE_ITALICIZED_FONT : "",
                (bold) ? STYLE_BOLD_FONT : "",
@@ -171,10 +159,5 @@ public class DraggableLabel extends Text implements Draggable {
 
     public void setIndependent(boolean independent) {
         this.independent = independent;
-    }
-
-    @Override
-    public void unhighlight() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -6,12 +6,10 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import jtps.jTPS;
@@ -25,13 +23,11 @@ import mmm.transactions.*;
  * @author Steven Maio
  */
 public class MMMData implements AppDataComponent {
-    // Some useful constatns
-    public static final String WHITE_HEX = "#FFFFFF";
-    public static final String BLACK_HEX = "#000000";
+    // Constatns
     public static final Color DEFAULT_BACKGROUND_COLOR
             = Color.WHITE;
-    public static final int DEFAULT_WIDTH = 1200;
-    public static final int DEFAULT_HEIGHT = 800;
+    private static final int DEFAULT_WIDTH = 1200;
+    private static final int DEFAULT_HEIGHT = 800;
     
     // instance variables
     private String name;
@@ -43,17 +39,15 @@ public class MMMData implements AppDataComponent {
     private Shape selectedShape;
     private Shape newShape; // This will be where a new shap will be placed
     private jTPS transactionHistory;
-    private Point2D startingPoint;
+    private Point2D startingPoint;  // This makes it easy to undo moving shapes
     private MetroLine newMetroLine;
-    private boolean imageBackground;
     
     // Style things
     private int width;
     private int height;
     private Color backgroundColor;
-    private Color outlineColor;
     private String imageFilepath;
-    private int mapSideLength;
+    private boolean imageBackground;
 
     /**
      * Constructor. Initializes app and a few other things.
@@ -65,8 +59,7 @@ public class MMMData implements AppDataComponent {
         this.app = app;
         selectedShape = null;
         transactionHistory = new jTPS();
-        backgroundColor = Color.web(WHITE_HEX);
-        outlineColor = Color.web(BLACK_HEX);
+        backgroundColor = DEFAULT_BACKGROUND_COLOR;
 
     }
 
@@ -83,14 +76,6 @@ public class MMMData implements AppDataComponent {
     public void redo() {
         transactionHistory.doTransaction();
     }
-
-    /**
-     * This method handles adding a new shape into the canvas
-     *
-     * @param shape
-     *      The shape being added to the canvas
-     */
-    public void addShape(Shape shape) {}
 
     /**
      * Gets the first shape containing the point (x, y)
@@ -120,9 +105,9 @@ public class MMMData implements AppDataComponent {
      * @param thickness
      *      The new thickness of the Metro Line
      */
-    public void SetLineThickness(MetroLine metroLine, double thickness) {
-        EditLineThickness_Transaction transaction =
-                new EditLineThickness_Transaction(this, metroLine, thickness);
+    public void setThickness(MetroLine metroLine, double thickness) {
+        SetLineThickness_Transaction transaction =
+                new SetLineThickness_Transaction(this, metroLine, thickness);
         
         transactionHistory.addTransaction(transaction);
     }
@@ -138,8 +123,8 @@ public class MMMData implements AppDataComponent {
      */
     public void setMetroLineSettings(MetroLine metroLine, Color color,
             String name) {
-        EditMetroLineSettings_Transaction transaction = new 
-                EditMetroLineSettings_Transaction(this, metroLine, name, color);
+        SetMetroLineSettings_Transaction transaction = new 
+                SetMetroLineSettings_Transaction(this, metroLine, name, color);
         
         transactionHistory.addTransaction(transaction);
     }
@@ -170,15 +155,6 @@ public class MMMData implements AppDataComponent {
         
         transactionHistory.addTransaction(transaction);
     }
-    
-    /**
-     * Sets the radius of the selected Metro Station
-     * @param metroStation
-     *      The selected Metro Station
-     * @param radius
-     *      The new value of the radius
-     */
-    public void setStationRadius(MetroStation metroStation, double radius) {}
     
     public void moveStationLabel(MetroStation metroStation) {
         MoveStationLabel_Transaction transaction = new MoveStationLabel_Transaction(this, metroStation);
@@ -264,31 +240,6 @@ public class MMMData implements AppDataComponent {
         state = SELECTING_SHAPE;
         app.getWorkspaceComponent().reloadWorkspace(this);
     }
-
-    /**
-     * Changes the background. Determines whether or whether not the new fill
-     * is an image or not.
-     */
-    public void refreshBackground() {
-        MMMWorkspace workspace = (MMMWorkspace) app.getWorkspaceComponent();
-        Pane canvas = workspace.getCanvas();
-        
-        if (imageFilepath == null) {
-
-            BackgroundFill fill = new BackgroundFill(backgroundColor, null, null);
-            Background background = new Background(fill);
-            canvas.setBackground(background);
-            workspace.getDecorToolbarColorPicker().setValue(backgroundColor);
-        } 
-        // Process setting the image background
-        else{
-            BackgroundImage image = new BackgroundImage(new Image("file:" + this.imageFilepath), 
-                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, 
-                    BackgroundPosition.CENTER, BackgroundSize.DEFAULT);
-            
-            canvas.setBackground(new Background(image));
-        }
-    }
     
     public void processMovedShape() {
         Draggable draggableShape = (Draggable) selectedShape;
@@ -298,14 +249,14 @@ public class MMMData implements AppDataComponent {
         transactionHistory.addTransaction(transaction);
     }
     
-    public void setFill(Shape shape, Color color) {
-        ChangeFill_Transaction transaction = new ChangeFill_Transaction(this, shape, color);
+    public void setShapeFill(Shape shape, Color color) {
+        SetFill_Transaction transaction = new SetFill_Transaction(this, shape, color);
         
         transactionHistory.addTransaction(transaction);
     }
     
-    public void changeRadius(DraggableCircle circle, double newRadius) {
-        ChangeCircleRadius_Transaction transaction = new ChangeCircleRadius_Transaction(this, circle, newRadius);
+    public void setRadius(DraggableCircle circle, double newRadius) {
+        SetRadius_Transaction transaction = new SetRadius_Transaction(this, circle, newRadius);
         
         transactionHistory.addTransaction(transaction);
     }
@@ -329,8 +280,8 @@ public class MMMData implements AppDataComponent {
         
         Background background = new Background(image);
         
-        ChangeBackground_Transaction transaction = new
-                ChangeBackground_Transaction(this, filePath);
+        SetBackground_Transaction transaction = new
+                SetBackground_Transaction(this, filePath);
         
         transactionHistory.addTransaction(transaction);
         
@@ -338,7 +289,7 @@ public class MMMData implements AppDataComponent {
     }
     
     public void setBackgroundFill(Color backgroundColor) {
-        ChangeBackground_Transaction transaction = new ChangeBackground_Transaction(this, backgroundColor);
+        SetBackground_Transaction transaction = new SetBackground_Transaction(this, backgroundColor);
         
         transactionHistory.addTransaction(transaction);
     }

@@ -120,7 +120,7 @@ public class MetroLineSettingsDialogSingleton extends Stage {
         
         // Load MetroLine settings
         nameTextField.setText(metroLine.getName());
-        lineColorPicker.setValue(metroLine.getColor());
+        lineColorPicker.setValue(metroLine.getFill());
         
         showAndWait();
     }

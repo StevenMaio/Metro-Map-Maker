@@ -216,7 +216,7 @@ public class MMMEditController {
             DraggableLabel endLabel = new DraggableLabel(name);
             metroLine.setStartLabel(startLabel);
             metroLine.setEndLabel(endLabel);
-            metroLine.setColor(color);
+            metroLine.setFill(color);
             
             dataManager.setNewMetroLine(metroLine);
             dataManager.setState(CREATING_METRO_LINE_START_POINT);
@@ -287,7 +287,7 @@ public class MMMEditController {
         if (metroLine == null)
             return;
         
-        String lineInfo = metroLine.getLineDestinations();
+        String lineInfo = metroLine.getDestinations();
         
         BorderedMessageDialogSingleton singleton = BorderedMessageDialogSingleton.getSingleton();
         
@@ -320,7 +320,7 @@ public class MMMEditController {
         
         double thickness = workspace.getMetroLineThicknessSlider().getValue();
         
-        dataManager.SetLineThickness(metroLine, thickness);
+        dataManager.setThickness(metroLine, thickness);
         workspace.reloadWorkspace(dataManager);
     }
     
@@ -411,7 +411,7 @@ public class MMMEditController {
                 .getSelectionModel().getSelectedItem().getCircle();
         Color selectedColor = workspace.getMetroStationColorPicker().getValue();
         
-        dataManager.setFill(selectedStation, selectedColor);
+        dataManager.setShapeFill(selectedStation, selectedColor);
         workspace.reloadWorkspace(dataManager);
     }
     
@@ -422,7 +422,7 @@ public class MMMEditController {
         DraggableCircle selectedCircle = workspace.getMetroStationComboBox()
                 .getSelectionModel().getSelectedItem().getCircle();
         
-        dataManager.changeRadius(selectedCircle, newRadius);
+        dataManager.setRadius(selectedCircle, newRadius);
         workspace.reloadWorkspace(dataManager);
     }
     

@@ -49,17 +49,18 @@ import mmm.data.MMMState;
  * @author steve
  */
 public class MMMWorkspace extends AppWorkspaceComponent {
+
     // The main components of the application
     private AppTemplate app;
     private AppGUI gui;
     private Pane canvas;
     private BorderPane mainPane;
     private VBox editToolbar;
-    
+
     // Controlers
     private MMMEditController editController;
     private MMMCanvasController canvasController;
-    
+
     // Top Toolbar stuff
     private FlowPane otherTopBar;
     private Button saveAsButton;
@@ -67,7 +68,7 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     private Button undoButton;
     private Button redoButton;
     private Button aboutButton;
-    
+
     // Metro Line Toolbar
     private VBox metroLineToolbar;
     private HBox metroLineToolbarRow1;
@@ -81,7 +82,7 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     private Button editMetroLineButton;
     private Slider metroLineThicknessSlider;
     private ColorPicker metroLineColorPicker;
-    
+
     // Metro Stations Toolbar
     private VBox metroStationToolbar;
     private HBox metroStationToolbarRow1;
@@ -94,14 +95,14 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     private Button rotateStationLabelButton;
     private ColorPicker metroStationColorPicker;
     private Slider metroStationRadiusSlider;
-    
+
     // Route Finder tool bar
     private HBox routeFinderToolbar;
     private VBox routeFinderToolbarLeftPane;
     private ComboBox<MetroStation> startingStationComboBox;
     private ComboBox<MetroStation> destinationStationComboBox;
     private Button findRouteButton;
-    
+
     // Decor Toolbar
     private VBox decorToolbar;
     private HBox decorToolbarRow1;
@@ -111,7 +112,7 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     private Button addImageButton;
     private Button addLabelButton;
     private Button removeElementButton;
-    
+
     // Font Edit toolbar
     private VBox fontEditorToolbar;
     private HBox fontEditorToolbarRow1;
@@ -121,57 +122,55 @@ public class MMMWorkspace extends AppWorkspaceComponent {
     private ComboBox<String> fontFamilyComboBox;
     private ComboBox<Integer> fontSizeComboBox;
     private ColorPicker fontFillColorPicker;
-    
+
     // Navigator Toolbar
     private VBox navigationToolbar;
     private HBox navigationToolbarRow1;
     private HBox navigationToolbarRow2;
-    private CheckBox showGridCheckBox;
     private Button zoomInButton;
     private Button zoomOutButton;
     private Button increaseMapSizeButton;
     private Button decreaseMapSizeButton;
     private ScrollPane canvasContainer;
-    
+
     /**
-     * The constructor for this class. This method will call all of the init 
+     * The constructor for this class. This method will call all of the init
      * methods as well as set app to the value of initApp and gui to app's gui
-     * 
-     * @param initApp
-     *      The value that the instance variable app will be set to. Also, the
-     *      value of initApp.gui will be set to the value of this.gui   
+     *
+     * @param initApp The value that the instance variable app will be set to.
+     * Also, the value of initApp.gui will be set to the value of this.gui
      */
     public MMMWorkspace(AppTemplate initApp) {
         app = initApp;
         gui = app.getGUI();
-        
+
         // Init all the crap
         initLayout();
         initStyle();
         initControllers();
     }
-    
+
     private void initLayout() {
-    // This method will initialize all of the containers and controls, and then
-    // place them inside the appropriate containers
+        // This method will initialize all of the containers and controls, and then
+        // place them inside the appropriate containers
         PropertiesManager props = PropertiesManager.getPropertiesManager();
-        
+
         // Other top bar stuff
         otherTopBar = new FlowPane();
-        saveAsButton = gui.initChildButton(otherTopBar, SAVE_AS_ICON.toString(), 
+        saveAsButton = gui.initChildButton(otherTopBar, SAVE_AS_ICON.toString(),
                 SAVE_AS_TOOLTIP.toString(), true);
-        exportButton = gui.initChildButton(otherTopBar, EXPORT_ICON.toString(), 
+        exportButton = gui.initChildButton(otherTopBar, EXPORT_ICON.toString(),
                 EXPORT_TOOLTIP.toString(), true);
-        undoButton = gui.initChildButton(otherTopBar, UNDO_ICON.toString(), 
+        undoButton = gui.initChildButton(otherTopBar, UNDO_ICON.toString(),
                 UNDO_TOOLTIP.toString(), true);
-        redoButton = gui.initChildButton(otherTopBar, REDO_ICON.toString(), 
+        redoButton = gui.initChildButton(otherTopBar, REDO_ICON.toString(),
                 REDO_TOOLTIP.toString(), true);
         aboutButton = gui.initChildButton(otherTopBar, ABOUT_ICON.toString(),
                 ABOUT_TOOLTIP.toString(), false);
-        
+
         gui.getTopToolbarPane().getChildren().add(otherTopBar);
         otherTopBar.getStyleClass().add(CLASS_BORDERED_PANE);
-        
+
         // Metro Lines Toolbar
         metroLineToolbar = new VBox();
         metroLineToolbarRow1 = new HBox();
@@ -181,9 +180,9 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         metroLineComboBox = new ComboBox<>();
         metroLineColorPicker = new ColorPicker();
         // TODO: THESE NEED TO BE CHANGED
-        addMetroLineButton = gui.initChildButton(metroLineToolbarRow2, 
+        addMetroLineButton = gui.initChildButton(metroLineToolbarRow2,
                 ADD_ICON.toString(), ADD_LINE_TOOLTIP.toString(), false);
-        deleteMetroLineButton = gui.initChildButton(metroLineToolbarRow2, 
+        deleteMetroLineButton = gui.initChildButton(metroLineToolbarRow2,
                 REMOVE_ICON.toString(), REMOVE_LINE_TOOLTIP.toString(), false);
 
         appendStationButton = new Button(
@@ -191,20 +190,20 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         removeStationButton = new Button(
                 props.getProperty(REMOVE_STATION_TEXT));
         metroLineThicknessSlider = new Slider(MIN_THICKNESS, MAX_THICKNESS, MIN_THICKNESS);
-        
+
         // Put everything together
-        metroLineToolbarRow1.getChildren().addAll(metroLineToolbarLabel, 
+        metroLineToolbarRow1.getChildren().addAll(metroLineToolbarLabel,
                 metroLineComboBox, metroLineColorPicker);
-        metroLineToolbarRow2.getChildren().addAll(appendStationButton, 
+        metroLineToolbarRow2.getChildren().addAll(appendStationButton,
                 removeStationButton);
-        metroLineToolbar.getChildren().addAll(metroLineToolbarRow1, 
+        metroLineToolbar.getChildren().addAll(metroLineToolbarRow1,
                 metroLineToolbarRow2, metroLineThicknessSlider);
-        editMetroLineButton = gui.initChildButton(metroLineToolbarRow1, EDIT_ICON.toString(), 
+        editMetroLineButton = gui.initChildButton(metroLineToolbarRow1, EDIT_ICON.toString(),
                 EDIT_METRO_LINE_TOOLTIP.toString(), false);
-        
-        metroLineInfoButton = gui.initChildButton(metroLineToolbarRow2, 
+
+        metroLineInfoButton = gui.initChildButton(metroLineToolbarRow2,
                 METRO_LINE_INFO_ICON.toString(), METRO_LINE_INFO_TOOLTIP.toString(), false);
-        
+
         // Metro Stations Toolbar
         metroStationToolbar = new VBox();
         metroStationToolbarRow1 = new HBox();
@@ -213,27 +212,27 @@ public class MMMWorkspace extends AppWorkspaceComponent {
                 props.getProperty(METRO_STATIONS_TOOLBAR_TITLE));
         metroStationsComboBox = new ComboBox<>();
         metroStationColorPicker = new ColorPicker();
-        
+
         // TODO: ADD BUTTONS LATER
-        newMetroStationButton = gui.initChildButton(metroStationToolbarRow2, 
+        newMetroStationButton = gui.initChildButton(metroStationToolbarRow2,
                 ADD_ICON.toString(), ADD_METRO_STATION_TOOLTIP.toString(), false);
-        deleteMetroStationButton = gui.initChildButton(metroStationToolbarRow2, 
+        deleteMetroStationButton = gui.initChildButton(metroStationToolbarRow2,
                 REMOVE_ICON.toString(), DELETE_METRO_STATION_TOOLTIP.toString(), false);
         snapToGridCheckBox = new CheckBox(props.getProperty(SNAP_TEXT));
-        
+
         moveStationLabelButton = new Button(
                 props.getProperty(MOVE_LABEL_TEXT));
         metroStationRadiusSlider = new Slider(MIN_RADIUS, MAX_RADIUS, MIN_RADIUS);
-        metroStationToolbarRow1.getChildren().addAll(metroStationToolbarLabel, 
+        metroStationToolbarRow1.getChildren().addAll(metroStationToolbarLabel,
                 metroStationsComboBox, metroStationColorPicker);
         metroStationToolbarRow2.getChildren().addAll(snapToGridCheckBox,
                 moveStationLabelButton);
-        metroStationToolbar.getChildren().addAll(metroStationToolbarRow1, 
+        metroStationToolbar.getChildren().addAll(metroStationToolbarRow1,
                 metroStationToolbarRow2, metroStationRadiusSlider);
-        
-        rotateStationLabelButton = gui.initChildButton(metroStationToolbarRow2, 
+
+        rotateStationLabelButton = gui.initChildButton(metroStationToolbarRow2,
                 ROTATE_ICON.toString(), ROTATE_LABEL_TOOLTIP.toString(), false);
-        
+
         // Route finder toolbar
         routeFinderToolbar = new HBox();
         routeFinderToolbarLeftPane = new VBox();
@@ -242,28 +241,28 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         routeFinderToolbarLeftPane.getChildren().addAll(startingStationComboBox,
                 destinationStationComboBox);
         routeFinderToolbar.getChildren().addAll(routeFinderToolbarLeftPane);
-        findRouteButton = gui.initChildButton(routeFinderToolbar, 
+        findRouteButton = gui.initChildButton(routeFinderToolbar,
                 FIND_ROUTE_ICON.toString(), FIND_ROUTE_TOOLTIP.toString(), false);
-        
+
         // Decor toolbar
         decorToolbar = new VBox();
         decorToolbarRow1 = new HBox();
         decorToolbarRow2 = new HBox();
         Label decorLabel = new Label(
-            props.getProperty(DECOR_TOOLBAR_TITLE));
+                props.getProperty(DECOR_TOOLBAR_TITLE));
         decorToolbarColorPicker = new ColorPicker();
         decorToolbarRow1.getChildren().addAll(decorLabel, decorToolbarColorPicker);
         decorToolbar.getChildren().addAll(decorToolbarRow1, decorToolbarRow2);
-        setBackgroundImageButton = gui.initChildButton(decorToolbarRow2, 
-                SET_IMAGE_BACKGROUND_ICON.toString(), SET_IMAGE_BACKGROUND_TOOLTIP.toString()
-                , false);
+        setBackgroundImageButton = gui.initChildButton(decorToolbarRow2,
+                SET_IMAGE_BACKGROUND_ICON.toString(), SET_IMAGE_BACKGROUND_TOOLTIP.toString(),
+                 false);
         addImageButton = gui.initChildButton(decorToolbarRow2, ADD_IMAGE_ICON.toString(),
                 ADD_LINE_TOOLTIP.toString(), false);
-        addLabelButton = gui.initChildButton(decorToolbarRow2, TEXT_ICON.toString(), 
+        addLabelButton = gui.initChildButton(decorToolbarRow2, TEXT_ICON.toString(),
                 ADD_TEXT_TOOLTIP.toString(), false);
         removeElementButton = gui.initChildButton(decorToolbarRow2, REMOVE_ELEMENT_ICON.toString(),
                 REMOVE_ELEMENT_TOOLTIP.toString(), false);
-        
+
         // Font toolbar
         fontEditorToolbar = new VBox();
         fontEditorToolbarRow1 = new HBox();
@@ -279,32 +278,30 @@ public class MMMWorkspace extends AppWorkspaceComponent {
                 BOLD_TOOLTIP.toString(), false);
         italicFontButton = gui.initChildToggleButton(fontEditorToolbarRow1, ITALICS_ICON.toString(),
                 ITALIC_TOOLTIP.toString(), false);
-        fontEditorToolbarRow2.getChildren().addAll(fontSizeComboBox, 
+        fontEditorToolbarRow2.getChildren().addAll(fontSizeComboBox,
                 fontFamilyComboBox);
-        fontEditorToolbar.getChildren().addAll(fontEditorToolbarRow1, 
+        fontEditorToolbar.getChildren().addAll(fontEditorToolbarRow1,
                 fontEditorToolbarRow2);
-        
+
         // Navigation TOolbar
         navigationToolbar = new VBox();
         navigationToolbarRow1 = new HBox();
         navigationToolbarRow2 = new HBox();
         Label navigationLabel = new Label(
                 props.getProperty(NAVIGATION_TOOLBAR_TITLE));
-        showGridCheckBox = new CheckBox(
-                props.getProperty(SHOW_GRID_TEXT));
         // TODO: PICUTRES
         zoomOutButton = gui.initChildButton(navigationToolbarRow2, ZOOM_OUT_ICON.toString(),
                 ZOOM_OUT_TOOLTIP.toString(), false);
         zoomInButton = gui.initChildButton(navigationToolbarRow2, ZOOM_IN_ICON.toString(),
                 ZOOM_IN_TOOLTIP.toString(), false);
-        increaseMapSizeButton = gui.initChildButton(navigationToolbarRow2, 
+        increaseMapSizeButton = gui.initChildButton(navigationToolbarRow2,
                 LARGER_ICON.toString(), LARGER_TOOLTIP.toString(), false);
-        decreaseMapSizeButton = gui.initChildButton(navigationToolbarRow2, 
+        decreaseMapSizeButton = gui.initChildButton(navigationToolbarRow2,
                 SMALLER_ICON.toString(), SMALLER_TOOLTIP.toString(), false);
-        navigationToolbarRow1.getChildren().addAll(navigationLabel, showGridCheckBox);
-        navigationToolbar.getChildren().addAll(navigationToolbarRow1, 
+        navigationToolbarRow1.getChildren().addAll(navigationLabel);
+        navigationToolbar.getChildren().addAll(navigationToolbarRow1,
                 navigationToolbarRow2);
-        
+
         // Add everything to the editToolbar
         editToolbar = new VBox();
         ObservableList<Node> editToolbarChildren = editToolbar.getChildren();
@@ -314,34 +311,31 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         editToolbarChildren.add(decorToolbar);
         editToolbarChildren.add(fontEditorToolbar);
         editToolbarChildren.add(navigationToolbar);
-        
-//        add(metroLineToolbar, metroStationToolbar, 
-//                routeFinderToolbar, decorToolbar, fontEditorToolbar, 
-//                navigationToolbar);
-        
-        // This goes at the end
+
+        /* Set the canvas as the content of a ScrollPane (which handles clipping
+           and set it so that the canvas will automatically fit its container.
+        */
         canvas = new Pane();
         canvasContainer = new ScrollPane(canvas);
         canvasContainer.autosize();
         canvasContainer.setFitToHeight(true);
         canvasContainer.setFitToWidth(true);
         canvas.autosize();
-        
-        
-        // Link data with the ObservableLists here/
+
+        // Link data with the ObservableLists here
         MMMData data = (MMMData) app.getDataComponent();
         data.setShapes(canvas.getChildren());
         data.setMetroLines(metroLineComboBox.getItems());
         data.setMetroStations(metroStationsComboBox.getItems());
         startingStationComboBox.setItems(metroStationsComboBox.getItems());
         destinationStationComboBox.setItems(metroStationsComboBox.getItems());
-        
+
         // Set up the workspaces
         workspace = new BorderPane();
-        ((BorderPane)workspace).setLeft(editToolbar);
-	((BorderPane)workspace).setCenter(canvasContainer);
+        ((BorderPane) workspace).setLeft(editToolbar);
+        ((BorderPane) workspace).setCenter(canvasContainer);
     }
-    
+
     private void initControllers() {
         /* This private method is used to set all of the controls and action events
        for the controls inside the application */
@@ -350,62 +344,58 @@ public class MMMWorkspace extends AppWorkspaceComponent {
             KeyCode code = e.getCode();
             double xTranslate = canvas.getTranslateX();
             double yTranslate = canvas.getTranslateY();
-            
+
             switch (code) {
                 case W:
                     yTranslate -= 50;
-//                    yTranslate = (yTranslate < 0) ? 0: yTranslate;
                     canvas.setTranslateY(yTranslate);
                     break;
-                    
+
                 case S:
                     yTranslate += 50;
-//                    yTranslate = (yTranslate > 500) ? 500 : yTranslate;
                     canvas.setTranslateY(yTranslate);
                     break;
-                
+
                 case A:
                     xTranslate -= 50;
-//                    xTranslate = (xTranslate < 0) ? 0 : xTranslate;
                     canvas.setTranslateX(xTranslate);
                     break;
-                    
+
                 case D:
                     xTranslate += 50;
-//                    xTranslate = (xTranslate > 500) ? 500 : xTranslate;
                     canvas.setTranslateX(xTranslate);
                     break;
-                    
+
                 default:
                     break;
             }
         });
-        
+
         editController = new MMMEditController(app);
         canvasController = new MMMCanvasController(app);
-        
+
         //canvas stuff
         canvas.setOnMouseDragged(e -> {
             canvasController.processCanvasMouseDragged((int) e.getX(), (int) e.getY());
         });
-        
+
         canvas.setOnMousePressed(e -> {
             canvasController.processCanvasMousePressDown((int) e.getX(), (int) e.getY());
         });
-        
-        canvas.setOnMouseReleased(e -> {    
+
+        canvas.setOnMouseReleased(e -> {
             canvasController.processCanvasMouseRelease((int) e.getX(), (int) e.getY());
         });
-        
+
         canvas.setOnMouseClicked(e -> {
-            canvasController.processCanvasMouseClick((int) e.getX(), (int)e.getY());
+            canvasController.processCanvasMouseClick((int) e.getX(), (int) e.getY());
         });
-        
+
         // overrtte new
         app.getGUI().getNewButton().setOnAction(e -> {
             editController.processNewMetroMap();
         });
-        
+
         // Other top toolbar stuff
         undoButton.setOnAction(e -> {
             editController.processUndo();
@@ -422,7 +412,7 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         saveAsButton.setOnAction(e -> {
             editController.processSaveAs();
         });
-        
+
         // Metro Line Toolbar
         addMetroLineButton.setOnAction(e -> {
             editController.processAddMetroLine();
@@ -436,11 +426,11 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         removeStationButton.setOnAction(e -> {
             editController.processRemoveStation();
         });
-        
+
         metroLineComboBox.setOnAction(e -> {
             editController.processSelectMetroLine();
         });
-        
+
         editMetroLineButton.setOnAction(e -> {
             editController.processEditMetroLine();
         });
@@ -453,7 +443,7 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         metroLineColorPicker.setOnAction(e -> {
             editController.processChangeMetroLineColor();
         });
-        
+
         // Metro Station Toolbar
         newMetroStationButton.setOnAction(e -> {
             editController.processNewMetroStation();
@@ -476,12 +466,12 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         metroStationRadiusSlider.setOnMouseDragged(e -> {
             editController.processChangeStationRadius();
         });
-        
+
         // Route Finder
         findRouteButton.setOnAction(e -> {
             editController.processFindRoute();
         });
-        
+
         // Decor TOolbar
         decorToolbarColorPicker.setOnAction(e -> {
             editController.processChangeBackgroundColor();
@@ -501,7 +491,7 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         removeElementButton.setOnAction(e -> {
             editController.processDeleteMapElement();
         });
-        
+
         // Font Toolbar
         fontFillColorPicker.setOnAction(e -> {
             editController.processChangeFontFill();
@@ -518,7 +508,7 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         italicFontButton.setOnAction(e -> {
             editController.processItalicFont();
         });
-        
+
         // Navigation Toolbar
         zoomInButton.setOnAction(e -> {
             editController.processZoomIn();
@@ -533,57 +523,57 @@ public class MMMWorkspace extends AppWorkspaceComponent {
             editController.processDecreaseMapSize();
         });
     }
-    
+
     private void initStyle() {
         // add font families to fontFamilyComboBox and font sizes to fontSizeComboBox
-        for (String e: FONT_FAMILIES) {
+        for (String e : FONT_FAMILIES) {
             fontFamilyComboBox.getItems().add(e);
         }
-        
-        for (int e: FONT_SIZES) {
+
+        for (int e : FONT_SIZES) {
             fontSizeComboBox.getItems().add(new Integer(e));
         }
-        
-    /* This method initializes the style for the application */
+
+        /* This method initializes the style for the application */
         editToolbar.getStyleClass().add(CLASS_EDIT_TOOLBAR);
-        
+
         // make the color pickers and combo boxes buttons
         fontFillColorPicker.getStyleClass().add(CLASS_BUTTON);
         metroStationColorPicker.getStyleClass().add(CLASS_BUTTON);
         decorToolbarColorPicker.getStyleClass().add(CLASS_BUTTON);
         metroLineColorPicker.getStyleClass().add(CLASS_BUTTON);
-        
+
         // Color picker settings
         fontFillColorPicker.getStyleClass().add(CLASS_COLOR_PICKER);
         decorToolbarColorPicker.getStyleClass().add(CLASS_COLOR_PICKER);
         metroStationColorPicker.getStyleClass().add(CLASS_COLOR_PICKER);
         metroLineColorPicker.getStyleClass().add(CLASS_COLOR_PICKER);
-        
+
         // Style for the toolbars
         metroLineToolbar.getStyleClass().add(CLASS_EDIT_TOOLBAR_ROW);
         metroLineToolbarRow1.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
         metroLineToolbarRow2.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
-        
+
         metroStationToolbar.getStyleClass().add(CLASS_EDIT_TOOLBAR_ROW);
         metroStationToolbarRow1.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
         metroStationToolbarRow2.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
-        
+
         routeFinderToolbar.getStyleClass().add(CLASS_EDIT_TOOLBAR_ROW);
         routeFinderToolbarLeftPane.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
-        
+
         decorToolbar.getStyleClass().add(CLASS_EDIT_TOOLBAR_ROW);
         decorToolbarRow1.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
         decorToolbarRow2.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
-        
+
         fontEditorToolbar.getStyleClass().add(CLASS_EDIT_TOOLBAR_ROW);
         fontEditorToolbarRow1.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
         fontEditorToolbarRow2.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
-        
+
         navigationToolbar.getStyleClass().add(CLASS_EDIT_TOOLBAR_ROW);
         navigationToolbarRow1.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
         navigationToolbarRow2.getStyleClass().add(CLASS_EDIT_TOOLBAR_SUB_ROW);
     }
-    
+
     /**
      * This method may or may not have a place so far.
      */
@@ -594,48 +584,47 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         canvas.setTranslateY(0);
         canvas.setScaleX(1);
         canvas.setScaleY(1);
-        
+
         // activate the Save As Button and export Button
         saveAsButton.setDisable(false);
         exportButton.setDisable(false);
     }
 
     /**
-     * This method adjusts the toolbars to reflect whether or whether not a 
+     * This method adjusts the toolbars to reflect whether or whether not a
      * certain object can be edited in such a way.
-     * 
-     * @param dataComponent 
-     *      This object contains values which will determine the state of the
-     *      MMMWorkspace.
+     *
+     * @param dataComponent This object contains values which will determine the
+     * state of the MMMWorkspace.
      */
     @Override
     public void reloadWorkspace(AppDataComponent dataComponent) {
         MMMData dataManager = (MMMData) dataComponent;
         gui.updateToolbarControls(false);
         MMMState state = dataManager.getState();
-        
-        reloadMetroLineToolbar(! (state == SELECTED_METRO_LINE || state == ADD_STATIONS_MODE
+
+        reloadMetroLineToolbar(!(state == SELECTED_METRO_LINE || state == ADD_STATIONS_MODE
                 || state == REMOVE_STATIONS_MODE));
-        reloadMetroStationToolbar(! (state == SELECTED_METRO_STATION));
-        
+        reloadMetroStationToolbar(!(state == SELECTED_METRO_STATION));
+
         reloadTransactionsToolbar(dataManager);
     }
-    
+
     private void reloadTransactionsToolbar(MMMData dataManager) {
         boolean canUndo = dataManager.getTransactionHistory().canUndo();
         boolean canRedo = dataManager.getTransactionHistory().canRedo();
-        
-        undoButton.setDisable(! canUndo);
-        redoButton.setDisable(! canRedo);
+
+        undoButton.setDisable(!canUndo);
+        redoButton.setDisable(!canRedo);
     }
-    
+
     private void loadSelectedShapeSettings(Shape shape) {
-    /*
+        /*
         This private method will load the settings of the selected shape into
         the toolbars where the object can be edited.
-    */
+         */
     }
-    
+
     private void reloadMetroLineToolbar(boolean disable) {
         deleteMetroLineButton.setDisable(disable);
         metroLineColorPicker.setDisable(disable);
@@ -644,25 +633,28 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         editMetroLineButton.setDisable(disable);
         appendStationButton.setDisable(disable);
         removeStationButton.setDisable(disable);
-        
-        if (disable)
+
+        if (disable) {
             metroLineComboBox.getSelectionModel().clearSelection();
-        
+        }
+
     }
-    
+
     private void reloadMetroStationToolbar(boolean disable) {
         // Disable delete if no metro station is selected
-        if (metroStationsComboBox.getSelectionModel().getSelectedItem() == null)
+        if (metroStationsComboBox.getSelectionModel().getSelectedItem() == null) {
             deleteMetroStationButton.setDisable(false);
+        }
         rotateStationLabelButton.setDisable(disable);
         moveStationLabelButton.setDisable(disable);
         metroStationColorPicker.setDisable(disable);
         metroStationRadiusSlider.setDisable(disable);
-        
-        if (disable)
+
+        if (disable) {
             metroStationsComboBox.getSelectionModel().clearSelection();
+        }
     }
-    
+
     // THis method loads the style settings of some kind of text object
     public void loadTextSettings(DraggableLabel text) {
         // Load Text Settings
@@ -670,55 +662,56 @@ public class MMMWorkspace extends AppWorkspaceComponent {
         fontSizeComboBox.setOnAction(null);
         fontSizeComboBox.getSelectionModel().select(new Integer(text.getFontSize()));
         fontSizeComboBox.setOnAction(fontSizeAction);
-        
+
         // Turning off the EventHandler because things are tedious
         EventHandler<ActionEvent> fontFamilyAactionEvent = fontFamilyComboBox.getOnAction();
         fontFamilyComboBox.setOnAction(null);
         fontFamilyComboBox.getSelectionModel().select(text.getFontFamily());
         fontFamilyComboBox.setOnAction(fontFamilyAactionEvent);
-        
+
         // TODO: Bold and Italic
         boldFontButton.setSelected(text.isBold());
         italicFontButton.setSelected(text.isItalicized());
     }
-    
+
     /**
      * This method will load the values of into a few of the editors.
+     *
      * @param metroStation The Metro Station we are loading the settings from
      */
     public void loadMetroStationSettings(MetroStation metroStation) {
         DraggableCircle stationCircle = metroStation.getCircle();
         DraggableLabel stationLabel = metroStation.getLabel();
-        
+
         metroStationsComboBox.getSelectionModel().select(metroStation);
-        
+
         // Load Circle setttings
         metroStationColorPicker.setValue((Color) stationCircle.getStroke());
         metroStationRadiusSlider.setValue(stationCircle.getRadius());
-        
+
         // Load Text Settings
         loadTextSettings(stationLabel);
     }
-    
+
     /**
      * This method loads the style settings of a MetroLine into the controls
+     *
      * @param metroLine The Metro line we are loading the sttings from
      */
     public void loadMetroLineSettings(MetroLine metroLine) {
-        double thickness = metroLine.getLineThickness();
+        double thickness = metroLine.getThickness();
         metroLineThicknessSlider.setValue(thickness);
-        
-        metroLineColorPicker.setValue(metroLine.getColor());
-        
+
+        metroLineColorPicker.setValue(metroLine.getFill());
+
         // load label settings
         loadTextSettings(metroLine.getStartLabel());
-        
+
     }
-    
+
     //////////////////////////////
     // ACCESSOR/MUTATOR METHODS //
     //////////////////////////////
-
     public ComboBox<MetroLine> getMetroLineComboBox() {
         return metroLineComboBox;
     }
@@ -749,11 +742,6 @@ public class MMMWorkspace extends AppWorkspaceComponent {
 
     public ComboBox<Integer> getFontSizeComboBox() {
         return fontSizeComboBox;
-    }
-
-    // TODO: This might not be necessary
-    public CheckBox getShowGridCheckBox() {
-        return showGridCheckBox;
     }
 
     public Pane getCanvas() {

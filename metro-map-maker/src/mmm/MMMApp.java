@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package mmm;
+
 import djf.AppTemplate;
 import static djf.settings.AppPropertyType.APP_TITLE;
 import static djf.settings.AppPropertyType.PROPERTIES_LOAD_ERROR_MESSAGE;
@@ -14,6 +15,7 @@ import djf.ui.AppGUI;
 import djf.ui.AppMessageDialogSingleton;
 import djf.ui.AppYesNoCancelDialogSingleton;
 import java.io.File;
+import java.io.IOException;
 import java.util.Locale;
 import javafx.stage.Stage;
 import mmm.data.MMMData;
@@ -28,13 +30,16 @@ import mmm.gui.WelcomeDialogSingleton;
 import properties_manager.PropertiesManager;
 
 /**
- * 
+ *
  * @author steve
  */
 public class MMMApp extends AppTemplate {
+
     /**
-     * This method is where the execution begins. This method calls launch 
-     * since it is a JavaFX application.
+     * This method is where the execution begins. This method calls launch since
+     * it is a JavaFX application.
+     *
+     * @param args
      */
     public static void main(String[] args) {
         System.setProperty("glass.accessible.force", "false");
@@ -52,7 +57,7 @@ public class MMMApp extends AppTemplate {
         dataComponent = new MMMData(this);
         workspaceComponent = new MMMWorkspace(this);
     }
-    
+
     /**
      * This initializes the application.
      *
@@ -60,64 +65,64 @@ public class MMMApp extends AppTemplate {
      */
     @Override
     public void start(Stage primaryStage) {
-	// LET'S START BY INITIALIZING OUR DIALOGS
-	AppMessageDialogSingleton messageDialog = AppMessageDialogSingleton.getSingleton();
-	messageDialog.init(primaryStage);
-	AppYesNoCancelDialogSingleton yesNoDialog = AppYesNoCancelDialogSingleton.getSingleton();
-	yesNoDialog.init(primaryStage);
-	PropertiesManager props = PropertiesManager.getPropertiesManager();
-        
+        // LET'S START BY INITIALIZING OUR DIALOGS
+        AppMessageDialogSingleton messageDialog = AppMessageDialogSingleton.getSingleton();
+        messageDialog.init(primaryStage);
+        AppYesNoCancelDialogSingleton yesNoDialog = AppYesNoCancelDialogSingleton.getSingleton();
+        yesNoDialog.init(primaryStage);
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+
         // App specific dialogs
         WelcomeDialogSingleton welcomeDialog;
         welcomeDialog = WelcomeDialogSingleton.getSingleton();
         welcomeDialog.init(primaryStage);
-        
+
         MetroLineSettingsDialogSingleton metroLineSettingsDialog;
         metroLineSettingsDialog = MetroLineSettingsDialogSingleton.getSingleton();
         metroLineSettingsDialog.init(primaryStage);
-        
+
         EnterTextDialogSingleton enterTextDialog;
         enterTextDialog = EnterTextDialogSingleton.getSingleton();
         enterTextDialog.init(primaryStage);
-        
+
         BorderedMessageDialogSingleton borderedMessageDialog;
         borderedMessageDialog = BorderedMessageDialogSingleton.getSingleton();
         borderedMessageDialog.init(primaryStage);
-        
+
         InitImageWindow imageWindow;
         imageWindow = InitImageWindow.getSingleton();
         imageWindow.init(primaryStage);
-        
-	try {
-	    // LOAD APP PROPERTIES, BOTH THE BASIC UI STUFF FOR THE FRAMEWORK
-	    // AND THE CUSTOM UI STUFF FOR THE WORKSPACE
+
+        try {
+            // LOAD APP PROPERTIES, BOTH THE BASIC UI STUFF FOR THE FRAMEWORK
+            // AND THE CUSTOM UI STUFF FOR THE WORKSPACE
             boolean success = loadProperties(APP_PROPERTIES_FILE_NAME);
-	    
-	    if (success) {
-                
+
+            if (success) {
+
                 // GET THE TITLE FROM THE XML FILE
-		String appTitle = props.getProperty(APP_TITLE);
-                
+                String appTitle = props.getProperty(APP_TITLE);
+
                 // BUILD THE BASIC APP GUI OBJECT FIRST
-		gui = new AppGUI(primaryStage, appTitle, this);
+                gui = new AppGUI(primaryStage, appTitle, this);
 
                 // THIS BUILDS ALL OF THE COMPONENTS, NOTE THAT
                 // IT WOULD BE DEFINED IN AN APPLICATION-SPECIFIC
                 // CHILD CLASS
-		buildAppComponentsHook();
-                
+                buildAppComponentsHook();
+
                 // Show the welcome dialog, we'll process some crap 
                 // after this i think
                 welcomeDialog.loadRecentMaps();
                 welcomeDialog.showAndWait();
-                
+
                 try {
                     // If the user created a map
                     if (welcomeDialog.isReady()) {
                         String mapName = welcomeDialog.getMapName();
 
                         // If the user didn't select load recent map
-                        if (! welcomeDialog.getLoadRecentMap()) {
+                        if (!welcomeDialog.getLoadRecentMap()) {
                             MMMFiles files = (MMMFiles) fileComponent;
                             files.createNewMetroMap(mapName, this);
                         } else {
@@ -139,18 +144,18 @@ public class MMMApp extends AppTemplate {
                             gui.getFileController().setCurrentWorkFile(file);
                         }
                     }
-                } catch (Exception e) {
+                } catch (IOException e) {
                     // Display a message if an error happens while loading a file
                     AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
                     dialog.show(props.getProperty(PROPERTIES_LOAD_ERROR_TITLE), props.getProperty(PROPERTIES_LOAD_ERROR_MESSAGE));
                 }
-                
+
                 // NOW OPEN UP THE WINDOW
                 primaryStage.show();
-	    } 
-	}catch (Exception e) {
+            }
+        } catch (Exception e) {
             AppMessageDialogSingleton dialog = AppMessageDialogSingleton.getSingleton();
             dialog.show(props.getProperty(PROPERTIES_LOAD_ERROR_TITLE), props.getProperty(PROPERTIES_LOAD_ERROR_MESSAGE));
-	}
+        }
     }
 }
