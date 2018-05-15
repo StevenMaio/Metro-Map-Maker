@@ -30,8 +30,9 @@ import mmm.gui.WelcomeDialogSingleton;
 import properties_manager.PropertiesManager;
 
 /**
+ * Main class for the Metro Map Maker application.
  *
- * @author steve
+ * @author Steven Maio
  */
 public class MMMApp extends AppTemplate {
 

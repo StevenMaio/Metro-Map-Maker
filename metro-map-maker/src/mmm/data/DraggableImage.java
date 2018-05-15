@@ -6,9 +6,11 @@
 package mmm.data;
 
 import javafx.scene.shape.Rectangle;
-import static djf.settings.AppStartupConstants.FILE_PROTOCOL;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
+
+import static djf.settings.AppStartupConstants.FILE_PROTOCOL;
+import static mmm.gui.MMMWorkspace.GRID_ALIGNMENT;
 
 /**
  * This class implements a draggable image onto the canvas. This is object is
@@ -45,8 +47,8 @@ public class DraggableImage extends Rectangle implements Draggable {
      */
     @Override
     public void drag(int x, int y, boolean snapToGrid) {
-        x = (snapToGrid) ? x - x % 20 : x;
-        y = (snapToGrid) ? y - y % 20 : y;
+        x = (snapToGrid) ? x - x % GRID_ALIGNMENT : x;
+        y = (snapToGrid) ? y - y % GRID_ALIGNMENT : y;
 
         if (snapToGrid) {
             setX(x);

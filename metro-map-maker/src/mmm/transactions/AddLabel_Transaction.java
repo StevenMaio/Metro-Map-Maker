@@ -5,8 +5,9 @@ import mmm.data.DraggableLabel;
 import mmm.data.MMMData;
 
 /**
+ * Transaction for adding a label to a metro map.
  *
- * @author steve
+ * @author Steven Maio
  */
 public class AddLabel_Transaction implements jTPS_Transaction {
     private MMMData data;

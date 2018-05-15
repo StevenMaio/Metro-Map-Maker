@@ -39,7 +39,6 @@ public class WelcomeDialogSingleton extends Stage {
 
     // Text constants
     private static final String RECENT_MAPS = "Recent Maps";
-    private static final String METRO_MAP_MAKER = "Metro Map Maker";
     private static final String NEW_METRO_MAP = "New Metro Map";
     private static final String WELCOME_MESSAGE = "Welcome to the Metro Map Maker";
     private static final String ENTER_METRO_MAP_NAME = "Enter Metro Map name";

@@ -1,10 +1,12 @@
 package mmm.data;
 
 import javafx.scene.text.Text;
+
 import static mmm.css.MMMStyle.STYLE_BOLD_FONT;
 import static mmm.css.MMMStyle.STYLE_FONT_FAMILY;
 import static mmm.css.MMMStyle.STYLE_FONT_SIZE;
 import static mmm.css.MMMStyle.STYLE_ITALICIZED_FONT;
+import static mmm.gui.MMMWorkspace.GRID_ALIGNMENT;
 
 /**
  * This class represents a label of text that can be dragged across the canvas.
@@ -79,8 +81,8 @@ public class DraggableLabel extends Text implements Draggable {
      */
     @Override
     public void drag(int x, int y, boolean snapToGrid) {
-        x = (snapToGrid) ? x - x%20 : x;
-        y = (snapToGrid) ? y - y%20: y;
+        x = (snapToGrid) ? x - x % GRID_ALIGNMENT : x;
+        y = (snapToGrid) ? y - y % GRID_ALIGNMENT : y;
         
         if (snapToGrid) {
             setX(x);

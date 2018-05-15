@@ -58,7 +58,6 @@ import mmm.gui.MMMWorkspace;
  */
 public class MMMFiles implements AppFileComponent {
 
-    // constants and other crap
     private static final String JSON_BACKGROUND = "background";
     private static final String JSON_IMAGE = "image";
     private static final String JSON_SHAPES = "shapes";
@@ -122,24 +121,23 @@ public class MMMFiles implements AppFileComponent {
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
         ObservableList<Node> shapes = dataManager.getShapes();
 
-        // TODO: First we do the metro lines
+        // Construct the metro lines array
         for (MetroLine metroLine : dataManager.getMetroLines()) {
             arrayBuilder.add(saveMetroLine(metroLine));
         }
 
         JsonArray metroLinesJson = arrayBuilder.build();
-        arrayBuilder = Json.createArrayBuilder(); // clear the array builder
+        arrayBuilder = Json.createArrayBuilder();
 
-        // Now get Json metro stations
+        // Construct the metro stations array
         for (MetroStation metroStation : dataManager.getMetroStations()) {
             arrayBuilder.add(saveMetroStation(metroStation));
         }
 
         JsonArray metroStationsJson = arrayBuilder.build();
+        arrayBuilder = Json.createArrayBuilder();
 
-        arrayBuilder = Json.createArrayBuilder(); // clear array builder
-
-        // now we iterate through shapes to save labels and text
+        // Retrieve all other graphical elements in a map
         for (Node e : shapes) {
             if (e instanceof DraggableLabel) {
                 if (((DraggableLabel) e).isIndependent()) {
@@ -190,10 +188,8 @@ public class MMMFiles implements AppFileComponent {
         HashMap<String, MetroStation> metroStationHash;
         metroStationHash = new HashMap<>();
 
-        // Load the JSON file
         JsonObject json = loadJSONFile(filePath);
 
-        // TODO: THIS ISN'T WORKING
         JsonObject jsonBackground = json.getJsonObject(JSON_BACKGROUND);
         if (jsonBackground != null) {
             String imageFilepath = jsonBackground.getString(JSON_FILE_PATH);
@@ -300,7 +296,6 @@ public class MMMFiles implements AppFileComponent {
         String name = dataManager.getName();
         JsonObject backgroundJson;
 
-        // TODO: Background stuff
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
         ObservableList<Node> shapes = dataManager.getShapes();
 
@@ -316,7 +311,7 @@ public class MMMFiles implements AppFileComponent {
                 stopsArrayJson.add(stopsInput.nextLine());
             }
 
-            // TODO: Circular eventually
+            // NOTE: Circular tracks have not been implemented in this project
             JsonObject metroLineJson = Json.createObjectBuilder()
                     .add(JSON_NAME, metroLineName)
                     .add(JSON_CIRCULAR, false)
@@ -375,6 +370,7 @@ public class MMMFiles implements AppFileComponent {
 
     @Override
     public void importData(AppDataComponent data, String filePath) throws IOException {
+        // This functionality is not needed
     }
 
     // Gets a double value of data from something
@@ -384,7 +380,7 @@ public class MMMFiles implements AppFileComponent {
         return number.bigDecimalValue().doubleValue();
     }
 
-    // 
+    // Helper method for creating a JsonObject from a MetroLine
     private JsonObject saveMetroLine(MetroLine metroLine) {
         // Get all the properties we're saving
         JsonObject colorJson = makeJsonColorObject(metroLine.getFill());
@@ -406,6 +402,7 @@ public class MMMFiles implements AppFileComponent {
         return metroLineJson;
     }
 
+    // Helper method for creating a JsonObject from a MetroStation
     private JsonObject saveMetroStation(MetroStation metroStation) {
         JsonObject circleJson = saveDraggableCircle(metroStation.getCircle());
         JsonObject labelJson = saveDraggableLabel(metroStation.getLabel());
@@ -640,6 +637,7 @@ public class MMMFiles implements AppFileComponent {
         }
     }
 
+    // Helper method which generates a Color object from a json
     private Color loadColor(JsonObject json) {
         double red = getDataAsDouble(json, JSON_RED);
         double green = getDataAsDouble(json, JSON_GREEN);

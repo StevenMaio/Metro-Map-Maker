@@ -4,6 +4,8 @@ import javafx.beans.property.DoubleProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+import static mmm.gui.MMMWorkspace.GRID_ALIGNMENT;
+
 /**
  * This class implements a DraggableCircle. This is borrowed heavily from the
  * goLogoLo project and shares many properties and methods with its analog
@@ -57,8 +59,8 @@ public class DraggableCircle extends Circle implements Draggable {
      */
     @Override
     public void drag(int x, int y, boolean snapToGrid) {
-        x = (snapToGrid) ? x - x % 20 : x;
-        y = (snapToGrid) ? y - y % 20 : y;
+        x = (snapToGrid) ? x - x % GRID_ALIGNMENT : x;
+        y = (snapToGrid) ? y - y % GRID_ALIGNMENT : y;
         if (snapToGrid) {
             setCenterX(x);
             setCenterY(y);

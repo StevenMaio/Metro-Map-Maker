@@ -30,8 +30,8 @@ public enum MMMLanguageProperty {
     SAVE_AS_FAILURE_MESSAGE,
     
     INIT_IMAGE_TITLE,
-    INIT_IMAGE_MESSAGE,
-    
+
+
     INVALID_FILE_TITLE,
     INVALID_FILE_MESSAGE,
     
@@ -93,6 +93,7 @@ public enum MMMLanguageProperty {
     EDIT_METRO_LINE_TOOLTIP,
     
     // Icons
+    APP_LOGO,
     EDIT_ICON,
     SAVE_AS_ICON,
     SET_IMAGE_BACKGROUND_ICON,
@@ -121,6 +122,7 @@ public enum MMMLanguageProperty {
     ROUTE_ERROR_MESSAGE,
     
     // Recent File Stuff
+    RECENT_MAPS,
     RECENT_FILE_1,
     RECENT_FILE_2,
     RECENT_FILE_3,

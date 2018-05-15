@@ -50,6 +50,8 @@ import mmm.data.MMMState;
  */
 public class MMMWorkspace extends AppWorkspaceComponent {
 
+    public static final int GRID_ALIGNMENT = 20;
+
     // The main components of the application
     private AppTemplate app;
     private AppGUI gui;

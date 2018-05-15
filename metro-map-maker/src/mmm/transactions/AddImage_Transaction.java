@@ -5,8 +5,9 @@ import mmm.data.DraggableImage;
 import mmm.data.MMMData;
 
 /**
+ * Transaction for adding an image for a metro map.
  *
- * @author steve
+ * @author Steven Maio
  */
 public class AddImage_Transaction implements jTPS_Transaction {
     private MMMData data;
