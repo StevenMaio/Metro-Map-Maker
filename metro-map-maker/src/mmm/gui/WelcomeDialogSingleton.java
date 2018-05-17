@@ -12,13 +12,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import properties_manager.PropertiesManager;
+import sun.plugin2.message.Message;
+
 import static djf.settings.AppStartupConstants.PATH_IMAGES;
 import static djf.settings.AppStartupConstants.FILE_PROTOCOL;
-import static mmm.MMMLanguageProperty.RECENT_FILE_1;
-import static mmm.MMMLanguageProperty.RECENT_FILE_2;
-import static mmm.MMMLanguageProperty.RECENT_FILE_3;
-import static mmm.MMMLanguageProperty.RECENT_FILE_4;
-import static mmm.MMMLanguageProperty.RECENT_FILE_5;
+import static mmm.MMMLanguageProperty.*;
 
 /**
  *
@@ -36,13 +34,6 @@ public class WelcomeDialogSingleton extends Stage {
     private boolean ready;
     private boolean loadRecentMap;
     private String mapName;
-
-    // Text constants
-    private static final String RECENT_MAPS = "Recent Maps";
-    private static final String NEW_METRO_MAP = "New Metro Map";
-    private static final String WELCOME_MESSAGE = "Welcome to the Metro Map Maker";
-    private static final String ENTER_METRO_MAP_NAME = "Enter Metro Map name";
-    private static final String APP_LOGO = "Logo.png";
 
     /**
      * Returns the WelcomeDialogSingleton singleton and initializes it if it
@@ -68,6 +59,12 @@ public class WelcomeDialogSingleton extends Stage {
      */
     public void init(Stage primaryStage) {
         PropertiesManager props = PropertiesManager.getPropertiesManager();
+
+        String appLogoPath  = props.getProperty(APP_LOGO);
+        String newMetroMap = props.getProperty(NEW_METRO_MAP_TITLE);
+        String recentMaps = props.getProperty(RECENT_MAPS);
+        String welcomeMessage = props.getProperty(WELCOME_MESSAGE);
+
         // Make it model
         initModality(Modality.WINDOW_MODAL);
         initOwner(primaryStage);
@@ -75,7 +72,7 @@ public class WelcomeDialogSingleton extends Stage {
 
         // Get the logo
         String logoFilepath = FILE_PROTOCOL + PATH_IMAGES
-                + APP_LOGO;
+                + appLogoPath;
         ImageView appLogo = new ImageView(logoFilepath);
         appLogo.setScaleX(LOGO_SCALE);
         appLogo.setScaleY(LOGO_SCALE);
@@ -93,15 +90,15 @@ public class WelcomeDialogSingleton extends Stage {
         mainPane.setPrefHeight(PREFERRED_HEIGHT);
 
         // Center Pane content and settings
-        // TODO: THESE NEED TO BE CHANGED LATER TO LOAD FROM LANGUAGE PROPERTIES
-        Button newMetroMapButton = new Button(NEW_METRO_MAP);
+        // TODO: THESE NEED TO BE CHANGED LATER TO LOAD FROM CSS
+        Button newMetroMapButton = new Button(newMetroMap);
         centerPane.setAlignment(Pos.CENTER);
         centerPane.setSpacing(50);
         centerPane.getChildren().addAll(appLogo, newMetroMapButton);
 
         // Left Pane content and settings
-        // TODO: THIS NEEDS TO BE CHANGED LATER TO LOAD FROM LAGNUAGE PROPERTIES
-        Label rightPaneLabel = new Label(RECENT_MAPS);
+        // TODO: THIS NEEDS TO BE CHANGED LATER TO LOAD FROM CSS
+        Label rightPaneLabel = new Label(recentMaps);
         recentMapsListView = new ListView<>();
         leftPane.setAlignment(Pos.CENTER_LEFT);
         leftPane.setSpacing(5);
@@ -118,7 +115,7 @@ public class WelcomeDialogSingleton extends Stage {
 
         // Create a scene and put it in the window
         // THIS NEEDS TO BE CHANGED LATER TO LOAD FROM LAGNUAGE PROPERTIES
-        setTitle(WELCOME_MESSAGE);
+        setTitle(welcomeMessage);
         Scene scene = new Scene(mainPane);
         this.setScene(scene);
     }
@@ -126,13 +123,17 @@ public class WelcomeDialogSingleton extends Stage {
     /**
      * Handles when the user presses the New Metro Map button.
      */
-    public void processNewMap() {
+    private void processNewMap() {
+        PropertiesManager props = PropertiesManager.getPropertiesManager();
+        String newMetroMapTitle = props.getProperty(NEW_METRO_MAP_TITLE);
+        String newMetroMapMessage = props.getProperty(NEW_METRO_MAP_MESSAGE);
+
         EnterTextDialogSingleton enterTextDialog
                 = EnterTextDialogSingleton.getSingleton();
 
-        enterTextDialog.show(NEW_METRO_MAP, ENTER_METRO_MAP_NAME);
+        enterTextDialog.show(newMetroMapTitle, newMetroMapMessage);
 
-        // DO CRAP
+        // Determine if the name is valid
         if (enterTextDialog.isReady()) {
             mapName = enterTextDialog.getText();
 
@@ -149,7 +150,7 @@ public class WelcomeDialogSingleton extends Stage {
     /**
      * Handles when the user selects a recent map to load
      */
-    public void processRecentMap() {
+    private void processRecentMap() {
         mapName = recentMapsListView.getSelectionModel().getSelectedItem();
 
         // If mapName isn't null, then do some stuff
@@ -188,14 +189,14 @@ public class WelcomeDialogSingleton extends Stage {
     // Accessor/Mutator Methods //
     //////////////////////////////
     public boolean isReady() {
-        return ready;
+        return this.ready;
     }
 
     public String getMapName() {
-        return mapName;
+        return this.mapName;
     }
 
     public boolean getLoadRecentMap() {
-        return loadRecentMap;
+        return this.loadRecentMap;
     }
 }

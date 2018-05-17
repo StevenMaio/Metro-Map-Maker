@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mmm;
 
 /**
@@ -31,7 +26,6 @@ public enum MMMLanguageProperty {
     
     INIT_IMAGE_TITLE,
 
-
     INVALID_FILE_TITLE,
     INVALID_FILE_MESSAGE,
     
@@ -54,7 +48,10 @@ public enum MMMLanguageProperty {
     METRO_LINE_INFO,
     
     SELECT_IMAGE_TITLE,
-    
+
+    // Welcome Dialog
+    WELCOME_MESSAGE,
+
     // Toolbar Items
     METRO_LINES_TOOLBAR_TITLE,
     METRO_STATIONS_TOOLBAR_TITLE,
@@ -65,8 +62,7 @@ public enum MMMLanguageProperty {
     REMOVE_STATION_TEXT,
     SNAP_TEXT,
     MOVE_LABEL_TEXT,
-    SHOW_GRID_TEXT,
-    
+
     // Tooltips
     ADD_LINE_TOOLTIP,
     REMOVE_LINE_TOOLTIP,

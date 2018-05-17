@@ -13,7 +13,11 @@
         <property name="ABOUT_TITLE" value="About"/>
         <property name="ABOUT_MESSAGE" value="Metro Map Maker App&#13;&#13;By Steven Maio"/>
         <property name="APP_LOGO" value="Logo.png"/>
-        
+
+        <!--Welcome Dialog Messages-->
+        <property name="WELCOME_MESSAGE" value="Welcome to the Metro Map Maker"/>
+        <property name="ENTER_METRO_MAP_NAME" value="Enter Metro Map name"/>
+
         <!--Preferred Geometry-->
         <property name="PREF_WIDTH" value="800"/>
         <property name="PREF_HEIGHT" value="600"/>
@@ -100,8 +104,7 @@
         <property name="ROUTE_TITLE" value="Route"/>
         <property name="ADD_METRO_STATION_TITLE" value="Add Metro Station"/>
         <property name="ADD_METRO_STATION_MESSAGE" value="Enter Metro Station Title"/>
-        
-        
+
         <!--Message Window Messages-->
         <property name="PROPERTIES_LOAD_ERROR_MESSAGE" value="There was an error loading the file"/>
         <property name="PROPERTIES_LOAD_ERROR_TITLE" value="Load File Error"/>
@@ -149,6 +152,7 @@
         <property name="ROUTE_ERROR_MESSAGE" value="No route found"/>
 
         <!--Recent File List This is lazy and I could probably implement this in a better way-->
+        <property name="RECENT_MAPS" value="Miami Metrorail"/>
         <property name="RECENT_FILE_1" value="Miami Metrorail"/>
         <property name="RECENT_FILE_2" value="Test City 1"/>
         <property name="RECENT_FILE_3" value="Test City 2"/>

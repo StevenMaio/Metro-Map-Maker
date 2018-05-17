@@ -73,33 +73,32 @@ public class MMMApp extends AppTemplate {
         yesNoDialog.init(primaryStage);
         PropertiesManager props = PropertiesManager.getPropertiesManager();
 
-        // App specific dialogs
-        WelcomeDialogSingleton welcomeDialog;
-        welcomeDialog = WelcomeDialogSingleton.getSingleton();
-        welcomeDialog.init(primaryStage);
-
-        MetroLineSettingsDialogSingleton metroLineSettingsDialog;
-        metroLineSettingsDialog = MetroLineSettingsDialogSingleton.getSingleton();
-        metroLineSettingsDialog.init(primaryStage);
-
-        EnterTextDialogSingleton enterTextDialog;
-        enterTextDialog = EnterTextDialogSingleton.getSingleton();
-        enterTextDialog.init(primaryStage);
-
-        BorderedMessageDialogSingleton borderedMessageDialog;
-        borderedMessageDialog = BorderedMessageDialogSingleton.getSingleton();
-        borderedMessageDialog.init(primaryStage);
-
-        InitImageWindow imageWindow;
-        imageWindow = InitImageWindow.getSingleton();
-        imageWindow.init(primaryStage);
-
         try {
             // LOAD APP PROPERTIES, BOTH THE BASIC UI STUFF FOR THE FRAMEWORK
             // AND THE CUSTOM UI STUFF FOR THE WORKSPACE
             boolean success = loadProperties(APP_PROPERTIES_FILE_NAME);
 
             if (success) {
+                // App specific dialogs
+                WelcomeDialogSingleton welcomeDialog;
+                welcomeDialog = WelcomeDialogSingleton.getSingleton();
+                welcomeDialog.init(primaryStage);
+
+                MetroLineSettingsDialogSingleton metroLineSettingsDialog;
+                metroLineSettingsDialog = MetroLineSettingsDialogSingleton.getSingleton();
+                metroLineSettingsDialog.init(primaryStage);
+
+                EnterTextDialogSingleton enterTextDialog;
+                enterTextDialog = EnterTextDialogSingleton.getSingleton();
+                enterTextDialog.init(primaryStage);
+
+                BorderedMessageDialogSingleton borderedMessageDialog;
+                borderedMessageDialog = BorderedMessageDialogSingleton.getSingleton();
+                borderedMessageDialog.init(primaryStage);
+
+                InitImageWindow imageWindow;
+                imageWindow = InitImageWindow.getSingleton();
+                imageWindow.init(primaryStage);
 
                 // GET THE TITLE FROM THE XML FILE
                 String appTitle = props.getProperty(APP_TITLE);
