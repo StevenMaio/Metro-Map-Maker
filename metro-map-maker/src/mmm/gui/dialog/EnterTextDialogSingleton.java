@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mmm.gui;
+package mmm.gui.dialog;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

@@ -29,6 +29,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
+import mmm.controller.MMMCanvasController;
+import mmm.controller.MMMEditController;
 import mmm.data.MMMData;
 import mmm.data.MetroLine;
 import mmm.data.MetroStation;
@@ -36,12 +38,12 @@ import properties_manager.PropertiesManager;
 import static mmm.MMMLanguageProperty.*;
 import static mmm.data.MetroLine.MAX_THICKNESS;
 import static mmm.data.MetroLine.MIN_THICKNESS;
-import static mmm.data.DraggableCircle.MIN_RADIUS;
-import static mmm.data.DraggableCircle.MAX_RADIUS;
+import static mmm.gui.draggable.DraggableCircle.MIN_RADIUS;
+import static mmm.gui.draggable.DraggableCircle.MAX_RADIUS;
 import static mmm.data.MMMState.*;
 import static mmm.css.MMMStyle.*;
-import mmm.data.DraggableCircle;
-import mmm.data.DraggableLabel;
+import mmm.gui.draggable.DraggableCircle;
+import mmm.gui.draggable.DraggableLabel;
 import mmm.data.MMMState;
 
 /**

@@ -1,14 +1,15 @@
-package mmm.gui;
+package mmm.controller;
 
 import djf.AppTemplate;
 import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.shape.Shape;
-import mmm.data.Draggable;
-import mmm.data.DraggableCircle;
-import mmm.data.DraggableImage;
-import mmm.data.DraggableLabel;
+import mmm.gui.MMMWorkspace;
+import mmm.gui.draggable.Draggable;
+import mmm.gui.draggable.DraggableCircle;
+import mmm.gui.draggable.DraggableImage;
+import mmm.gui.draggable.DraggableLabel;
 import mmm.data.MMMData;
 import mmm.data.MMMState;
 import static mmm.data.MMMState.*;

@@ -21,12 +21,12 @@ import javafx.stage.Stage;
 import mmm.data.MMMData;
 import mmm.file.MMMFiles;
 import static mmm.file.MMMFiles.FILE_EXTENSION;
-import mmm.gui.BorderedMessageDialogSingleton;
-import mmm.gui.EnterTextDialogSingleton;
-import mmm.gui.InitImageWindow;
+import mmm.gui.dialog.BorderedMessageDialogSingleton;
+import mmm.gui.dialog.EnterTextDialogSingleton;
+import mmm.gui.dialog.InitImageWindow;
 import mmm.gui.MMMWorkspace;
-import mmm.gui.MetroLineSettingsDialogSingleton;
-import mmm.gui.WelcomeDialogSingleton;
+import mmm.gui.dialog.MetroLineSettingsDialogSingleton;
+import mmm.gui.dialog.WelcomeDialogSingleton;
 import properties_manager.PropertiesManager;
 
 /**

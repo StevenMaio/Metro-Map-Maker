@@ -1,4 +1,4 @@
-package mmm.gui;
+package mmm.gui.dialog;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;

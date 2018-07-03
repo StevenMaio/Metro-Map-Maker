@@ -6,8 +6,8 @@
 package mmm.transactions;
 
 import jtps.jTPS_Transaction;
-import mmm.data.DraggableCircle;
-import mmm.data.DraggableLabel;
+import mmm.gui.draggable.DraggableCircle;
+import mmm.gui.draggable.DraggableLabel;
 import mmm.data.MMMData;
 import mmm.data.MetroStation;
 

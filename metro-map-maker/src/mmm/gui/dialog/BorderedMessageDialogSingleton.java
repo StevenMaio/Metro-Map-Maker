@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mmm.gui;
+package mmm.gui.dialog;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -13,7 +13,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import mmm.data.MetroStation;
 import mmm.data.Path;
 
 /**

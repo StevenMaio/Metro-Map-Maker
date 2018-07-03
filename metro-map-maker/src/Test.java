@@ -1,10 +1,10 @@
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import mmm.gui.BorderedMessageDialogSingleton;
-import mmm.gui.EnterTextDialogSingleton;
-import mmm.gui.MetroLineSettingsDialogSingleton;
-import mmm.gui.WelcomeDialogSingleton;
+import mmm.gui.dialog.BorderedMessageDialogSingleton;
+import mmm.gui.dialog.EnterTextDialogSingleton;
+import mmm.gui.dialog.MetroLineSettingsDialogSingleton;
+import mmm.gui.dialog.WelcomeDialogSingleton;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

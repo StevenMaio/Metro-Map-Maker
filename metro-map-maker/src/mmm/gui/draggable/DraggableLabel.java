@@ -1,4 +1,4 @@
-package mmm.data;
+package mmm.gui.draggable;
 
 import javafx.scene.text.Text;
 

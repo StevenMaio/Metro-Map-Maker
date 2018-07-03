@@ -1,5 +1,8 @@
 package mmm.data;
 
+import mmm.gui.draggable.DraggableCircle;
+import mmm.gui.draggable.DraggableLabel;
+
 import java.util.ArrayList;
 
 /**

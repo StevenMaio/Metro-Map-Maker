@@ -15,6 +15,11 @@ import javafx.scene.shape.Shape;
 import jtps.jTPS;
 import mmm.gui.MMMWorkspace;
 import static mmm.data.MMMState.SELECTING_SHAPE;
+
+import mmm.gui.draggable.Draggable;
+import mmm.gui.draggable.DraggableCircle;
+import mmm.gui.draggable.DraggableImage;
+import mmm.gui.draggable.DraggableLabel;
 import mmm.transactions.*;
 
 /**

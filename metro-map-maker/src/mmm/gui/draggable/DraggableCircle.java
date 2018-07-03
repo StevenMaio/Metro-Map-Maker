@@ -1,8 +1,9 @@
-package mmm.data;
+package mmm.gui.draggable;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import mmm.data.MetroStation;
 
 import static mmm.gui.MMMWorkspace.GRID_ALIGNMENT;
 

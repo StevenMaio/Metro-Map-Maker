@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mmm.gui;
+package mmm.controller;
 
 import djf.AppTemplate;
 import djf.ui.AppMessageDialogSingleton;
@@ -24,13 +24,19 @@ import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
 import mmm.data.MMMData;
 import static mmm.data.MMMState.*;
+
+import mmm.gui.MMMWorkspace;
+import mmm.gui.dialog.BorderedMessageDialogSingleton;
+import mmm.gui.dialog.EnterTextDialogSingleton;
+import mmm.gui.dialog.InitImageWindow;
+import mmm.gui.dialog.MetroLineSettingsDialogSingleton;
 import properties_manager.PropertiesManager;
-import static mmm.gui.BorderedMessageDialogSingleton.DESTINATIONS;
+import static mmm.gui.dialog.BorderedMessageDialogSingleton.DESTINATIONS;
 import static mmm.MMMLanguageProperty.*;
 import static mmm.file.MMMFiles.METRO_EXTENSION;
-import mmm.data.DraggableCircle;
-import mmm.data.DraggableImage;
-import mmm.data.DraggableLabel;
+import mmm.gui.draggable.DraggableCircle;
+import mmm.gui.draggable.DraggableImage;
+import mmm.gui.draggable.DraggableLabel;
 import mmm.data.MMMState;
 import mmm.data.MetroLine;
 import mmm.data.MetroStation;
@@ -91,7 +97,7 @@ public class MMMEditController {
     }
     
     public void processNewMetroMap() {
-        EnterTextDialogSingleton enterTextDialg = 
+        EnterTextDialogSingleton enterTextDialg =
                 EnterTextDialogSingleton.getSingleton();
         PropertiesManager props = PropertiesManager.getPropertiesManager();
         

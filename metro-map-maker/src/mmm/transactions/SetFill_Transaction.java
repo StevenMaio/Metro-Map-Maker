@@ -8,7 +8,7 @@ package mmm.transactions;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import jtps.jTPS_Transaction;
-import mmm.data.DraggableCircle;
+import mmm.gui.draggable.DraggableCircle;
 import mmm.data.MMMData;
 
 /**

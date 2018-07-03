@@ -1,4 +1,4 @@
-package mmm.gui;
+package mmm.gui.dialog;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import properties_manager.PropertiesManager;
-import sun.plugin2.message.Message;
 
 import static djf.settings.AppStartupConstants.PATH_IMAGES;
 import static djf.settings.AppStartupConstants.FILE_PROTOCOL;

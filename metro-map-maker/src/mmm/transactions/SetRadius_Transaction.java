@@ -6,7 +6,7 @@
 package mmm.transactions;
 
 import jtps.jTPS_Transaction;
-import mmm.data.DraggableCircle;
+import mmm.gui.draggable.DraggableCircle;
 import mmm.data.MMMData;
 
 /**

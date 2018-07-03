@@ -3,7 +3,9 @@ package mmm.data;
 import java.util.ArrayList;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import static mmm.data.DraggableLabel.*;
+import mmm.gui.draggable.Draggable;
+import mmm.gui.draggable.DraggableCircle;
+import mmm.gui.draggable.DraggableLabel;
 
 /**
  * This class will represent a Metro Line object. This class will deal with

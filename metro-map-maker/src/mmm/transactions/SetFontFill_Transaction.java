@@ -7,7 +7,7 @@ package mmm.transactions;
 
 import javafx.scene.paint.Color;
 import jtps.jTPS_Transaction;
-import mmm.data.DraggableLabel;
+import mmm.gui.draggable.DraggableLabel;
 import mmm.data.MMMData;
 
 /**
